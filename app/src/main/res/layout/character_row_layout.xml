@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="characterModel"
+            type="com.agelousis.cluedonotepad.dialog.models.CharacterRowModel" />
+        <variable
+            name="presenter"
+            type="com.agelousis.cluedonotepad.dialog.presenters.CharacterSelectPresenter" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:onClick="@{() -> presenter.onCharacterSelected(characterModel)}"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/characterRowImageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        srcCompat="@{characterModel.characterIcon}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/mr_green" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/characterRowTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:fontFamily="@font/ubuntu_monospace"
+        android:textStyle="bold"
+        android:text="@{characterModel.characterName}"
+        android:textColor="@{characterModel.characterColor}"
+        tools:text="Mr.Green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/characterRowImageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

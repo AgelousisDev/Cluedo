@@ -1,0 +1,2 @@
+rootProject.name='Cluedo Notepad'
+include ':app'

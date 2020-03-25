@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Cluedo Notepad</string>
+    <string name="key_how_many_players_label">Επιλέξτε αριθμό παικτών;</string>
+    <string name="key_play_label">Παίξε</string>
+    <string name="key_player_name_hint">Όνομα Παίχτη</string>
+    <string name="key_your_name_hint">Το Όνομά σου</string>
+    <string name="key_choose_character_title">Επέλεξε Παίχτη</string>
+    <string name="key_ok_label">OK</string>
+    <string name="key_warning_label">ΠΡΟΣΟΧΗ</string>
+    <string name="key_not_selected_players_message">Διαλέξτε παίχτη πατώντας πάνω σε κάθε εικονίδιο καθώς και όνομα παίχτη. Δεν μπορείτε να διελέξετε ίδιο παίχτη. Οι παίχτες πρέπει να είναι περισσότεροι από ένας!!!</string>
+    <string name="key_discard_message">Όλες οι αλλαγές σας στον πίνακα θα διαγραφούν. Είστε σίγουροι;</string>
+    <string name="key_players_label">ΠΑΙΚΤΕΣ</string>
+    <string name="key_who_label">ΠΟΙΟΣ;</string>
+    <string name="key_what_label">ΤΙ;</string>
+    <string name="key_where_label">ΠΟΥ;</string>
+    <string name="key_final_label">ΤΕΛ</string>
+    <string name="key_enable_dark_mode">Σκοτεινό Στυλ</string>
+
+    <string-array name="key_characters_array">
+        <item>Φλόγα</item>
+        <item>Δαμασκηνός</item>
+        <item>Παγώνη</item>
+        <item>Πράσινος</item>
+        <item>Μουστάρδας</item>
+        <item>Ορχιδέα</item>
+    </string-array>
+
+    <integer-array name="key_characters_colors_array">
+        <item>@color/red</item>
+        <item>@color/purple</item>
+        <item>@color/iced</item>
+        <item>@color/green</item>
+        <item>@color/mustard</item>
+        <item>@color/orchid</item>
+    </integer-array>
+
+    <integer-array name="key_character_icons_array">
+        <item>@drawable/ms_fire</item>
+        <item>@drawable/mr_purple</item>
+        <item>@drawable/ms_iced</item>
+        <item>@drawable/mr_green</item>
+        <item>@drawable/mr_mustard</item>
+        <item>@drawable/ms_pink</item>
+    </integer-array>
+
+    <string-array name="key_tools_array">
+        <item>Κηροπήγιο</item>
+        <item>Στιλέτο</item>
+        <item>Σωλήνας</item>
+        <item>Περίστροφο</item>
+        <item>Σχοινί</item>
+        <item>Εργαλέιο</item>
+    </string-array>
+
+    <string-array name="key_rooms_array">
+        <item>Χωρού</item>
+        <item>Μπιλιάρδου</item>
+        <item>Θερμοκήπιο</item>
+        <item>Τραπεζαρία</item>
+        <item>Χολ</item>
+        <item>Κουζίνα</item>
+        <item>Βιβλιοθήκη</item>
+        <item>Σαλόνι</item>
+        <item>Μελέτης</item>
+    </string-array>
+
+</resources>

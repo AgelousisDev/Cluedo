@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#ED1C24</color>
+    <color name="colorWhiteDark">#454545</color>
+
+    <color name="shadowStartColor">#33000000</color>
+    <color name="shadowCenterColor">#11000000</color>
+    <color name="shadowEndColor">#11000000</color>
+
+    <color name="red">#BC1F28</color>
+    <color name="mustard">#DFB873</color>
+    <color name="orchid">#D0699E</color>
+    <color name="iced">#088FBC</color>
+    <color name="purple">#6B3559</color>
+    <color name="green">#57815D</color>
+
+    <color name="dialogFooterBackground">#F5F5F5</color>
+    <color name="grey">#454545</color>
+    <color name="lightGrey">#F5F5E5</color>
+
+
+</resources>

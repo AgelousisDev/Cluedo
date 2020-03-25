@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#ED1C24</color>
+    <color name="colorWhiteDark">#FFFFFF</color>
+
+    <color name="shadowStartColor">#33FFFFFF</color>
+    <color name="shadowCenterColor">#11FFFFFF</color>
+    <color name="shadowEndColor">#11FFFFFF</color>
+
+    <color name="dialogFooterBackground">#252525</color>
+    <color name="grey">#FFFFFF</color>
+    <color name="lightGrey">#252525</color>
+
+</resources>
