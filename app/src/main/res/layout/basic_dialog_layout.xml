@@ -45,7 +45,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/basicDialogRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/basicDialogInstructionsText"

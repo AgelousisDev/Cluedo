@@ -4,10 +4,10 @@
     <string name="key_play_label">Παίξε</string>
     <string name="key_player_name_hint">Όνομα Παίχτη</string>
     <string name="key_your_name_hint">Το Όνομά σου</string>
-    <string name="key_choose_character_title">Επέλεξε Παίχτη</string>
+    <string name="key_choose_character_title">Επέλεξε Παίκτη</string>
     <string name="key_ok_label">OK</string>
     <string name="key_warning_label">ΠΡΟΣΟΧΗ</string>
-    <string name="key_not_selected_players_message">Διαλέξτε παίχτη πατώντας πάνω σε κάθε εικονίδιο καθώς και όνομα παίχτη. Δεν μπορείτε να διελέξετε ίδιο παίχτη. Οι παίχτες πρέπει να είναι περισσότεροι από ένας!!!</string>
+    <string name="key_not_selected_players_message">Διαλέξτε παίκτη πατώντας πάνω σε κάθε εικονίδιο καθώς και όνομα παίκτη. Δεν μπορείτε να διελέξετε ίδιο παίκτη. Οι παίκτες πρέπει να είναι περισσότεροι από ένας!!!</string>
     <string name="key_discard_message">Όλες οι αλλαγές σας στον πίνακα θα διαγραφούν. Είστε σίγουροι;</string>
     <string name="key_players_label">ΠΑΙΚΤΕΣ</string>
     <string name="key_who_label">ΠΟΙΟΣ;</string>
