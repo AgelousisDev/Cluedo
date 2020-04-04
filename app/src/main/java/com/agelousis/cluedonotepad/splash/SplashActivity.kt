@@ -117,7 +117,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun openMainActivity() {
-        if (((characterViewModel?.characterArray?.size ?: 0) < 2 && characterViewModel?.characterArray?.none { it.character == null || it.characterName.isNullOrEmpty() } == true) ||
+        if ((characterViewModel?.characterArray?.size ?: 0) < 2 || characterViewModel?.characterArray?.any { it.character == null || it.characterName.isNullOrEmpty() } == true ||
                 characterViewModel?.characterArray?.mapNotNull { it.character }?.distinct()?.size ?: 0 < characterViewModel?.characterArray?.size ?: -1)
             BasicDialog.show(supportFragmentManager = supportFragmentManager, dialogType = BasicDialogType(
                 title = resources.getString(R.string.key_warning_label),

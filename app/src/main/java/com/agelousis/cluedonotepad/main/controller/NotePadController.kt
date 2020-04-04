@@ -11,17 +11,17 @@ import com.agelousis.cluedonotepad.splash.models.CharacterModel
 class NotePadController(private val context: Context) {
 
     private fun getCharacterColumns(characterModelList: List<CharacterModel>): ArrayList<ColumnDataModel> {
-        val arrayList = arrayListOf(ColumnDataModel(columnType = ColumnType.ITEMS_TITLE, title = context.resources.getString(R.string.key_players_label)),
-        ColumnDataModel(columnType = ColumnType.CUSTOM_TITLE, title = context.resources.getString(R.string.key_final_label)))
+        val arrayList = arrayListOf(ColumnDataModel(columnType = ColumnType.ITEMS_TITLE, title = context.resources.getString(R.string.key_players_label), customBackground = R.drawable.item_row_background),
+        ColumnDataModel(columnType = ColumnType.CUSTOM_TITLE, title = context.resources.getString(R.string.key_final_label), customBackground = R.drawable.custom_title_dash_circle_background))
         characterModelList.forEach {
-            arrayList.add(ColumnDataModel(columnType = ColumnType.HEADER_PLAYER, icon = R.drawable.ic_person, color = it.character, title = it.characterName))
+            arrayList.add(ColumnDataModel(columnType = ColumnType.HEADER_PLAYER, icon = R.drawable.ic_person, color = it.character, title = it.characterName, customBackground = android.R.color.transparent))
         }
         return arrayList
     }
 
     private fun getItemTitleColumn(title: String, size: Int): RowDataModel {
         val arrayListOfColumns = arrayListOf<ColumnDataModel>()
-        arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.ITEMS_TITLE, title = title))
+        arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.ITEMS_TITLE, title = title, customBackground = android.R.color.transparent))
         (size + 1).run {
             arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.EMPTY, customBackground = R.drawable.empty_row_background))
         }
