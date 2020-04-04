@@ -2,6 +2,7 @@ package com.agelousis.cluedonotepad.splash
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,6 +14,7 @@ import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.extensions.isNightMode
+import com.agelousis.cluedonotepad.extensions.isPortrait
 import com.agelousis.cluedonotepad.extensions.run
 import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.agelousis.cluedonotepad.splash.adapters.PlayersAdapter
@@ -47,6 +49,11 @@ class SplashActivity : AppCompatActivity() {
         setupUI()
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        refreshActivity()
+    }
+
     private fun setupNightModeIdSaved() {
         when (sharedPreferences.isNightMode) {
             1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -61,8 +68,7 @@ class SplashActivity : AppCompatActivity() {
                 this?.putInt(Constants.DARK_MODE_VALUE, if (isChecked) 1 else 0)
                 this?.apply()
             }
-            this@SplashActivity.finish()
-            startActivity(Intent(this@SplashActivity, SplashActivity::class.java))
+            refreshActivity()
         }
 
         playersSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
@@ -95,11 +101,13 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        val flexLayoutManager = FlexboxLayoutManager(this@SplashActivity, FlexDirection.ROW)
-        flexLayoutManager.flexDirection = FlexDirection.ROW
-        flexLayoutManager.justifyContent = JustifyContent.CENTER
-        flexLayoutManager.alignItems = AlignItems.CENTER
-        playersRecyclerView.layoutManager = flexLayoutManager
+        if (isPortrait) {
+            val flexLayoutManager = FlexboxLayoutManager(this@SplashActivity, FlexDirection.ROW)
+            flexLayoutManager.flexDirection = FlexDirection.ROW
+            flexLayoutManager.justifyContent = JustifyContent.CENTER
+            flexLayoutManager.alignItems = AlignItems.CENTER
+            playersRecyclerView.layoutManager = flexLayoutManager
+        }
         val playersAdapter = PlayersAdapter(context = this, characterListModel = characterViewModel?.characterArray ?: listOf())
         playersRecyclerView.adapter = playersAdapter
     }
@@ -120,6 +128,11 @@ class SplashActivity : AppCompatActivity() {
             putParcelableArrayListExtra(NotePadActivity.CHARACTER_MODEL_LIST_EXTRA, characterViewModel?.characterArray)
             this
         })
+    }
+
+    private fun refreshActivity() {
+        this@SplashActivity.finish()
+        startActivity(Intent(this@SplashActivity, SplashActivity::class.java))
     }
 
 }

@@ -23,9 +23,9 @@
     app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:padding="8dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/characterImageView"
@@ -36,7 +36,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        srcCompat="@{characterModel.characterIcon}"/>
+        srcCompat="@{characterModel.characterIcon}"
+        tools:srcCompat="@drawable/ic_person"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/characterNameField"

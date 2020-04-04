@@ -69,6 +69,7 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
                 basicDialogInstructionsText.visibility = View.GONE
                 basicDialogOkButton.visibility = View.GONE
                 basicDialogOkButton.visibility = View.GONE
+                basicDialogRecyclerView.visibility = View.VISIBLE
                 configureRecyclerView()
             }
         }

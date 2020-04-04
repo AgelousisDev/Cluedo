@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.graphics.Typeface
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -44,6 +42,9 @@ val Context?.isNightMode: Int
         Configuration.UI_MODE_NIGHT_YES -> 1
         else -> -1
     }
+
+val Context.isPortrait: Boolean
+    get() = resources?.configuration?.orientation == Configuration.ORIENTATION_PORTRAIT
 
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {
