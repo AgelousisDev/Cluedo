@@ -1,6 +1,5 @@
 package com.agelousis.cluedonotepad.main
 
-import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.agelousis.cluedonotepad.R
@@ -17,14 +16,6 @@ class NotePadActivity : AppCompatActivity(), TimerListener {
 
     override fun onTimeUpdate(time: String) {
         notepadTimer.text = time
-    }
-
-    override fun onFiveMinutes() {
-        val mediaPlayer = MediaPlayer.create(this, R.raw.inflicted)
-        mediaPlayer.start()
-        mediaPlayer.setOnCompletionListener {
-            it.release()
-        }
     }
 
     companion object {

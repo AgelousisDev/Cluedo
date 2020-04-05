@@ -21,8 +21,6 @@ class TimerHelper(private val timerListener: TimerListener): Runnable {
         seconds %= 60
         val milliSeconds = (millisSecondTime.toInt() % 1000)
         timerListener.onTimeUpdate(time = "${String.format("%02d", minutes)}:${String.format("%02d", seconds)}:${String.format("%03d", milliSeconds)}")
-        if (minutes % 5 == 0)
-            timerListener.onFiveMinutes()
         handler?.postDelayed(this, 0)
     }
 

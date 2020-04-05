@@ -15,6 +15,7 @@
     <string name="key_where_label">ΠΟΥ;</string>
     <string name="key_final_label">ΤΕΛ</string>
     <string name="key_enable_dark_mode">Σκοτεινό Στυλ</string>
+    <string name="key_stats_label">Σκορ</string>
 
     <string-array name="key_characters_array">
         <item>Φλόγα</item>

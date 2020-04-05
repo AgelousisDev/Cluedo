@@ -1,11 +1,15 @@
 package com.agelousis.cluedonotepad.extensions
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Typeface
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
@@ -45,6 +49,25 @@ val Context?.isNightMode: Int
 
 val Context.isPortrait: Boolean
     get() = resources?.configuration?.orientation == Configuration.ORIENTATION_PORTRAIT
+
+fun View.applyLightScaleAnimation(duration: Long? = null) {
+    val scaleX = ObjectAnimator.ofFloat(this, "scaleX", 0.98f)
+    scaleX.repeatMode = ObjectAnimator.REVERSE
+    scaleX.repeatCount = ObjectAnimator.INFINITE
+    scaleX.interpolator = LinearInterpolator()
+    scaleX.duration = duration ?: 1000
+
+    val scaleY = ObjectAnimator.ofFloat(this, "scaleY", 0.98f)
+    scaleY.repeatMode = ObjectAnimator.REVERSE
+    scaleY.repeatCount = ObjectAnimator.INFINITE
+    scaleY.interpolator = LinearInterpolator()
+    scaleY.duration = duration ?: 1000
+
+    with(AnimatorSet()) {
+        playTogether(scaleX, scaleY)
+        this
+    }.start()
+}
 
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {

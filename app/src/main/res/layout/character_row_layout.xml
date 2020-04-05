@@ -27,12 +27,12 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/mr_green" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/characterRowTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:fontFamily="@font/ubuntu_monospace"
+        app:fontFamily="@font/ubuntu_monospace"
         android:textStyle="bold"
         android:text="@{characterModel.characterName}"
         android:textColor="@{characterModel.characterColor}"

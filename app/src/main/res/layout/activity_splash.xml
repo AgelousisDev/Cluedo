@@ -50,11 +50,11 @@
         app:layout_constraintStart_toStartOf="parent"
         android:clipToPadding="false">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/playersSizeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ubuntu_monospace"
+            app:fontFamily="@font/ubuntu_monospace"
             android:text="@string/key_how_many_players_label"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,19 +77,38 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/playButton"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/nav_header_vertical_spacing"
+            android:enabled="false"
             android:fontFamily="@font/ubuntu"
             android:text="@string/key_play_label"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:backgroundTint="@color/colorAccent"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/statsButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/playersSeekBar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/statsButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:fontFamily="@font/ubuntu_monospace"
             android:textSize="16sp"
             android:textAllCaps="false"
             android:enabled="false"
             app:backgroundTint="@color/colorAccent"
             app:cornerRadius="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/playersSeekBar" />
+            app:icon="@drawable/ic_stats"
+            android:text="@string/key_stats_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

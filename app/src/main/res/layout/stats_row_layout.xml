@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="statsModel"
+            type="com.agelousis.cluedonotepad.stats.models.StatsModel" />
+    </data>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="60dp"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="true"
+        app:cardBackgroundColor="@color/colorPrimary">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:padding="@dimen/nav_header_vertical_spacing">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/statsRowIcon"
+                android:layout_width="45dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/ic_person"
+                android:tint="@{statsModel.playerColor}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/statsRowPlayerNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{statsModel.playerName}"
+                android:textSize="18sp"
+                android:textColor="@{statsModel.playerColor}"
+                app:fontFamily="@font/ubuntu_monospace"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/statsRowIcon"
+                tools:text="Εγώ" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey"
+                android:layout_margin="@dimen/nav_header_vertical_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/statsRowPlayerNameLabel"
+                app:layout_constraintBottom_toTopOf="@+id/statsRowPlayerScoreField"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/statsRowPlayerScoreField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+                android:gravity="center"
+                android:layerType="software"
+                android:shadowColor="@color/red"
+                android:shadowDx="4"
+                android:shadowDy="4"
+                android:shadowRadius="8"
+                android:text="@{String.valueOf(statsModel.playerScore)}"
+                android:textSize="36sp"
+                android:background="@null"
+                android:maxLength="1"
+                android:inputType="number"
+                android:maxLines="1"
+                android:imeOptions="actionDone"
+                app:fontFamily="@font/ubuntu_monospace"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

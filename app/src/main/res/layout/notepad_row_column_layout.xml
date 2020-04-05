@@ -30,12 +30,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:srcCompat="@drawable/ic_cancel" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/rowColumnTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:fontFamily="@font/ubuntu_monospace"
+        app:fontFamily="@font/ubuntu_monospace"
         textBold="@{columnDataModel.isTextBold}"
         android:visibility="@{columnDataModel.columnTextIsVisible ? View.VISIBLE : View.GONE}"
         android:text="@{columnDataModel.title}"

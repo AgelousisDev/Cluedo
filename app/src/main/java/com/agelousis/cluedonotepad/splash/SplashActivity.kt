@@ -13,13 +13,13 @@ import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
-import com.agelousis.cluedonotepad.extensions.isNightMode
-import com.agelousis.cluedonotepad.extensions.isPortrait
-import com.agelousis.cluedonotepad.extensions.run
+import com.agelousis.cluedonotepad.extensions.*
 import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.agelousis.cluedonotepad.splash.adapters.PlayersAdapter
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.viewModels.CharacterViewModel
+import com.agelousis.cluedonotepad.stats.StatsSheetFragment
+import com.agelousis.cluedonotepad.stats.models.StatsModel
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -40,6 +40,7 @@ class SplashActivity : AppCompatActivity() {
 
     private var lastSeekBarProgress = 0
 
+    var statsModelList = arrayListOf<StatsModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setupNightModeIdSaved()
@@ -62,6 +63,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
+        cluedoImageView.applyLightScaleAnimation()
         darkModeSwitch.isChecked = sharedPreferences?.isNightMode == 1 || isNightMode == 1
         darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPreferences?.edit()) {
@@ -76,6 +78,7 @@ class SplashActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 lastSeekBarProgress = seekBar?.progress ?: 0
                 playButton.isEnabled = seekBar?.progress ?: 0 > 0
+                statsButton.isEnabled = seekBar?.progress ?: 0 > 0
             }
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 cluedoImageView.visibility = if (progress > 0) View.GONE else View.VISIBLE
@@ -96,7 +99,31 @@ class SplashActivity : AppCompatActivity() {
 
         setupRecyclerView()
         playButton.setOnClickListener {
-            openMainActivity()
+            if (isPlayersAvailable())
+                startActivity(with(Intent(this, NotePadActivity::class.java)) {
+                    putParcelableArrayListExtra(NotePadActivity.CHARACTER_MODEL_LIST_EXTRA, characterViewModel?.characterArray)
+                    this
+                })
+        }
+        statsButton.setOnClickListener {
+            if (isPlayersAvailable()) {
+                statsModelList.takeIf { it.isNotEmpty() && it.size != characterViewModel?.characterArray?.size ?: 0 }?.also {
+                    statsModelList = ArrayList(statsModelList.subList(fromIndex = 0, toIndex = (characterViewModel?.characterArray?.size ?: 1) - 1))
+                }
+                characterViewModel?.characterArray?.map { characterModel -> characterModel.statsModel }?.forEachIndexed { index, statsModel ->
+                    statsModelList.getOrNull(index = index)?.let {
+                        it.playerName = statsModel.playerName
+                        it.playerColor = statsModel.playerColor
+                    } ?: statsModelList.add(with(statsModel) {
+                        playerScore = statsModelList.getOrNull(index = index)?.playerScore ?: 0
+                        this
+                    })
+                }
+                StatsSheetFragment.show(
+                    supportFragmentManager = supportFragmentManager,
+                    statsModelList = ArrayList(statsModelList)
+                )
+            }
         }
     }
 
@@ -116,18 +143,17 @@ class SplashActivity : AppCompatActivity() {
         characterViewModel = ViewModelProvider(this).get(CharacterViewModel::class.java)
     }
 
-    private fun openMainActivity() {
-        if ((characterViewModel?.characterArray?.size ?: 0) < 2 || characterViewModel?.characterArray?.any { it.character == null || it.characterName.isNullOrEmpty() } == true ||
-                characterViewModel?.characterArray?.mapNotNull { it.character }?.distinct()?.size ?: 0 < characterViewModel?.characterArray?.size ?: -1)
+    private fun isPlayersAvailable(): Boolean {
+        return if ((characterViewModel?.characterArray?.size ?: 0) < 2 || characterViewModel?.characterArray?.any { it.character == null || it.characterName.isNullOrEmpty() } == true ||
+            characterViewModel?.characterArray?.mapNotNull { it.character }?.distinct()?.size ?: 0 < characterViewModel?.characterArray?.size ?: -1) {
             BasicDialog.show(supportFragmentManager = supportFragmentManager, dialogType = BasicDialogType(
                 title = resources.getString(R.string.key_warning_label),
                 text = resources.getString(R.string.key_not_selected_players_message)
             )
             )
-        else startActivity(with(Intent(this, NotePadActivity::class.java)) {
-            putParcelableArrayListExtra(NotePadActivity.CHARACTER_MODEL_LIST_EXTRA, characterViewModel?.characterArray)
-            this
-        })
+            false
+        }
+        else true
     }
 
     private fun refreshActivity() {

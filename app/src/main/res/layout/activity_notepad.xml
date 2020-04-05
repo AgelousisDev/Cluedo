@@ -22,8 +22,14 @@
         android:layout_gravity="top|end"
         android:layout_margin="@dimen/activity_horizontal_margin"
         app:fontFamily="@font/ubuntu_monospace"
+        android:textStyle="bold"
         android:textSize="16sp"
         android:rotation="45"
-        tools:text="00:12:12"/>
+        tools:text="00:12:12"
+        android:layerType="software"
+        android:shadowColor="@color/red"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

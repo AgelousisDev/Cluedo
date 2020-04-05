@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-def materialVersion = '1.2.0-alpha05'
+def materialVersion = '1.2.0-alpha02'
 
 android {
     compileSdkVersion 29
