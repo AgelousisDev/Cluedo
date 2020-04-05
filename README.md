@@ -1,1 +1,1 @@
-CluedoNotepad
+Cluedo Notepad in Greek!!!
