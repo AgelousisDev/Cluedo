@@ -57,7 +57,7 @@ class StatsSheetFragment: BottomSheetDialogFragment(), ScorePresenter {
         flexLayoutManager.justifyContent = JustifyContent.CENTER
         flexLayoutManager.alignItems = AlignItems.CENTER
         statsRecyclerView.layoutManager = flexLayoutManager
-        statsRecyclerView.adapter = StatsAdapter(statsModelList = statsModelList ?: return, scorePresenter =  this)
+        statsRecyclerView.adapter = StatsAdapter(statsModelList = statsModelList ?: return, scorePresenter = this)
     }
 
     override fun onDestroy() {
