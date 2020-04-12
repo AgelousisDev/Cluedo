@@ -11,8 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.constants.IndexedLoopBlock
@@ -20,6 +20,7 @@ import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
 import com.agelousis.cluedonotepad.splash.presenters.CharacterPresenter
+import com.google.android.material.textview.MaterialTextView
 
 fun Context.showCharacterOptions(title: String, adapterPosition: Int, characterPresenter: CharacterPresenter) {
     BasicDialog.show(supportFragmentManager = (this as AppCompatActivity).supportFragmentManager, dialogType =
@@ -77,7 +78,7 @@ fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {
 }
 
 @BindingAdapter("textBold")
-fun setBold(appCompatTextView: AppCompatTextView, state: Boolean) {
+fun setBold(appCompatTextView: MaterialTextView, state: Boolean) {
     if (state)
         appCompatTextView.typeface = Typeface.create(appCompatTextView.typeface, Typeface.BOLD)
 }
@@ -85,4 +86,9 @@ fun setBold(appCompatTextView: AppCompatTextView, state: Boolean) {
 @BindingAdapter("customBackground")
 fun setCustomBackground(viewGroup: ViewGroup, drawableId: Int?) {
     drawableId?.let { viewGroup.setBackgroundResource(it) }
+}
+
+@BindingAdapter("shadow")
+fun setShadow(appCompatEditText: AppCompatEditText, color: Int) {
+    appCompatEditText.setShadowLayer(4.0f, 4.0f, 4.0f, color)
 }

@@ -12,6 +12,7 @@ class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): Recy
 
     fun bind(columnDataModel: ColumnDataModel) {
         binding.columnDataModel = columnDataModel
+        binding.rowColumnTextView.isSelected = true
         columnDataModel.columnType.takeIf { it == ColumnType.FIELD }?.let { setImageListeners() }
         columnDataModel.columnType.takeIf { it == ColumnType.HEADER_PLAYER }?.let {
             binding.rowColumnTextView.setTextColor(columnDataModel.color ?: 0)

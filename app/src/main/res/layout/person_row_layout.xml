@@ -54,7 +54,6 @@
         android:textColor="@{characterModel.character != null ? characterModel.character : @color/colorWhiteDark}"
         android:singleLine="true"
         android:maxLines="1"
-        android:maxLength="3"
         android:textCursorDrawable="@null"
         android:background="@null"
         app:layout_constraintEnd_toEndOf="parent"
