@@ -50,11 +50,11 @@
         <item>Σωλήνας</item>
         <item>Περίστροφο</item>
         <item>Σχοινί</item>
-        <item>Εργαλέιο</item>
+        <item>Εργαλείο</item>
     </string-array>
 
     <string-array name="key_rooms_array">
-        <item>Χωρού</item>
+        <item>Χορού</item>
         <item>Μπιλιάρδου</item>
         <item>Θερμοκήπιο</item>
         <item>Τραπεζαρία</item>

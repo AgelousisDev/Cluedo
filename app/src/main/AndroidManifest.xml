@@ -10,8 +10,6 @@
         android:roundIcon="@mipmap/cluedo_round_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.NotePadActivity"
-            android:screenOrientation="sensor"/>
         <activity
             android:name=".splash.SplashActivity"
             android:windowSoftInputMode="adjustPan"
@@ -22,6 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".main.NotePadActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
     </application>
 
 </manifest>
