@@ -14,7 +14,7 @@ class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): Recy
     fun bind(columnDataModel: ColumnDataModel, columnPresenter: ColumnPresenter) {
         binding.columnDataModel = columnDataModel
         binding.rowColumnTextView.isSelected = true
-        binding.rowColumnImageView.tag = columnDataModel.columnState
+        binding.rowColumnImageView.tag = columnDataModel.columnState ?: ColumnState.EMPTY
         columnDataModel.columnType.takeIf { it == ColumnType.FIELD }?.let { setImageListeners(columnPresenter = columnPresenter) }
         columnDataModel.columnType.takeIf { it == ColumnType.HEADER_PLAYER }?.let {
             binding.rowColumnTextView.setTextColor(columnDataModel.color ?: 0)
@@ -28,7 +28,6 @@ class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): Recy
     }
 
     private fun setImageListeners(columnPresenter: ColumnPresenter) {
-        binding.rowColumnImageView.tag = binding.rowColumnImageView.tag ?: ColumnState.EMPTY
         (binding.rowColumnImageView.tag as? ColumnState)?.let {
             if (binding.rowColumnImageView.drawable == null)
                 binding.rowColumnImageView.setImageResource(it.icon)

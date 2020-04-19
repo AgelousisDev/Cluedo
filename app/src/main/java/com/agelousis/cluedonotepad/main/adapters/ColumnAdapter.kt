@@ -14,9 +14,6 @@ import com.agelousis.cluedonotepad.main.viewHolders.ColumnViewHolder
 class ColumnAdapter(private val columnDataModelList: List<ColumnDataModel>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), ColumnPresenter {
 
     override fun onIconSet(columnState: ColumnState, adapterPosition: Int) {
-        if (adapterPosition != 1 && columnState == ColumnState.CANCELLED) {
-            columnDataModelList.getOrNull(index = 1)?.columnState = ColumnState.CANCELLED
-        }
         columnDataModelList.getOrNull(index = adapterPosition)?.columnState = columnState
         notifyDataSetChanged()
     }
