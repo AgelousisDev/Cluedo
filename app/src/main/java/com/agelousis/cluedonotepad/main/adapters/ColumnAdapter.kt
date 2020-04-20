@@ -3,10 +3,8 @@ package com.agelousis.cluedonotepad.main.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.databinding.NotepadRowColumnLayoutBinding
 import com.agelousis.cluedonotepad.main.enums.ColumnState
-import com.agelousis.cluedonotepad.main.enums.ColumnType
 import com.agelousis.cluedonotepad.main.models.ColumnDataModel
 import com.agelousis.cluedonotepad.main.presenters.ColumnPresenter
 import com.agelousis.cluedonotepad.main.viewHolders.ColumnViewHolder
@@ -15,7 +13,6 @@ class ColumnAdapter(private val columnDataModelList: List<ColumnDataModel>): Rec
 
     override fun onIconSet(columnState: ColumnState, adapterPosition: Int) {
         columnDataModelList.getOrNull(index = adapterPosition)?.columnState = columnState
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =

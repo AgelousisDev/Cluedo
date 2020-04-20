@@ -1,6 +1,5 @@
 package com.agelousis.cluedonotepad.main.enums
 
-import androidx.annotation.DrawableRes
 import com.agelousis.cluedonotepad.R
 
 enum class ColumnState {

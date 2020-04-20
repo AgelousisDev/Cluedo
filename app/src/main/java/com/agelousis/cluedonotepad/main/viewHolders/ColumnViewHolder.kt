@@ -14,8 +14,10 @@ class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): Recy
     fun bind(columnDataModel: ColumnDataModel, columnPresenter: ColumnPresenter) {
         binding.columnDataModel = columnDataModel
         binding.rowColumnTextView.isSelected = true
-        binding.rowColumnImageView.tag = columnDataModel.columnState ?: ColumnState.EMPTY
-        columnDataModel.columnType.takeIf { it == ColumnType.FIELD }?.let { setImageListeners(columnPresenter = columnPresenter) }
+        columnDataModel.columnType.takeIf { it == ColumnType.FIELD }?.let {
+            binding.rowColumnImageView.tag = columnDataModel.columnState ?: ColumnState.EMPTY
+            setImageListeners(columnPresenter = columnPresenter)
+        }
         columnDataModel.columnType.takeIf { it == ColumnType.HEADER_PLAYER }?.let {
             binding.rowColumnTextView.setTextColor(columnDataModel.color ?: 0)
         }
@@ -34,12 +36,13 @@ class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): Recy
         }
         itemView.setOnClickListener {
             binding.rowColumnImageView.tag = (binding.rowColumnImageView.tag as? ColumnState)?.nextState
-            columnPresenter.onIconSet(columnState = binding.rowColumnImageView.tag as? ColumnState ?: ColumnState.EMPTY, adapterPosition = adapterPosition)
             binding.rowColumnImageView.setImageResource((binding.rowColumnImageView.tag as? ColumnState)?.icon ?: 0)
+            columnPresenter.onIconSet(columnState = binding.rowColumnImageView.tag as? ColumnState ?: ColumnState.EMPTY, adapterPosition = adapterPosition)
         }
         itemView.setOnLongClickListener {
-            columnPresenter.onIconSet(columnState = ColumnState.APPROVED, adapterPosition = adapterPosition)
+            binding.rowColumnImageView.tag = ColumnState.APPROVED
             binding.rowColumnImageView.setImageResource(R.drawable.ic_checkmark)
+            columnPresenter.onIconSet(columnState = ColumnState.APPROVED, adapterPosition = adapterPosition)
             true
         }
     }
