@@ -28,6 +28,10 @@ import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
 
+    companion object {
+        const val RATE_REQUEST_CODE = 1
+    }
+
     private val sharedPreferences by lazy {
         getSharedPreferences(Constants.PREFERENCES_TAG, Context.MODE_PRIVATE)
     }
@@ -41,6 +45,17 @@ class SplashActivity : AppCompatActivity() {
     private var lastSeekBarProgress = 0
 
     var statsModelList = arrayListOf<StatsModel>()
+
+    override fun onBackPressed() {
+        when(sharedPreferences.ratingValue) {
+            true -> super.onBackPressed()
+            false ->
+                showRateDialog(requestCode = RATE_REQUEST_CODE) {
+                    sharedPreferences.setRatingValue(value = false)
+                    super.onBackPressed()
+                }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setupNightModeIdSaved()
@@ -159,6 +174,13 @@ class SplashActivity : AppCompatActivity() {
     private fun refreshActivity() {
         this@SplashActivity.finish()
         startActivity(Intent(this@SplashActivity, SplashActivity::class.java))
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode) {
+            RATE_REQUEST_CODE -> sharedPreferences.setRatingValue(value = true)
+        }
     }
 
 }

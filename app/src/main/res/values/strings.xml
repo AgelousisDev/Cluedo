@@ -16,6 +16,9 @@
     <string name="key_final_label">Τελικός</string>
     <string name="key_enable_dark_mode">Σκοτεινό Στυλ</string>
     <string name="key_stats_label">Σκορ</string>
+    <string name="key_rate_label">Αξιολόγηση</string>
+    <string name="key_rate_message">Πριν την εξοδο θα ήθελες να αξιολογήσεις την εφαρνογή;</string>
+    <string name="key_exit_label">Έξοδος</string>
 
     <string-array name="key_characters_array">
         <item>Φλόγα</item>

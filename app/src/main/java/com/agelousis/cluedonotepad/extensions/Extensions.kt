@@ -3,23 +3,27 @@ package com.agelousis.cluedonotepad.extensions
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Typeface
+import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
+import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.constants.IndexedLoopBlock
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
 import com.agelousis.cluedonotepad.splash.presenters.CharacterPresenter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
 
 fun Context.showCharacterOptions(title: String, adapterPosition: Int, characterPresenter: CharacterPresenter) {
@@ -70,6 +74,35 @@ fun View.applyLightScaleAnimation(duration: Long? = null) {
     }.start()
 }
 
+typealias DismissCallback = () -> Unit
+fun Context.showRateDialog(requestCode: Int, dismissCallback: DismissCallback) {
+    val builder = MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialog)
+        .setTitle(resources.getString(R.string.key_rate_label))
+        .setMessage(resources.getString(R.string.key_rate_message))
+        .setNegativeButton(resources.getString(R.string.key_exit_label)) { dialog, _ ->
+            dialog.dismiss()
+            dismissCallback()
+        }
+        .setPositiveButton(resources.getString(R.string.key_rate_label)) { dialog, _ ->
+            dialog.dismiss()
+            (this as? AppCompatActivity)?.startActivityForResult(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.playStoreUrl)), requestCode)
+        }
+    val dialog = builder.create()
+    dialog.show()
+    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).isAllCaps = false
+    dialog.getButton(AlertDialog.BUTTON_POSITIVE).isAllCaps = false
+}
+
+fun SharedPreferences.setRatingValue(value: Boolean) {
+    edit().also {
+        it.putBoolean(Constants.RATE_VALUE, value)
+        it.apply()
+    }
+}
+
+val SharedPreferences.ratingValue: Boolean
+    get() = getBoolean(Constants.RATE_VALUE, false)
+
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {
     drawableId?.let {
@@ -86,9 +119,4 @@ fun setBold(appCompatTextView: MaterialTextView, state: Boolean) {
 @BindingAdapter("customBackground")
 fun setCustomBackground(viewGroup: ViewGroup, drawableId: Int?) {
     drawableId?.let { viewGroup.setBackgroundResource(it) }
-}
-
-@BindingAdapter("shadow")
-fun setShadow(appCompatEditText: AppCompatEditText, color: Int) {
-    appCompatEditText.setShadowLayer(4.0f, 4.0f, 4.0f, color)
 }
