@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cluedo Notepad</string>
+    <string name="key_how_many_players_label">Choose number of players</string>
+    <string name="key_play_label">Play</string>
+    <string name="key_player_name_hint">Player\'s Name</string>
+    <string name="key_your_name_hint">Your Name</string>
+    <string name="key_choose_character_title">Choose Player</string>
+    <string name="key_ok_label">OK</string>
+    <string name="key_warning_label">WARNING</string>
+    <string name="key_discard_message">All your changes to the table will be deleted. Are you sure;</string>
+    <string name="key_players_label">PLAYERS</string>
+    <string name="key_who_label">WHO?</string>
+    <string name="key_what_label">WHAT?</string>
+    <string name="key_where_label">WHERE?</string>
+    <string name="key_final_label">Final</string>
+    <string name="key_enable_dark_mode">Dark Mode</string>
+    <string name="key_stats_label">Score</string>
+    <string name="key_rate_label">Rate</string>
+    <string name="key_rate_message">Before leaving, would you like to evaluate the application?</string>
+    <string name="key_exit_label">Exit</string>
+
+    <string-array name="key_characters_array">
+        <item>Miss Scarlett</item>
+        <item>Professor Plum</item>
+        <item>Mrs Peacock</item>
+        <item>Reverend Green</item>
+        <item>Colonel Mustard</item>
+        <item>Dr Orchid</item>
+    </string-array>
+
+    <integer-array name="key_characters_colors_array">
+        <item>@color/red</item>
+        <item>@color/purple</item>
+        <item>@color/iced</item>
+        <item>@color/green</item>
+        <item>@color/mustard</item>
+        <item>@color/orchid</item>
+    </integer-array>
+
+    <integer-array name="key_character_icons_array">
+        <item>@drawable/ms_fire</item>
+        <item>@drawable/mr_purple</item>
+        <item>@drawable/ms_iced</item>
+        <item>@drawable/mr_green</item>
+        <item>@drawable/mr_mustard</item>
+        <item>@drawable/ms_pink</item>
+    </integer-array>
+
+    <string-array name="key_tools_array">
+        <item>Candlestick</item>
+        <item>Dagger</item>
+        <item>Tubing</item>
+        <item>Revolver</item>
+        <item>Rope</item>
+        <item>Tool</item>
+    </string-array>
+
+    <string-array name="key_rooms_array">
+        <item>Dance</item>
+        <item>Billiards</item>
+        <item>Greenhouse</item>
+        <item>Dinning room</item>
+        <item>Hall</item>
+        <item>Kitchen</item>
+        <item>Library</item>
+        <item>Living room</item>
+        <item>Study</item>
+    </string-array>
+    <string name="key_not_selected_players_message">"Select a player by clicking on each icon and player name. You cannot select the same player. Players must be more than one!!! "</string>
+
+</resources>
