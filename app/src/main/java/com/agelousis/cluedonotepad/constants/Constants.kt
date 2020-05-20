@@ -6,9 +6,11 @@ object Constants {
     const val BASIC_DIALOG_TAG = "BasicDialogTag"
     const val PREFERENCES_TAG = "preferences"
     const val DARK_MODE_VALUE = "dark_mode_value"
+    const val LANGUAGE_PREFS_KEY = "language"
     const val STATS_SHEET_FRAGMENT = "statsSheetFragment"
     const val RATE_VALUE = "rating"
-
     const val playStoreUrl = "https://play.google.com/store/apps/details?id=com.agelousis.cluedonotepad"
+    const val ENGLISH_LANGUAGE_CODE = "en"
+    const val GREEK_LANGUAGE_CODE = "el"
 
 }

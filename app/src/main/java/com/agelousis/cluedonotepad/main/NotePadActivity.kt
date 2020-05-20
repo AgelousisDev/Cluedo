@@ -1,8 +1,8 @@
 package com.agelousis.cluedonotepad.main
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.agelousis.cluedonotepad.R
+import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.main.adapters.RowAdapter
@@ -12,7 +12,7 @@ import com.agelousis.cluedonotepad.main.timer.TimerListener
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import kotlinx.android.synthetic.main.activity_notepad.*
 
-class NotePadActivity : AppCompatActivity(), TimerListener {
+class NotePadActivity : BaseAppCompatActivity(), TimerListener {
 
     override fun onTimeUpdate(time: String) {
         notepadTimer.text = time

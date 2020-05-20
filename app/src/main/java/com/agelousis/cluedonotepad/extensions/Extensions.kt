@@ -103,6 +103,22 @@ fun SharedPreferences.setRatingValue(value: Boolean) {
 val SharedPreferences.ratingValue: Boolean
     get() = getBoolean(Constants.RATE_VALUE, false)
 
+var SharedPreferences.savedLanguage
+    set(value) {
+        edit().also {
+            it.putString(Constants.LANGUAGE_PREFS_KEY, value)
+            it.apply()
+        }
+    }
+    get() = getString(Constants.LANGUAGE_PREFS_KEY, null)
+
+fun <T> T?.whenNull(receiver: () -> Unit): T? {
+    return if (this == null) {
+        receiver.invoke()
+        null
+    } else this
+}
+
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {
     drawableId?.let {

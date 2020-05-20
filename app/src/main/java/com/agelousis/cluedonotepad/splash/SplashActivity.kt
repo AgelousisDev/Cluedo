@@ -3,16 +3,18 @@ package com.agelousis.cluedonotepad.splash
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.agelousis.cluedonotepad.R
+import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
+import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
+import com.agelousis.cluedonotepad.dialog.presenters.LanguagePresenter
 import com.agelousis.cluedonotepad.extensions.*
 import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.agelousis.cluedonotepad.splash.adapters.PlayersAdapter
@@ -26,10 +28,11 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import kotlinx.android.synthetic.main.activity_splash.*
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
 
     companion object {
         const val RATE_REQUEST_CODE = 1
+        const val LANGUAGE_DIALOG_STATE_EXTRA = "SplashActivity=languageDialogStateExtra"
     }
 
     private val sharedPreferences by lazy {
@@ -45,6 +48,12 @@ class SplashActivity : AppCompatActivity() {
     private var lastSeekBarProgress = 0
 
     var statsModelList = arrayListOf<StatsModel>()
+
+    override fun onLanguageSelected(languageCode: String) = refreshActivity(
+        extras = Bundle().also {
+            it.putBoolean(LANGUAGE_DIALOG_STATE_EXTRA, false)
+        }
+    )
 
     override fun onBackPressed() {
         when(sharedPreferences.ratingValue) {
@@ -65,9 +74,27 @@ class SplashActivity : AppCompatActivity() {
         setupUI()
     }
 
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        showLanguageDialog()
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         refreshActivity()
+    }
+
+    private fun showLanguageDialog() {
+        intent.extras.whenNull {
+            BasicDialog.show(
+                supportFragmentManager = supportFragmentManager,
+                dialogType = BasicDialogType(
+                    BasicDialogTypeEnum.LANGUAGE_SELECT,
+                    title = resources.getString(R.string.key_language_label),
+                    languagePresenter = this
+                )
+            )
+        }
     }
 
     private fun setupNightModeIdSaved() {
@@ -171,9 +198,13 @@ class SplashActivity : AppCompatActivity() {
         else true
     }
 
-    private fun refreshActivity() {
+    private fun refreshActivity(extras: Bundle? = null) {
+        startActivity(Intent(this@SplashActivity, SplashActivity::class.java).also { intent ->
+            extras?.let { bundle ->
+                intent.putExtras(bundle)
+            }
+        })
         this@SplashActivity.finish()
-        startActivity(Intent(this@SplashActivity, SplashActivity::class.java))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

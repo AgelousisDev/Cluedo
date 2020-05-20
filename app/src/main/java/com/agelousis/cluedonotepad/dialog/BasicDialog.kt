@@ -1,5 +1,6 @@
 package com.agelousis.cluedonotepad.dialog
 
+import android.content.Context
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
@@ -12,19 +13,21 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.constants.Constants
-import com.agelousis.cluedonotepad.dialog.adapters.CharacterAdapter
+import com.agelousis.cluedonotepad.dialog.adapters.BasicDialogAdapter
 import com.agelousis.cluedonotepad.dialog.controller.BasicDialogController
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
 import com.agelousis.cluedonotepad.dialog.models.CharacterRowModel
 import com.agelousis.cluedonotepad.dialog.presenters.CharacterSelectPresenter
+import com.agelousis.cluedonotepad.dialog.presenters.LanguagePresenter
+import com.agelousis.cluedonotepad.extensions.savedLanguage
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import kotlinx.android.synthetic.main.basic_dialog_layout.*
 
-class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), CharacterSelectPresenter {
+class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), CharacterSelectPresenter, LanguagePresenter {
 
     companion object {
         fun show(supportFragmentManager: FragmentManager, dialogType: BasicDialogType) {
@@ -35,10 +38,22 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
         }
     }
 
+    private val sharedPreferences by lazy { context?.getSharedPreferences(Constants.PREFERENCES_TAG, Context.MODE_PRIVATE) }
+
     override fun onCharacterSelected(characterRowModel: CharacterRowModel) {
         dismiss()
-        dialogType.characterPresenter?.onCharacterSelected(adapterPosition = dialogType.basicDialogTypeEnum.characterPosition ?: 0,
-            characterRowModel = characterRowModel)
+        dialogType.characterPresenter?.onCharacterSelected(
+            adapterPosition = dialogType.basicDialogTypeEnum.characterPosition ?: 0,
+            characterRowModel = characterRowModel
+        )
+    }
+
+    override fun onLanguageSelected(languageCode: String) {
+        dismiss()
+        sharedPreferences?.savedLanguage = languageCode
+        dialogType.languagePresenter?.onLanguageSelected(
+            languageCode = languageCode
+        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -65,7 +80,7 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
                 basicDialogOkButton.setBackgroundColor((dialogType.headerBackgroundColor ?: ContextCompat.getColor(context, R.color.colorAccent)))
                 basicDialogOkButton.setOnClickListener { dismiss(); dialogType.basicDialogButtonBlock?.invoke() ?: dismiss() }
             }
-            BasicDialogTypeEnum.CHARACTER_SELECT -> {
+            BasicDialogTypeEnum.CHARACTER_SELECT, BasicDialogTypeEnum.LANGUAGE_SELECT -> {
                 basicDialogInstructionsText.visibility = View.GONE
                 basicDialogOkButton.visibility = View.GONE
                 basicDialogOkButton.visibility = View.GONE
@@ -81,8 +96,14 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
         flexLayoutManager.justifyContent = JustifyContent.CENTER
         flexLayoutManager.alignItems = AlignItems.CENTER
         basicDialogRecyclerView.layoutManager = flexLayoutManager
-        val adapter = CharacterAdapter(characterModelList = BasicDialogController.getCluedoCharacters(context = context ?: return),
-            characterSelectPresenter = this)
+        val adapter = BasicDialogAdapter(
+            list = when(dialogType.basicDialogTypeEnum) {
+                BasicDialogTypeEnum.CHARACTER_SELECT -> BasicDialogController.getCluedoCharacters(context = context ?: return)
+                BasicDialogTypeEnum.LANGUAGE_SELECT -> BasicDialogController.getAvailableLanguages()
+                else -> return
+            },
+            characterSelectPresenter = this,
+            languagePresenter = this)
         basicDialogRecyclerView.adapter = adapter
     }
 

@@ -19,6 +19,7 @@
     <string name="key_rate_label">Rate</string>
     <string name="key_rate_message">Before leaving, would you like to evaluate the application?</string>
     <string name="key_exit_label">Exit</string>
+    <string name="key_language_label">Language</string>
 
     <string-array name="key_characters_array">
         <item>Miss Scarlett</item>
