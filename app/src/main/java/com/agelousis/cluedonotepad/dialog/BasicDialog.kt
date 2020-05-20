@@ -80,11 +80,17 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
                 basicDialogOkButton.setBackgroundColor((dialogType.headerBackgroundColor ?: ContextCompat.getColor(context, R.color.colorAccent)))
                 basicDialogOkButton.setOnClickListener { dismiss(); dialogType.basicDialogButtonBlock?.invoke() ?: dismiss() }
             }
-            BasicDialogTypeEnum.CHARACTER_SELECT, BasicDialogTypeEnum.LANGUAGE_SELECT -> {
+            BasicDialogTypeEnum.CHARACTER_SELECT -> {
                 basicDialogInstructionsText.visibility = View.GONE
                 basicDialogOkButton.visibility = View.GONE
-                basicDialogOkButton.visibility = View.GONE
                 basicDialogRecyclerView.visibility = View.VISIBLE
+                configureRecyclerView()
+            }
+            BasicDialogTypeEnum.LANGUAGE_SELECT -> {
+                basicDialogInstructionsText.visibility = View.GONE
+                basicDialogRecyclerView.visibility = View.VISIBLE
+                basicDialogOkButton.text = resources.getString(R.string.key_cancel_label)
+                basicDialogOkButton.setOnClickListener { dismiss() }
                 configureRecyclerView()
             }
         }

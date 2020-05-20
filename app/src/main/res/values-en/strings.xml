@@ -4,7 +4,7 @@
     <string name="key_how_many_players_label">Choose number of players</string>
     <string name="key_play_label">Play</string>
     <string name="key_player_name_hint">Player\'s Name</string>
-    <string name="key_your_name_hint">Your Name</string>
+    <string name="key_your_name_hint">&#160;&#160;Your Name&#160;&#160;</string>
     <string name="key_choose_character_title">Choose Player</string>
     <string name="key_ok_label">OK</string>
     <string name="key_warning_label">WARNING</string>
@@ -20,6 +20,7 @@
     <string name="key_rate_message">Before leaving, would you like to evaluate the application?</string>
     <string name="key_exit_label">Exit</string>
     <string name="key_language_label">Language</string>
+    <string name="key_cancel_label">Cancel</string>
 
     <string-array name="key_characters_array">
         <item>Miss Scarlett</item>
