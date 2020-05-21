@@ -112,7 +112,11 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
                 this?.putInt(Constants.DARK_MODE_VALUE, if (isChecked) 1 else 0)
                 this?.apply()
             }
-            refreshActivity()
+            refreshActivity(
+                extras = Bundle().also {
+                    it.putBoolean(LANGUAGE_DIALOG_STATE_EXTRA, false)
+                }
+            )
         }
 
         playersSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
