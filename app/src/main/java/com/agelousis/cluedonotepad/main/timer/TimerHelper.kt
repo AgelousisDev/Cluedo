@@ -1,6 +1,7 @@
 package com.agelousis.cluedonotepad.main.timer
 
 import android.os.Handler
+import android.os.Looper
 import android.os.SystemClock
 
 class TimerHelper(private val timerListener: TimerListener): Runnable {
@@ -10,7 +11,7 @@ class TimerHelper(private val timerListener: TimerListener): Runnable {
 
     init {
         startTime = SystemClock.uptimeMillis()
-        handler = Handler()
+        handler = Handler(Looper.getMainLooper())
         handler?.postDelayed(this, 0)
     }
 
