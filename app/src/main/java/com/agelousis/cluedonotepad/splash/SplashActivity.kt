@@ -112,11 +112,12 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
                 this?.putInt(Constants.DARK_MODE_VALUE, if (isChecked) 1 else 0)
                 this?.apply()
             }
-            refreshActivity(
+            setupNightModeIdSaved()
+            /*refreshActivity(
                 extras = Bundle().also {
                     it.putBoolean(LANGUAGE_DIALOG_STATE_EXTRA, false)
                 }
-            )
+            )*/
         }
 
         playersSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
@@ -180,6 +181,10 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             flexLayoutManager.justifyContent = JustifyContent.CENTER
             flexLayoutManager.alignItems = AlignItems.CENTER
             playersRecyclerView.layoutManager = flexLayoutManager
+        }
+        characterViewModel?.characterArray?.firstOrNull()?.let {
+            characterViewModel?.characterArray?.clear()
+            characterViewModel?.characterArray?.add(it)
         }
         val playersAdapter = PlayersAdapter(context = this, characterListModel = characterViewModel?.characterArray ?: listOf())
         playersRecyclerView.adapter = playersAdapter
