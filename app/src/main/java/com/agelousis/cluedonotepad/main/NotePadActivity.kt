@@ -1,6 +1,7 @@
 package com.agelousis.cluedonotepad.main
 
 import android.os.Bundle
+import androidx.recyclerview.widget.RecyclerView
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.dialog.BasicDialog
@@ -40,12 +41,28 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notepad)
+        setupToolbar()
         configureRecyclerView()
         configureTimer()
     }
 
+    private fun setupToolbar() {
+        setSupportActionBar(bottomAppBar)
+        bottomAppBar.setNavigationOnClickListener { onBackPressed() }
+    }
+
     private fun configureRecyclerView() {
         notepadRowRecyclerView.adapter = RowAdapter(rowDataModelList = controller.getCluedoList(characterModelList = characterModelArray ?: return))
+        notepadRowRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1))
+                    bottomAppBar.elevation = 4.0f
+                else
+                    bottomAppBar.elevation = 32f
+            }
+        })
     }
 
     private fun configureTimer() {

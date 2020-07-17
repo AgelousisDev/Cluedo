@@ -11,6 +11,7 @@
         android:id="@+id/notepadRowRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"/>
@@ -31,5 +32,33 @@
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="4" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:fabAlignmentMode="end"
+        app:fabCradleRoundedCornerRadius="16dp"
+        app:elevation="32dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_regular"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="@string/app_name"/>
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@+id/bottomAppBar"
+        app:backgroundTint="@color/colorAccent"
+        app:srcCompat="@drawable/ic_cancel"
+        app:tint="@color/colorPrimary"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
