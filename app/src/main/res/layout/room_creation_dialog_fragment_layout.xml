@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="presenter"
+            type="com.agelousis.cluedonotepad.roomCreationDialog.presenters.RoomCreationPresenter" />
+    </data>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/basic_dialog_background">
+
+    <LinearLayout
+        android:id="@+id/roomDialogHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/basic_dialog_header_background"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/roomDialogHeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@string/key_cluedo_room_label"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/basicDialogFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/roomDialogHeader"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:clipToPadding="false"
+        android:animateLayoutChanges="true">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintEnabled="true"
+            app:hintAnimationEnabled="true"
+            app:endIconMode="clear_text"
+            app:startIconDrawable="@drawable/ic_room"
+            android:theme="@style/TextInputLayoutStyle"
+            android:hint="@string/key_room_field_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/roomDialogField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:fontFamily="@font/ubuntu_regular"
+                android:imeOptions="actionDone"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:background="@color/grey"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/roomDialogOfflineButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu_monospace"
+                android:text="@string/key_play_offline_label"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:onClick="@{() -> presenter.onOffline()}"
+                app:backgroundTint="@color/colorAccent"
+                app:cornerRadius="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/roomDialogJoinButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu_monospace"
+                android:text="@string/key_join_room_label"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:onClick="@{() -> presenter.onRoomJoined()}"
+                android:alpha="0.5"
+                android:enabled="false"
+                app:backgroundTint="@color/colorAccent"
+                app:cornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/roomDialogOfflineButton" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/roomDialogCreationButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu_monospace"
+                android:text="@string/key_play_offline_label"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:onClick="@{() -> presenter.onRoomCreation()}"
+                android:alpha="0.5"
+                android:enabled="false"
+                app:backgroundTint="@color/colorAccent"
+                app:cornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/roomDialogJoinButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+</layout>

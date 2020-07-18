@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         app:layout_anchor="@+id/bottomAppBar"
         app:backgroundTint="@color/colorAccent"
-        app:srcCompat="@drawable/ic_cancel"
+        app:srcCompat="@drawable/ic_image"
         app:tint="@color/colorPrimary"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

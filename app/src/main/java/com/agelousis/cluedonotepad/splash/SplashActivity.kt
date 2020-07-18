@@ -16,9 +16,8 @@ import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
 import com.agelousis.cluedonotepad.dialog.presenters.LanguagePresenter
 import com.agelousis.cluedonotepad.extensions.*
-import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
-import com.agelousis.cluedonotepad.firebase.models.User
 import com.agelousis.cluedonotepad.main.NotePadActivity
+import com.agelousis.cluedonotepad.roomCreationDialog.RoomCreationDialogFragment
 import com.agelousis.cluedonotepad.splash.adapters.PlayersAdapter
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.viewModels.CharacterViewModel
@@ -151,10 +150,14 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         setupRecyclerView()
         playButton.setOnClickListener {
             if (isPlayersAvailable())
-                startActivity(with(Intent(this, NotePadActivity::class.java)) {
-                    putParcelableArrayListExtra(NotePadActivity.CHARACTER_MODEL_LIST_EXTRA, characterViewModel?.characterArray)
-                    this
-                })
+                RoomCreationDialogFragment.show(
+                    supportFragmentManager = supportFragmentManager
+                ) {
+                    startActivity(with(Intent(this, NotePadActivity::class.java)) {
+                        putParcelableArrayListExtra(NotePadActivity.CHARACTER_MODEL_LIST_EXTRA, characterViewModel?.characterArray)
+                        this
+                    })
+                }
         }
         statsButton.setOnClickListener {
             if (isPlayersAvailable()) {

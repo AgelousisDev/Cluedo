@@ -4,6 +4,7 @@ typealias IndexedLoopBlock = (Int) -> Unit
 
 object Constants {
     const val BASIC_DIALOG_TAG = "BasicDialogTag"
+    const val ROOM_DIALOG_TAG = "RoomDialogTag"
     const val PREFERENCES_TAG = "preferences"
     const val DARK_MODE_VALUE = "dark_mode_value"
     const val LANGUAGE_PREFS_KEY = "language"
