@@ -16,6 +16,8 @@ import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
 import com.agelousis.cluedonotepad.dialog.presenters.LanguagePresenter
 import com.agelousis.cluedonotepad.extensions.*
+import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
+import com.agelousis.cluedonotepad.firebase.models.User
 import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.agelousis.cluedonotepad.splash.adapters.PlayersAdapter
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
@@ -26,6 +28,7 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
@@ -70,6 +73,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         setupNightModeIdSaved()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        FirebaseApp.initializeApp(this)
         configureViewModel()
         setupUI()
     }

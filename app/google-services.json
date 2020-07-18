@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1055801502934",
+    "firebase_url": "https://cluedo-notepad-5fd9f.firebaseio.com",
+    "project_id": "cluedo-notepad-5fd9f",
+    "storage_bucket": "cluedo-notepad-5fd9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055801502934:android:6b5460a31eff8a233a6d77",
+        "android_client_info": {
+          "package_name": "com.agelousis.cluedonotepad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1055801502934-11ptttquj3i5es0gbh7qjbed47cjikoi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFjF8E1E6b_a0sLXfzG6ueQGLYUUFIQ-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1055801502934-11ptttquj3i5es0gbh7qjbed47cjikoi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
