@@ -119,6 +119,13 @@ fun <T> T?.whenNull(receiver: () -> Unit): T? {
     } else this
 }
 
+inline fun <T> Iterable<T>.forEachIfEach(predicate: (T) -> Boolean, action: (T) -> Unit) {
+    for (element in this)
+        if (predicate(element))
+            action(element)
+}
+
+
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {
     drawableId?.let {

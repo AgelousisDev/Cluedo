@@ -17,17 +17,18 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackgroundBorderless"
-    android:onClick="@{() -> presenter.onItemHeaderSelected(itemTitleModel.itemHeaderType)}"
+    android:onClick="@{() -> presenter.onItemHeaderSelected(itemTitleModel)}"
     android:padding="@dimen/nav_header_vertical_spacing"
     tools:targetApi="m">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/itemHeaderImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:tint="@{itemTitleModel.expanded ? @color/colorAccent : @color/grey}"
         srcCompat="@{itemTitleModel.icon}"
         tools:srcCompat="@drawable/ic_person" />
 
@@ -36,12 +37,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:fontFamily="@font/ubuntu_regular"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         tools:text="WHO?"
         android:text="@{itemTitleModel.title}"
+        android:textColor="@{itemTitleModel.expanded ? @color/colorAccent : @color/grey}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/itemHeaderImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        tools:srcCompat="@drawable/ic_arrow_up"
+        android:src="@{itemTitleModel.expanded ? @drawable/ic_arrow_up : @drawable/ic_arrow_down}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

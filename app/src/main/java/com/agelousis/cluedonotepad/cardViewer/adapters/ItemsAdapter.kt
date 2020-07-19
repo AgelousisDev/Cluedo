@@ -7,12 +7,13 @@ import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemsAdapterViewType
 import com.agelousis.cluedonotepad.cardViewer.models.ItemModel
 import com.agelousis.cluedonotepad.cardViewer.models.ItemTitleModel
 import com.agelousis.cluedonotepad.cardViewer.presenters.ItemHeaderPresenter
+import com.agelousis.cluedonotepad.cardViewer.presenters.ItemPresenter
 import com.agelousis.cluedonotepad.cardViewer.viewHolders.ItemHeaderViewHolder
 import com.agelousis.cluedonotepad.cardViewer.viewHolders.ItemViewHolder
 import com.agelousis.cluedonotepad.databinding.ItemHeaderRowLayoutBinding
 import com.agelousis.cluedonotepad.databinding.ItemRowLayoutBinding
 
-class ItemsAdapter(private val itemsList: List<Any>, private val presenter: ItemHeaderPresenter): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ItemsAdapter(private val itemsList: List<Any>, private val itemHeaderPresenter: ItemHeaderPresenter, private val itemPresenter: ItemPresenter): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -49,10 +50,11 @@ class ItemsAdapter(private val itemsList: List<Any>, private val presenter: Item
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? ItemHeaderViewHolder)?.bind(
             itemTitleModel = itemsList.getOrNull(index = position) as? ItemTitleModel ?: return,
-            presenter = presenter
+            presenter = itemHeaderPresenter
         )
         (holder as? ItemViewHolder)?.bind(
-            itemModel = itemsList.getOrNull(index = position) as? ItemModel ?: return
+            itemModel = itemsList.getOrNull(index = position) as? ItemModel ?: return,
+            presenter = itemPresenter
         )
     }
 

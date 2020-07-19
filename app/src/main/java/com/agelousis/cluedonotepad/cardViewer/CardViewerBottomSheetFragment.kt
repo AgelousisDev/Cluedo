@@ -10,9 +10,13 @@ import com.agelousis.cluedonotepad.cardViewer.adapters.ItemsAdapter
 import com.agelousis.cluedonotepad.cardViewer.adapters.PlayersAdapter
 import com.agelousis.cluedonotepad.cardViewer.controller.CardViewerController
 import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
+import com.agelousis.cluedonotepad.cardViewer.models.ItemModel
+import com.agelousis.cluedonotepad.cardViewer.models.ItemTitleModel
 import com.agelousis.cluedonotepad.cardViewer.presenters.ItemHeaderPresenter
+import com.agelousis.cluedonotepad.cardViewer.presenters.ItemPresenter
 import com.agelousis.cluedonotepad.cardViewer.presenters.PlayersPresenter
 import com.agelousis.cluedonotepad.constants.Constants
+import com.agelousis.cluedonotepad.extensions.forEachIfEach
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
@@ -21,7 +25,7 @@ import com.google.android.flexbox.JustifyContent
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.card_viewer_dialog_fragment_layout.*
 
-class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresenter, ItemHeaderPresenter {
+class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresenter, ItemHeaderPresenter, ItemPresenter {
 
     companion object {
 
@@ -44,29 +48,41 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         (playersRecyclerView.adapter as? PlayersAdapter)?.reloadData()
     }
 
-    override fun onItemHeaderSelected(itemHeaderType: ItemHeaderType) {
+    override fun onItemHeaderSelected(itemTitleModel: ItemTitleModel) {
         itemsList.clear()
-        when(itemHeaderType) {
+        when(itemTitleModel.itemHeaderType) {
             ItemHeaderType.WHO -> {
                 itemsList.addAll(CardViewerController.getCards(
                     context = context ?: return,
-                    withPlayers = true
+                    withPlayers = !itemTitleModel.isExpanded
                 ))
             }
             ItemHeaderType.WHAT -> {
                 itemsList.addAll(CardViewerController.getCards(
                     context = context ?: return,
-                    withTools = true
+                    withTools = !itemTitleModel.isExpanded
                 ))
             }
             ItemHeaderType.WHERE -> {
                 itemsList.addAll(CardViewerController.getCards(
                     context = context ?: return,
-                    withRooms = true
+                    withRooms = !itemTitleModel.isExpanded
                 ))
             }
         }
         itemsRecyclerView.scheduleLayoutAnimation()
+        (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
+    }
+
+    override fun onItemSelected(adapterPosition: Int) {
+        itemsList.forEachIfEach(
+            predicate = {
+                it is ItemModel
+            }
+        ) {
+            (it as ItemModel).isSelected = false
+        }
+        (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected = (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected == false
         (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
     }
 
@@ -101,7 +117,8 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
     private fun configureItemsRecyclerView() {
         itemsRecyclerView.adapter = ItemsAdapter(
             itemsList = itemsList,
-            presenter = this
+            itemHeaderPresenter = this,
+            itemPresenter = this
         )
     }
 
