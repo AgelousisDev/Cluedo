@@ -25,7 +25,8 @@
     <string name="key_room_field_hint">Room (6 characters minimum)</string>
     <string name="key_play_offline_label">Play Offline</string>
     <string name="key_join_room_label">Join Room</string>
-    <string name="ley_create_room_label">Create Room</string>
+    <string name="key_create_room_label">Create Room</string>
+    <string name="key_send_label">Send</string>
 
     <string-array name="key_characters_array">
         <item>Miss Scarlett</item>

@@ -115,7 +115,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_monospace"
-                android:text="@string/key_play_offline_label"
+                android:text="@string/key_create_room_label"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"

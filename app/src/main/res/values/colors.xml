@@ -19,5 +19,6 @@
     <color name="dialogFooterBackground">#F5F5F5</color>
     <color name="grey">#454545</color>
     <color name="lightGrey">#F5F5E5</color>
+    <color name="selectedPlayerColor">#808080</color>
 
 </resources>

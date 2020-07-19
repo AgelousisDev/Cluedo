@@ -13,4 +13,6 @@
     <color name="grey">#FFFFFF</color>
     <color name="lightGrey">#252525</color>
 
+    <color name="selectedPlayerColor">#808080</color>
+
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
+import com.agelousis.cluedonotepad.cardViewer.CardViewerBottomSheetFragment
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.main.adapters.RowAdapter
@@ -49,6 +50,12 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener {
     private fun setupToolbar() {
         setSupportActionBar(bottomAppBar)
         bottomAppBar.setNavigationOnClickListener { onBackPressed() }
+        cardViewerButton.setOnClickListener {
+            CardViewerBottomSheetFragment.show(
+                supportFragmentManager = supportFragmentManager,
+                charactersModelList = ArrayList(characterModelArray?.drop(n = 1) ?: return@setOnClickListener)
+            )
+        }
     }
 
     private fun configureRecyclerView() {
