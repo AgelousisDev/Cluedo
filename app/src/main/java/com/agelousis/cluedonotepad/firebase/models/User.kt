@@ -5,7 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class User(
-    val channel: String,
-    val device: String,
-    val character: Character
+    val channel: String? = null,
+    val device: String? = null,
+    val character: Character? = null
 )

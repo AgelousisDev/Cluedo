@@ -21,6 +21,7 @@ class PlayersAdapter(private val context: Context, private val characterListMode
     override fun onCharacterSelected(adapterPosition: Int, characterRowModel: CharacterRowModel) {
         characterListModel.getOrNull(index = adapterPosition)?.character = characterRowModel.characterColor
         characterListModel.getOrNull(index = adapterPosition)?.characterIcon = characterRowModel.characterIcon
+        characterListModel.getOrNull(index = adapterPosition)?.characterEnum = characterRowModel.character
         notifyDataSetChanged()
     }
 

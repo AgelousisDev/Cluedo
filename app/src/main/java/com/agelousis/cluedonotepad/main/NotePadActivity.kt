@@ -7,6 +7,8 @@ import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.cardViewer.CardViewerBottomSheetFragment
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
+import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
+import com.agelousis.cluedonotepad.firebase.models.User
 import com.agelousis.cluedonotepad.main.adapters.RowAdapter
 import com.agelousis.cluedonotepad.main.controller.NotePadController
 import com.agelousis.cluedonotepad.main.timer.TimerHelper
@@ -33,6 +35,7 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener {
         intent?.extras?.getParcelableArrayList<CharacterModel>(CHARACTER_MODEL_LIST_EXTRA)
     }
     private val gameTypeModel by lazy { intent?.extras?.getParcelable<GameTypeModel>(GAME_TYPE_MODEL_EXTRA) }
+    val users by lazy { arrayListOf<User>() }
 
     override fun onBackPressed() {
         BasicDialog.show(supportFragmentManager = supportFragmentManager, dialogType = BasicDialogType(title = resources.getString(R.string.key_warning_label),
@@ -47,6 +50,7 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener {
         setupToolbar()
         configureRecyclerView()
         configureTimer()
+        initializeUsers()
     }
 
     private fun setupToolbar() {
@@ -77,5 +81,12 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener {
     private fun configureTimer() {
         TimerHelper(timerListener = this)
     }
+
+    private fun initializeUsers() =
+        RealTimeDatabaseHelper.shared.getUsers(
+            channel = gameTypeModel?.channel ?: ""
+        ) {
+            users.addAll(it)
+        }
 
 }

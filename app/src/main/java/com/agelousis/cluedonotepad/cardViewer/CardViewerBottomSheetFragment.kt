@@ -19,6 +19,7 @@ import com.agelousis.cluedonotepad.cardViewer.presenters.ItemPresenter
 import com.agelousis.cluedonotepad.cardViewer.presenters.PlayersPresenter
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.extensions.forEachIfEach
+import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
@@ -48,6 +49,8 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         characterModelList?.forEach { it.playerIsSelected = false }
         characterModelList?.getOrNull(index = adapterPosition)?.playerIsSelected = true
         (playersRecyclerView.adapter as? PlayersAdapter)?.reloadData()
+        selectedCardViewerModel.user = (activity as? NotePadActivity)?.users?.firstOrNull { it.character == characterModelList?.getOrNull(index = adapterPosition)?.characterEnum }
+        sendButtonState = selectedCardViewerModel.user != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
     override fun onItemHeaderSelected(itemTitleModel: ItemTitleModel) {
@@ -77,6 +80,8 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         }
         itemsRecyclerView.scheduleLayoutAnimation()
         (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
+        selectedCardViewerModel.itemHeaderType = itemTitleModel.itemHeaderType
+        sendButtonState = selectedCardViewerModel.user != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
     override fun onItemSelected(adapterPosition: Int) {
@@ -90,6 +95,7 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected = (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected == false
         (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
         selectedCardViewerModel.itemModel = itemsList.getOrNull(index = adapterPosition) as? ItemModel
+        sendButtonState = selectedCardViewerModel.user != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
     private val characterModelList by lazy { arguments?.getParcelableArrayList<CharacterModel>(CHARACTER_MODEL_LIST_EXTRA) }
@@ -99,6 +105,12 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         } ?: arrayListOf()
     }
     private val selectedCardViewerModel by lazy { SelectedCardViewerModel() }
+    private var sendButtonState = false
+    set(value) {
+        field = value
+        sendButton.alpha = if (value) 1.0f else 0.5f
+        sendButton.isEnabled = value
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.card_viewer_dialog_fragment_layout, container, false)

@@ -14,5 +14,7 @@ object Constants {
     const val playStoreUrl = "https://play.google.com/store/apps/details?id=com.agelousis.cluedonotepad"
     const val ENGLISH_LANGUAGE_CODE = "en"
     const val GREEK_LANGUAGE_CODE = "el"
-
+    const val DATABASE_USERS_CHILD = "Users"
+    const val DATABASE_DEVICE_FIELD = "device"
+    const val DATABASE_CHARACTER_FIELD = "character"
 }

@@ -12,10 +12,13 @@ import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.dialog.BasicDialog
+import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
 import com.agelousis.cluedonotepad.dialog.presenters.LanguagePresenter
 import com.agelousis.cluedonotepad.extensions.*
+import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
+import com.agelousis.cluedonotepad.firebase.models.User
 import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.agelousis.cluedonotepad.roomCreationDialog.RoomCreationDialogFragment
 import com.agelousis.cluedonotepad.splash.adapters.PlayersAdapter
