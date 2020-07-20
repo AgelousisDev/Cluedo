@@ -1,3 +1,5 @@
 package com.agelousis.cluedonotepad.cardViewer.models
 
-data class ItemModel(val item: String, var isSelected: Boolean = false)
+import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
+
+data class ItemModel(val item: String, var isSelected: Boolean = false, val itemHeaderType: ItemHeaderType)

@@ -5,10 +5,12 @@ import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
 import com.agelousis.cluedonotepad.cardViewer.models.ItemModel
 import com.agelousis.cluedonotepad.cardViewer.models.ItemTitleModel
+import com.agelousis.cluedonotepad.extensions.firstOrNullWithType
+import com.agelousis.cluedonotepad.extensions.forEachIfEach
 
 object CardViewerController {
 
-    fun getCards(context: Context, withPlayers: Boolean = false, withTools: Boolean = false, withRooms: Boolean = false): ArrayList<Any> {
+    fun getCards(context: Context, withPlayers: Boolean = false, withTools: Boolean = false, withRooms: Boolean = false, selectedItemModel: ItemModel? = null): ArrayList<Any> {
         val cards = ArrayList<Any>()
         cards.add(ItemTitleModel(
             title = context.resources.getString(R.string.key_who_label),
@@ -20,7 +22,8 @@ object CardViewerController {
             context.resources.getStringArray(R.array.key_characters_array).forEach {
                 cards.add(
                     ItemModel(
-                        item = it
+                        item = it,
+                        itemHeaderType = ItemHeaderType.WHO
                     )
                 )
             }
@@ -34,7 +37,8 @@ object CardViewerController {
             context.resources.getStringArray(R.array.key_tools_array).forEach {
                 cards.add(
                     ItemModel(
-                        item = it
+                        item = it,
+                        itemHeaderType = ItemHeaderType.WHAT
                     )
                 )
             }
@@ -48,10 +52,21 @@ object CardViewerController {
             context.resources.getStringArray(R.array.key_rooms_array).forEach {
                 cards.add(
                     ItemModel(
-                        item = it
+                        item = it,
+                        itemHeaderType = ItemHeaderType.WHERE
                     )
                 )
             }
+        selectedItemModel?.let { itemModel ->
+            cards.firstOrNullWithType(
+                typeBlock = {
+                    it as? ItemModel
+                },
+                predicate = {
+                    it?.item == itemModel.item
+                }
+            )?.isSelected = true
+        }
         return cards
     }
 

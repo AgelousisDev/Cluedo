@@ -14,6 +14,8 @@ import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.databinding.RoomCreationDialogFragmentLayoutBinding
 import com.agelousis.cluedonotepad.roomCreationDialog.presenters.RoomCreationPresenter
 import com.agelousis.cluedonotepad.roomCreationDialog.presenters.RoomDialogDismissBlock
+import com.agelousis.cluedonotepad.splash.enumerations.GameType
+import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 import kotlinx.android.synthetic.main.room_creation_dialog_fragment_layout.*
 
 class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogDismissBlock): DialogFragment(), RoomCreationPresenter {
@@ -31,17 +33,31 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
 
     override fun onOffline() {
         dismiss()
-        roomDialogDismissBlock()
+        roomDialogDismissBlock(
+            GameTypeModel(
+                gameType = GameType.OFFLINE
+            )
+        )
     }
 
     override fun onRoomJoined() {
         dismiss()
-        roomDialogDismissBlock()
+        roomDialogDismissBlock(
+            GameTypeModel(
+                gameType = GameType.JOINED_ROOM,
+                channel = roomDialogField.text?.toString()
+            )
+        )
     }
 
     override fun onRoomCreation() {
         dismiss()
-        roomDialogDismissBlock()
+        roomDialogDismissBlock(
+            GameTypeModel(
+                gameType = GameType.ROOM_CREATION,
+                channel = roomDialogField.text?.toString()
+            )
+        )
     }
 
     private var roomButtonsState: Boolean = false

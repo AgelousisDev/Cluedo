@@ -152,9 +152,10 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             if (isPlayersAvailable())
                 RoomCreationDialogFragment.show(
                     supportFragmentManager = supportFragmentManager
-                ) {
+                ) { gameTypeModel ->
                     startActivity(with(Intent(this, NotePadActivity::class.java)) {
                         putParcelableArrayListExtra(NotePadActivity.CHARACTER_MODEL_LIST_EXTRA, characterViewModel?.characterArray)
+                        putExtra(NotePadActivity.GAME_TYPE_MODEL_EXTRA, gameTypeModel)
                         this
                     })
                 }

@@ -1,6 +1,8 @@
 package com.agelousis.cluedonotepad.roomCreationDialog.presenters
 
-typealias RoomDialogDismissBlock = () -> Unit
+import com.agelousis.cluedonotepad.splash.models.GameTypeModel
+
+typealias RoomDialogDismissBlock = (gameTypeModel: GameTypeModel) -> Unit
 interface RoomCreationPresenter {
     fun onOffline()
     fun onRoomCreation()

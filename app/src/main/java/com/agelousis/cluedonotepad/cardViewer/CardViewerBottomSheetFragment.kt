@@ -12,6 +12,7 @@ import com.agelousis.cluedonotepad.cardViewer.controller.CardViewerController
 import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
 import com.agelousis.cluedonotepad.cardViewer.models.ItemModel
 import com.agelousis.cluedonotepad.cardViewer.models.ItemTitleModel
+import com.agelousis.cluedonotepad.cardViewer.models.SelectedCardViewerModel
 import com.agelousis.cluedonotepad.cardViewer.presenters.ItemHeaderPresenter
 import com.agelousis.cluedonotepad.cardViewer.presenters.ItemPresenter
 import com.agelousis.cluedonotepad.cardViewer.presenters.PlayersPresenter
@@ -54,19 +55,22 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
             ItemHeaderType.WHO -> {
                 itemsList.addAll(CardViewerController.getCards(
                     context = context ?: return,
-                    withPlayers = !itemTitleModel.isExpanded
+                    withPlayers = !itemTitleModel.isExpanded,
+                    selectedItemModel = selectedCardViewerModel.itemModel
                 ))
             }
             ItemHeaderType.WHAT -> {
                 itemsList.addAll(CardViewerController.getCards(
                     context = context ?: return,
-                    withTools = !itemTitleModel.isExpanded
+                    withTools = !itemTitleModel.isExpanded,
+                    selectedItemModel = selectedCardViewerModel.itemModel
                 ))
             }
             ItemHeaderType.WHERE -> {
                 itemsList.addAll(CardViewerController.getCards(
                     context = context ?: return,
-                    withRooms = !itemTitleModel.isExpanded
+                    withRooms = !itemTitleModel.isExpanded,
+                    selectedItemModel = selectedCardViewerModel.itemModel
                 ))
             }
         }
@@ -84,6 +88,7 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         }
         (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected = (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected == false
         (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
+        selectedCardViewerModel.itemModel = itemsList.getOrNull(index = adapterPosition) as? ItemModel
     }
 
     private val characterModelList by lazy { arguments?.getParcelableArrayList<CharacterModel>(CHARACTER_MODEL_LIST_EXTRA) }
@@ -92,6 +97,7 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
             CardViewerController.getCards(context = it)
         } ?: arrayListOf()
     }
+    private val selectedCardViewerModel by lazy { SelectedCardViewerModel() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.card_viewer_dialog_fragment_layout, container, false)

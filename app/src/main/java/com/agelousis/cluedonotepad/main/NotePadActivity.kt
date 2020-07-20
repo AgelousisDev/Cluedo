@@ -12,6 +12,7 @@ import com.agelousis.cluedonotepad.main.controller.NotePadController
 import com.agelousis.cluedonotepad.main.timer.TimerHelper
 import com.agelousis.cluedonotepad.main.timer.TimerListener
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
+import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 import kotlinx.android.synthetic.main.activity_notepad.*
 
 class NotePadActivity : BaseAppCompatActivity(), TimerListener {
@@ -22,15 +23,16 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener {
 
     companion object {
         const val CHARACTER_MODEL_LIST_EXTRA = "NotePadActivity=characterModelListExtra"
+        const val GAME_TYPE_MODEL_EXTRA = "NotePadActivity=gameTypeModelExtra"
     }
 
     private val controller by lazy {
         NotePadController(context = this)
     }
-
     private val characterModelArray by lazy {
         intent?.extras?.getParcelableArrayList<CharacterModel>(CHARACTER_MODEL_LIST_EXTRA)
     }
+    private val gameTypeModel by lazy { intent?.extras?.getParcelable<GameTypeModel>(GAME_TYPE_MODEL_EXTRA) }
 
     override fun onBackPressed() {
         BasicDialog.show(supportFragmentManager = supportFragmentManager, dialogType = BasicDialogType(title = resources.getString(R.string.key_warning_label),

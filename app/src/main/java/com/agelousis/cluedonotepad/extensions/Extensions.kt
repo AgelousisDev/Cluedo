@@ -125,6 +125,14 @@ inline fun <T> Iterable<T>.forEachIfEach(predicate: (T) -> Boolean, action: (T) 
             action(element)
 }
 
+inline fun <T, J> Iterable<T>.firstOrNullWithType(typeBlock: (T) -> J?, predicate: (J?) -> Boolean): J? {
+    for (element in this) {
+        val typeBlock = typeBlock(element)
+        if (predicate(typeBlock))
+            return typeBlock(element)
+    }
+    return null
+}
 
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {

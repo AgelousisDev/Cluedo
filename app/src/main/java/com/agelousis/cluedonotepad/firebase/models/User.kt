@@ -1,9 +1,11 @@
 package com.agelousis.cluedonotepad.firebase.models
 
+import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class User(
-    val channelId: Int,
-    val device: String
+    val channel: String,
+    val device: String,
+    val character: Character
 )

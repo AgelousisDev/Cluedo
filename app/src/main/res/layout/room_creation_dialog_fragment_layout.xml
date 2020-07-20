@@ -83,11 +83,10 @@
                 android:fontFamily="@font/ubuntu_monospace"
                 android:text="@string/key_play_offline_label"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:onClick="@{() -> presenter.onOffline()}"
-                app:backgroundTint="@color/colorAccent"
                 app:cornerRadius="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
