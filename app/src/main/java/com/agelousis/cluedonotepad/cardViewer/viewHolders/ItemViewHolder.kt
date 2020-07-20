@@ -9,7 +9,9 @@ class ItemViewHolder(private val binding: ItemRowLayoutBinding): RecyclerView.Vi
 
     fun bind(itemModel: ItemModel, presenter: ItemPresenter) {
         binding.itemModel = itemModel
-        itemView.setOnClickListener { presenter.onItemSelected(adapterPosition = adapterPosition) }
+        binding.itemModelChip.setOnClickListener {
+            presenter.onItemSelected(adapterPosition = adapterPosition)
+        }
         binding.executePendingBindings()
     }
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.cardViewer.adapters.ItemsAdapter
 import com.agelousis.cluedonotepad.cardViewer.adapters.PlayersAdapter
@@ -121,6 +122,19 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
     }
 
     private fun configureItemsRecyclerView() {
+        itemsRecyclerView.layoutManager = GridLayoutManager(
+            context ?: return,
+            2
+        ).also {
+            it.spanSizeLookup = object: GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int) =
+                    when(itemsList.getOrNull(index = position)) {
+                        is ItemTitleModel -> 2
+                        is ItemModel -> 1
+                        else -> 2
+                    }
+            }
+        }
         itemsRecyclerView.adapter = ItemsAdapter(
             itemsList = itemsList,
             itemHeaderPresenter = this,
