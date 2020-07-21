@@ -1,5 +1,5 @@
 package com.agelousis.cluedonotepad.cardViewer.presenters
 
 interface PlayersPresenter {
-    fun onPlayerSelected(adapterPosition: Int)
+    fun onPlayerSelected(adapterPosition: Int, isSelected: Boolean)
 }

@@ -10,12 +10,14 @@ class PlayerViewHolder(private val binding: PlayerRowLayoutBinding): RecyclerVie
 
     fun bind(characterModel: CharacterModel, presenter: PlayersPresenter) {
         binding.characterModel = characterModel
+        binding.playersView.tag = binding.playersView.tag ?: false
         binding.playersView.setOnClickListener {
+            it.tag = !(it.tag as Boolean)
             presenter.onPlayerSelected(
-                adapterPosition = adapterPosition
+                adapterPosition = adapterPosition,
+                isSelected = it.tag as Boolean
             )
         }
-        binding.playersView.alpha = if (characterModel.playerIsSelected) 0.5f else 1.0f
         binding.executePendingBindings()
     }
 

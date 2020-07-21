@@ -45,11 +45,11 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         }
     }
 
-    override fun onPlayerSelected(adapterPosition: Int) {
+    override fun onPlayerSelected(adapterPosition: Int, isSelected: Boolean) {
         characterModelList?.forEach { it.playerIsSelected = false }
-        characterModelList?.getOrNull(index = adapterPosition)?.playerIsSelected = true
+        characterModelList?.getOrNull(index = adapterPosition)?.playerIsSelected = isSelected
         (playersRecyclerView.adapter as? PlayersAdapter)?.reloadData()
-        selectedCardViewerModel.user = (activity as? NotePadActivity)?.users?.firstOrNull { it.character == characterModelList?.getOrNull(index = adapterPosition)?.characterEnum }
+        selectedCardViewerModel.user = if (isSelected) (activity as? NotePadActivity)?.users?.firstOrNull { it.character == characterModelList?.getOrNull(index = adapterPosition)?.characterEnum } else null
         sendButtonState = selectedCardViewerModel.user != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
