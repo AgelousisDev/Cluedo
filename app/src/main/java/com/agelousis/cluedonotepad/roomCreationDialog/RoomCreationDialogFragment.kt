@@ -12,8 +12,12 @@ import androidx.fragment.app.FragmentManager
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.databinding.RoomCreationDialogFragmentLayoutBinding
+import com.agelousis.cluedonotepad.firebase.FirebaseInstanceHelper
+import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
+import com.agelousis.cluedonotepad.firebase.models.User
 import com.agelousis.cluedonotepad.roomCreationDialog.presenters.RoomCreationPresenter
 import com.agelousis.cluedonotepad.roomCreationDialog.presenters.RoomDialogDismissBlock
+import com.agelousis.cluedonotepad.splash.SplashActivity
 import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 import kotlinx.android.synthetic.main.room_creation_dialog_fragment_layout.*
@@ -42,6 +46,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
 
     override fun onRoomJoined() {
         dismiss()
+        pushUser()
         roomDialogDismissBlock(
             GameTypeModel(
                 gameType = GameType.JOINED_ROOM,
@@ -52,6 +57,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
 
     override fun onRoomCreation() {
         dismiss()
+        pushUser()
         roomDialogDismissBlock(
             GameTypeModel(
                 gameType = GameType.ROOM_CREATION,
@@ -97,6 +103,18 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
                 roomButtonsState = (p0?.length ?: 0) >= 6
             }
         })
+    }
+
+    private fun pushUser() {
+        FirebaseInstanceHelper.shared.initializeFirebaseToken {
+            RealTimeDatabaseHelper.shared.addUser(
+                user = User(
+                    channel = roomDialogField.text?.toString(),
+                    device = it,
+                    character = (activity as? SplashActivity)?.characterViewModel?.characterArray?.firstOrNull()?.characterEnum
+                )
+            )
+        }
     }
 
 }

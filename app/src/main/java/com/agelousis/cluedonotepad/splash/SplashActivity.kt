@@ -44,7 +44,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         getSharedPreferences(Constants.PREFERENCES_TAG, Context.MODE_PRIVATE)
     }
 
-    private var characterViewModel: CharacterViewModel? = null
+    var characterViewModel: CharacterViewModel? = null
         set(value) {
             field = value
             value?.addDefaultRow(CharacterModel(characterNameHint = resources.getString(R.string.key_your_name_hint)))

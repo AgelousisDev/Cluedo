@@ -19,6 +19,7 @@ import androidx.databinding.BindingAdapter
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.constants.IndexedLoopBlock
+import com.agelousis.cluedonotepad.custom.loader_dialog.LoaderDialog
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
@@ -127,12 +128,21 @@ inline fun <T> Iterable<T>.forEachIfEach(predicate: (T) -> Boolean, action: (T) 
 
 inline fun <T, J> Iterable<T>.firstOrNullWithType(typeBlock: (T) -> J?, predicate: (J?) -> Boolean): J? {
     for (element in this) {
-        val typeBlock = typeBlock(element)
-        if (predicate(typeBlock))
+        val block = typeBlock(element)
+        if (predicate(block))
             return typeBlock(element)
     }
     return null
 }
+fun AppCompatActivity.setLoaderState(state: Boolean) =
+    if (state)
+        LoaderDialog.show(
+            supportFragmentManager = supportFragmentManager
+        )
+    else
+        LoaderDialog.hide(
+            supportFragmentManager = supportFragmentManager
+        )
 
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {

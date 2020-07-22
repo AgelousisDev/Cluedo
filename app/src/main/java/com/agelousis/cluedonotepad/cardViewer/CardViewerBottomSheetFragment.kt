@@ -19,6 +19,8 @@ import com.agelousis.cluedonotepad.cardViewer.presenters.ItemPresenter
 import com.agelousis.cluedonotepad.cardViewer.presenters.PlayersPresenter
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.extensions.forEachIfEach
+import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageDataModel
+import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageModel
 import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.google.android.flexbox.AlignItems
@@ -117,8 +119,23 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupUI()
         configurePlayersRecyclerView()
         configureItemsRecyclerView()
+    }
+
+    private fun setupUI() {
+        sendButton.setOnClickListener {
+            (activity as? NotePadActivity)?.viewModel?.sendFirebaseToken(
+                firebaseMessageModel = FirebaseMessageModel(
+                    firebaseToken = selectedCardViewerModel.user?.device ?: return@setOnClickListener,
+                    firebaseMessageDataModel = FirebaseMessageDataModel(
+                        itemHeaderType = selectedCardViewerModel.itemHeaderType ?: return@setOnClickListener,
+                        itemModel = selectedCardViewerModel.itemModel ?: return@setOnClickListener
+                    )
+                )
+            )
+        }
     }
 
     private fun configurePlayersRecyclerView() {

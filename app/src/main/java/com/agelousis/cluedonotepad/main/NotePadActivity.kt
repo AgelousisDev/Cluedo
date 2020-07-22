@@ -1,18 +1,22 @@
 package com.agelousis.cluedonotepad.main
 
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.cardViewer.CardViewerBottomSheetFragment
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
+import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
 import com.agelousis.cluedonotepad.firebase.models.User
 import com.agelousis.cluedonotepad.main.adapters.RowAdapter
 import com.agelousis.cluedonotepad.main.controller.NotePadController
 import com.agelousis.cluedonotepad.main.timer.TimerHelper
 import com.agelousis.cluedonotepad.main.timer.TimerListener
+import com.agelousis.cluedonotepad.main.viewModel.NotePadViewModel
+import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 import kotlinx.android.synthetic.main.activity_notepad.*
@@ -28,6 +32,7 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener {
         const val GAME_TYPE_MODEL_EXTRA = "NotePadActivity=gameTypeModelExtra"
     }
 
+    val viewModel by lazy { ViewModelProvider(this).get(NotePadViewModel::class.java) }
     private val controller by lazy {
         NotePadController(context = this)
     }
@@ -50,7 +55,10 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener {
         setupToolbar()
         configureRecyclerView()
         configureTimer()
-        initializeUsers()
+        initializeGameRoom {
+            gameTypeModel?.gameType == GameType.ROOM_CREATION ||
+                    gameTypeModel?.gameType == GameType.JOINED_ROOM
+        }
     }
 
     private fun setupToolbar() {
@@ -82,11 +90,23 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener {
         TimerHelper(timerListener = this)
     }
 
-    private fun initializeUsers() =
-        RealTimeDatabaseHelper.shared.getUsers(
-            channel = gameTypeModel?.channel ?: ""
-        ) {
-            users.addAll(it)
+    private fun initializeGameRoom(predicate: () -> Boolean) {
+        if (predicate()) {
+            setLoaderState(
+                state = true
+            )
+            RealTimeDatabaseHelper.shared.getUsers(
+                channel = gameTypeModel?.channel ?: ""
+            ) {
+                setLoaderState(
+                    state = false
+                )
+                users.addAll(it)
+            }
+            cardViewerButton.show()
         }
+        else
+            cardViewerButton.hide()
+    }
 
 }

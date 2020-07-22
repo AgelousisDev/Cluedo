@@ -6,6 +6,7 @@ object Constants {
     const val BASIC_DIALOG_TAG = "BasicDialogTag"
     const val ROOM_DIALOG_TAG = "RoomDialogTag"
     const val PREFERENCES_TAG = "preferences"
+    const val LOADER_DIALOG_TAG = "LoaderDialog"
     const val DARK_MODE_VALUE = "dark_mode_value"
     const val LANGUAGE_PREFS_KEY = "language"
     const val STATS_SHEET_FRAGMENT = "StatsSheetFragment"
