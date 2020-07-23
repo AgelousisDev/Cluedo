@@ -21,21 +21,25 @@ class RealTimeDatabaseHelper {
     }
 
     fun getUsers(channel: String, usersSuccessBlock: UsersSuccessBlock) {
-        databaseReference.child(Constants.DATABASE_USERS_CHILD).addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {}
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val users = arrayListOf<User>()
-                snapshot.children.forEach { dataSnapShot ->
-                    dataSnapShot.getValue(User::class.java)?.let { user ->
-                        if (user.channel == channel)
+        databaseReference.child(Constants.DATABASE_USERS_CHILD).orderByChild(Constants.DATABASE_CHANNEL_FIELD).equalTo(channel)
+            .addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {}
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val users = arrayListOf<User>()
+                    snapshot.children.forEach { dataSnapShot ->
+                        dataSnapShot.getValue(User::class.java)?.let { user ->
                             users.add(user)
+                        }
                     }
+                    usersSuccessBlock(
+                        users
+                    )
                 }
-                usersSuccessBlock(
-                    users
-                )
-            }
         })
+    }
+
+    fun deleteChannel(channel: String) {
+        databaseReference.child(Constants.DATABASE_USERS_CHILD).orderByChild(Constants.DATABASE_CHANNEL_FIELD)
     }
 
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType" />
+        <variable
+            name="firebaseMessageDataModel"
+            type="com.agelousis.cluedonotepad.firebase.models.FirebaseMessageDataModel" />
+    </data>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/basic_dialog_background">
+
+    <LinearLayout
+        android:id="@+id/notificationDataDialogHeaderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/basic_dialog_header_background"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@{firebaseMessageDataModel.itemModel.item}"
+            tools:text="DR ORCHID"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/notificationDataDialogHeaderLayout">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            customDrawable="@{firebaseMessageDataModel.itemHeaderType == ItemHeaderType.WHO ? @drawable/ic_person : firebaseMessageDataModel.itemHeaderType == ItemHeaderType.WHAT ? @drawable/ic_tool : @drawable/ic_room}"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
+</layout>

@@ -11,6 +11,7 @@ object Constants {
     const val LANGUAGE_PREFS_KEY = "language"
     const val STATS_SHEET_FRAGMENT = "StatsSheetFragment"
     const val CARD_VIEWER_SHEET_FRAGMENT = "CardViewerSheetFragment"
+    const val NOTIFICATION_DATA_VIEWER_DIALOG_TAG = "NotificationDataViewerDialogFragment"
     const val RATE_VALUE = "rating"
     const val playStoreUrl = "https://play.google.com/store/apps/details?id=com.agelousis.cluedonotepad"
     const val ENGLISH_LANGUAGE_CODE = "en"
@@ -18,4 +19,6 @@ object Constants {
     const val DATABASE_USERS_CHILD = "Users"
     const val DATABASE_DEVICE_FIELD = "device"
     const val DATABASE_CHARACTER_FIELD = "character"
+    const val DATABASE_CHANNEL_FIELD = "channel"
+    const val SHOW_NOTIFICATION_INTENT_ACTION = "SHOW_NOTIFICATION"
 }

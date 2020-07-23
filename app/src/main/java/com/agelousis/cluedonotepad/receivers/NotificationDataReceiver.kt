@@ -8,7 +8,7 @@ import com.agelousis.cluedonotepad.receivers.interfaces.NotificationListener
 
 class NotificationDataReceiver: BroadcastReceiver() {
 
-    private var notificationListener: NotificationListener? = null
+    var notificationListener: NotificationListener? = null
 
     override fun onReceive(p0: Context?, p1: Intent?) {
         notificationListener?.onNotificationReceived(

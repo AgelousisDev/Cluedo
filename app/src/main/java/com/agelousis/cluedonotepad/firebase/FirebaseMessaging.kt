@@ -3,10 +3,12 @@ package com.agelousis.cluedonotepad.firebase
 import android.content.Intent
 import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
 import com.agelousis.cluedonotepad.cardViewer.models.ItemModel
+import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageDataModel
 import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.gson.Gson
 
 class FirebaseMessaging: FirebaseMessagingService() {
 
@@ -23,15 +25,10 @@ class FirebaseMessaging: FirebaseMessagingService() {
                     itemHeaderType = ItemHeaderType.valueOf(
                         value = p0.data["itemHeaderType"] ?: return@also
                     ),
-                    itemModel = ItemModel(
-                        item = p0.data["itemModel"] ?: return@also,
-                        itemHeaderType = ItemHeaderType.valueOf(
-                            value = p0.data["itemHeaderType"] ?: return@also
-                        )
-                    )
+                    itemModel = Gson().fromJson(p0.data["itemModel"], ItemModel::class.java)
                 )
                 )
-            intent.action = "SHOW_NOTIFICATION"
+            intent.action =Constants.SHOW_NOTIFICATION_INTENT_ACTION
             sendBroadcast(intent)
         }
     }

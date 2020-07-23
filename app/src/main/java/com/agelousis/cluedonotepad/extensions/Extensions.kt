@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
@@ -160,4 +161,9 @@ fun setBold(appCompatTextView: MaterialTextView, state: Boolean) {
 @BindingAdapter("customBackground")
 fun setCustomBackground(viewGroup: ViewGroup, drawableId: Int?) {
     drawableId?.let { viewGroup.setBackgroundResource(it) }
+}
+
+@BindingAdapter("customDrawable")
+fun setCustomDrawable(appCompatImageView: AppCompatImageView, drawable: Drawable?) {
+    drawable?.let { appCompatImageView.setImageDrawable(it) }
 }

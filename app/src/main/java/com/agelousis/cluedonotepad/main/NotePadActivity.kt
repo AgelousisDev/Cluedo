@@ -1,11 +1,13 @@
 package com.agelousis.cluedonotepad.main
 
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.cardViewer.CardViewerBottomSheetFragment
+import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.extensions.setLoaderState
@@ -17,6 +19,8 @@ import com.agelousis.cluedonotepad.main.controller.NotePadController
 import com.agelousis.cluedonotepad.main.timer.TimerHelper
 import com.agelousis.cluedonotepad.main.timer.TimerListener
 import com.agelousis.cluedonotepad.main.viewModel.NotePadViewModel
+import com.agelousis.cluedonotepad.notificationDataViewer.NotificationDataViewerDialogFragment
+import com.agelousis.cluedonotepad.receivers.NotificationDataReceiver
 import com.agelousis.cluedonotepad.receivers.interfaces.NotificationListener
 import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
@@ -35,9 +39,11 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         notepadTimer.text = time
     }
 
-    override fun onNotificationReceived(firebaseMessageDataModel: FirebaseMessageDataModel) {
-
-    }
+    override fun onNotificationReceived(firebaseMessageDataModel: FirebaseMessageDataModel) =
+        NotificationDataViewerDialogFragment.show(
+            supportFragmentManager = supportFragmentManager,
+            firebaseMessageDataModel = firebaseMessageDataModel
+        )
 
     val viewModel by lazy { ViewModelProvider(this).get(NotePadViewModel::class.java) }
     private val controller by lazy {
@@ -48,6 +54,10 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
     }
     private val gameTypeModel by lazy { intent?.extras?.getParcelable<GameTypeModel>(GAME_TYPE_MODEL_EXTRA) }
     val users by lazy { arrayListOf<User>() }
+    private val notificationDataReceiver by lazy { NotificationDataReceiver().also {
+        it.notificationListener = this
+    } }
+    private val notificationIntentFilter by lazy { IntentFilter(Constants.SHOW_NOTIFICATION_INTENT_ACTION) }
 
     override fun onBackPressed() {
         BasicDialog.show(supportFragmentManager = supportFragmentManager, dialogType = BasicDialogType(title = resources.getString(R.string.key_warning_label),
@@ -66,6 +76,21 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
             gameTypeModel?.gameType == GameType.ROOM_CREATION ||
                     gameTypeModel?.gameType == GameType.JOINED_ROOM
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(
+            notificationDataReceiver,
+            notificationIntentFilter
+        )
+    }
+
+    override fun onPause() {
+        unregisterReceiver(
+            notificationDataReceiver
+        )
+        super.onPause()
     }
 
     private fun setupToolbar() {
