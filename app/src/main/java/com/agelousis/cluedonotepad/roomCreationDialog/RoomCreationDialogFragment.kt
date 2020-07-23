@@ -44,27 +44,11 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
         )
     }
 
-    override fun onRoomJoined() {
-        dismiss()
-        pushUser()
-        roomDialogDismissBlock(
-            GameTypeModel(
-                gameType = GameType.JOINED_ROOM,
-                channel = roomDialogField.text?.toString()
-            )
-        )
-    }
+    override fun onRoomJoined() =
+        pushUser(gameType = GameType.JOINED_ROOM)
 
-    override fun onRoomCreation() {
-        dismiss()
-        pushUser()
-        roomDialogDismissBlock(
-            GameTypeModel(
-                gameType = GameType.ROOM_CREATION,
-                channel = roomDialogField.text?.toString()
-            )
-        )
-    }
+    override fun onRoomCreation() =
+        pushUser(gameType = GameType.ROOM_CREATION)
 
     private var roomButtonsState: Boolean = false
         set(value) {
@@ -105,13 +89,20 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
         })
     }
 
-    private fun pushUser() {
+    private fun pushUser(gameType: GameType) {
         FirebaseInstanceHelper.shared.initializeFirebaseToken {
             RealTimeDatabaseHelper.shared.addUser(
                 user = User(
                     channel = roomDialogField.text?.toString(),
                     device = it,
                     character = (activity as? SplashActivity)?.characterViewModel?.characterArray?.firstOrNull()?.characterEnum
+                )
+            )
+            dismiss()
+            roomDialogDismissBlock(
+                GameTypeModel(
+                    gameType = gameType,
+                    channel = roomDialogField.text?.toString()
                 )
             )
         }

@@ -10,26 +10,33 @@ import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
+import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageDataModel
 import com.agelousis.cluedonotepad.firebase.models.User
 import com.agelousis.cluedonotepad.main.adapters.RowAdapter
 import com.agelousis.cluedonotepad.main.controller.NotePadController
 import com.agelousis.cluedonotepad.main.timer.TimerHelper
 import com.agelousis.cluedonotepad.main.timer.TimerListener
 import com.agelousis.cluedonotepad.main.viewModel.NotePadViewModel
+import com.agelousis.cluedonotepad.receivers.interfaces.NotificationListener
 import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 import kotlinx.android.synthetic.main.activity_notepad.*
 
-class NotePadActivity : BaseAppCompatActivity(), TimerListener {
+class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationListener {
+
+    companion object {
+        const val CHARACTER_MODEL_LIST_EXTRA = "NotePadActivity=characterModelListExtra"
+        const val GAME_TYPE_MODEL_EXTRA = "NotePadActivity=gameTypeModelExtra"
+        const val NOTIFICATION_DATA_MODEL_EXTRA = "NotePadActivity=notificationDataModelExtra"
+    }
 
     override fun onTimeUpdate(time: String) {
         notepadTimer.text = time
     }
 
-    companion object {
-        const val CHARACTER_MODEL_LIST_EXTRA = "NotePadActivity=characterModelListExtra"
-        const val GAME_TYPE_MODEL_EXTRA = "NotePadActivity=gameTypeModelExtra"
+    override fun onNotificationReceived(firebaseMessageDataModel: FirebaseMessageDataModel) {
+
     }
 
     val viewModel by lazy { ViewModelProvider(this).get(NotePadViewModel::class.java) }
