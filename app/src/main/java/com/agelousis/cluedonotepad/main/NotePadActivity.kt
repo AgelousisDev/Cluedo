@@ -95,6 +95,7 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
 
     private fun setupToolbar() {
         setSupportActionBar(bottomAppBar)
+        bottomAppBarTitle.text = gameTypeModel?.channel ?: resources.getString(R.string.app_name)
         bottomAppBar.setNavigationOnClickListener { onBackPressed() }
         cardViewerButton.setOnClickListener {
             CardViewerBottomSheetFragment.show(
@@ -107,7 +108,6 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
     private fun configureRecyclerView() {
         notepadRowRecyclerView.adapter = RowAdapter(rowDataModelList = controller.getCluedoList(characterModelList = characterModelArray ?: return))
         notepadRowRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1))
@@ -128,7 +128,7 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
                 state = true
             )
             RealTimeDatabaseHelper.shared.getUsers(
-                channel = gameTypeModel?.channel ?: ""
+                channel = gameTypeModel?.channel ?: return
             ) {
                 setLoaderState(
                     state = false

@@ -44,6 +44,7 @@
         app:elevation="32dp">
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bottomAppBarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubuntu_regular"

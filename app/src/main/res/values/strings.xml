@@ -27,6 +27,7 @@
     <string name="key_join_room_label">Συμμετοχή σε δωμάτιο</string>
     <string name="key_create_room_label">Δημιουργία Δωματίου</string>
     <string name="key_send_label">Αποστολή</string>
+    <string name="key_create_random_room_label">Δημιουργία Τυχαίου</string>
 
     <string-array name="key_characters_array">
         <item>Φλόγα</item>

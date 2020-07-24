@@ -27,6 +27,7 @@ import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
 import com.agelousis.cluedonotepad.splash.presenters.CharacterPresenter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
+import java.util.*
 
 fun Context.showCharacterOptions(title: String, adapterPosition: Int, characterPresenter: CharacterPresenter) {
     BasicDialog.show(supportFragmentManager = (this as AppCompatActivity).supportFragmentManager, dialogType =
@@ -144,6 +145,18 @@ fun AppCompatActivity.setLoaderState(state: Boolean) =
         LoaderDialog.hide(
             supportFragmentManager = supportFragmentManager
         )
+
+val Int.generatedRandomString: String
+    get() {
+        val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~>?<:{}|:>"
+        val salt = StringBuilder()
+        val rnd = Random()
+        while(salt.length < this) {
+            val index: Int = (rnd.nextFloat() * chars.length).toInt()
+            salt.append(chars[index])
+        }
+        return salt.toString()
+    }
 
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {

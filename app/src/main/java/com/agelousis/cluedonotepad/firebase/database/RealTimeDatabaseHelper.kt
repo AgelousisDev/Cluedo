@@ -38,8 +38,4 @@ class RealTimeDatabaseHelper {
         })
     }
 
-    fun deleteChannel(channel: String) {
-        databaseReference.child(Constants.DATABASE_USERS_CHILD).orderByChild(Constants.DATABASE_CHANNEL_FIELD)
-    }
-
 }

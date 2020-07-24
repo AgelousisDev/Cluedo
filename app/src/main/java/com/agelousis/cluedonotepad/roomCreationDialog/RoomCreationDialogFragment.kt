@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.databinding.RoomCreationDialogFragmentLayoutBinding
+import com.agelousis.cluedonotepad.extensions.generatedRandomString
 import com.agelousis.cluedonotepad.firebase.FirebaseInstanceHelper
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
 import com.agelousis.cluedonotepad.firebase.models.User
@@ -34,6 +35,8 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
             }.show(supportFragmentManager, Constants.ROOM_DIALOG_TAG)
         }
     }
+
+    override fun onRoomGeneration() = roomDialogField.setText(9.generatedRandomString)
 
     override fun onOffline() {
         dismiss()

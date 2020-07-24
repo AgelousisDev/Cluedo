@@ -27,6 +27,7 @@
     <string name="key_join_room_label">Join Room</string>
     <string name="key_create_room_label">Create Room</string>
     <string name="key_send_label">Send</string>
+    <string name="key_create_random_room_label">Generate</string>
 
     <string-array name="key_characters_array">
         <item>Miss Scarlett</item>
