@@ -102,7 +102,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
     private fun checkInternetConnection() {
         uiScope.launch {
             ConnectionHelper.icConnectionAvailable {
-                roomGenerationButton.isEnabled = it
+                roomGenerationButton?.isEnabled = it
             }
         }
     }

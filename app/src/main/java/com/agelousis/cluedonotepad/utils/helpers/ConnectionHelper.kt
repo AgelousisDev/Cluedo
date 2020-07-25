@@ -16,7 +16,7 @@ object ConnectionHelper {
                     setRequestProperty("User-Agent", "Test")
                     setRequestProperty("Connection", "close")
                     doInput = true
-                    connectTimeout = 10000
+                    connectTimeout = 1000
                     connect()
                     val responseCode = responseCode
                     withContext(Dispatchers.Main) {

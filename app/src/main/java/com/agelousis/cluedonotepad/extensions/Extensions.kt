@@ -159,6 +159,8 @@ val Int.generatedRandomString: String
         return salt.toString()
     }
 
+fun Context.openPlayStore() = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.GOOGLE_PLAY_STORE_URL)))
+
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {
     drawableId?.let {
