@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#ED1C24</color>
@@ -13,6 +13,6 @@
     <color name="grey">#FFFFFF</color>
     <color name="lightGrey">#252525</color>
 
-    <color name="selectedPlayerColor">#808080</color>
+    <color name="selectedPlayerColor">#FFFFFF</color>
 
 </resources>

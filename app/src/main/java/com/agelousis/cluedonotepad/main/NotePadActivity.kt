@@ -62,6 +62,10 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
     override fun onBackPressed() {
         BasicDialog.show(supportFragmentManager = supportFragmentManager, dialogType = BasicDialogType(title = resources.getString(R.string.key_warning_label),
         text = resources.getString(R.string.key_discard_message), basicDialogButtonBlock = {
+              removeChannel {
+                  gameTypeModel?.gameType == GameType.ROOM_CREATION ||
+                          gameTypeModel?.gameType == GameType.JOINED_ROOM
+              }
               super.onBackPressed()
             }))
     }
@@ -139,6 +143,13 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         }
         else
             cardViewerButton.hide()
+    }
+
+    private fun removeChannel(predicate: () -> Boolean) {
+        if (predicate())
+            RealTimeDatabaseHelper.shared.deleteChannel(
+                channel = gameTypeModel?.channel ?: return
+            )
     }
 
 }
