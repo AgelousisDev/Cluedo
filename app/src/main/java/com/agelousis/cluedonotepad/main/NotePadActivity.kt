@@ -9,6 +9,7 @@ import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.cardViewer.CardViewerBottomSheetFragment
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.dialog.BasicDialog
+import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
@@ -127,20 +128,8 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
     }
 
     private fun initializeGameRoom(predicate: () -> Boolean) {
-        if (predicate()) {
-            setLoaderState(
-                state = true
-            )
-            RealTimeDatabaseHelper.shared.getUsers(
-                channel = gameTypeModel?.channel ?: return
-            ) {
-                setLoaderState(
-                    state = false
-                )
-                users.addAll(it)
-            }
+        if (predicate())
             cardViewerButton.show()
-        }
         else
             cardViewerButton.hide()
     }
@@ -150,6 +139,25 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
             RealTimeDatabaseHelper.shared.deleteChannel(
                 channel = gameTypeModel?.channel ?: return
             )
+    }
+
+    fun initializeUser(character: Character, block: (user: User) -> Unit) {
+        if (users.isNotEmpty())
+            block(users.firstOrNull { user -> user.character == character } ?: return)
+        else {
+            setLoaderState(
+                state = true
+            )
+            RealTimeDatabaseHelper.shared.getUsers(
+                channel = gameTypeModel?.channel ?: return
+            ) inner@ {
+                setLoaderState(
+                    state = false
+                )
+                users.addAll(it)
+                block(users.firstOrNull { user -> user.character == character } ?: return@inner)
+            }
+        }
     }
 
 }

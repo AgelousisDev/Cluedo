@@ -29,9 +29,10 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/characterRowTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:gravity="center"
         app:fontFamily="@font/ubuntu_monospace"
         android:textStyle="bold"
         android:text="@{characterModel.characterName}"

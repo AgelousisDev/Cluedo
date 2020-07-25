@@ -22,7 +22,7 @@
     <string name="key_language_label">Language</string>
     <string name="key_cancel_label">Cancel</string>
     <string name="key_cluedo_room_label">Cluedo Room</string>
-    <string name="key_room_field_hint">Room (6 characters minimum)</string>
+    <string name="key_room_field_hint">Room ID</string>
     <string name="key_play_offline_label">Play Offline</string>
     <string name="key_join_room_label">Join Room</string>
     <string name="key_create_room_label">Create Room</string>

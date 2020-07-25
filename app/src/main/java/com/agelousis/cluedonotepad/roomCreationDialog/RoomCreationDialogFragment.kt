@@ -21,7 +21,11 @@ import com.agelousis.cluedonotepad.roomCreationDialog.presenters.RoomDialogDismi
 import com.agelousis.cluedonotepad.splash.SplashActivity
 import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
+import com.agelousis.cluedonotepad.utils.helpers.ConnectionHelper
 import kotlinx.android.synthetic.main.room_creation_dialog_fragment_layout.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogDismissBlock): DialogFragment(), RoomCreationPresenter {
 
@@ -53,6 +57,8 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
     override fun onRoomCreation() =
         pushUser(gameType = GameType.ROOM_CREATION)
 
+    private val uiScope = CoroutineScope(Dispatchers.Main)
+
     private var roomButtonsState: Boolean = false
         set(value) {
             field = value
@@ -76,6 +82,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
+        checkInternetConnection()
     }
 
     private fun setupUI() {
@@ -90,6 +97,14 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
                 roomButtonsState = (p0?.length ?: 0) >= 6
             }
         })
+    }
+
+    private fun checkInternetConnection() {
+        uiScope.launch {
+            ConnectionHelper.icConnectionAvailable {
+                roomGenerationButton.isEnabled = it
+            }
+        }
     }
 
     private fun pushUser(gameType: GameType) {

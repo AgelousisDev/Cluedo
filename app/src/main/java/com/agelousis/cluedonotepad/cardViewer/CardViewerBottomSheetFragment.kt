@@ -1,5 +1,6 @@
 package com.agelousis.cluedonotepad.cardViewer
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,8 +52,8 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         characterModelList?.forEach { it.playerIsSelected = false }
         characterModelList?.getOrNull(index = adapterPosition)?.playerIsSelected = isSelected
         (playersRecyclerView.adapter as? PlayersAdapter)?.reloadData()
-        selectedCardViewerModel.user = if (isSelected) (activity as? NotePadActivity)?.users?.firstOrNull { it.character == characterModelList?.getOrNull(index = adapterPosition)?.characterEnum } else null
-        sendButtonState = selectedCardViewerModel.user != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
+        selectedCardViewerModel.characterModel = if (isSelected) characterModelList?.getOrNull(index = adapterPosition) else null
+        sendButtonState = selectedCardViewerModel.characterModel != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
     override fun onItemHeaderSelected(itemTitleModel: ItemTitleModel) {
@@ -83,7 +84,7 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         itemsRecyclerView.scheduleLayoutAnimation()
         (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
         selectedCardViewerModel.itemHeaderType = itemTitleModel.itemHeaderType
-        sendButtonState = selectedCardViewerModel.user != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
+        sendButtonState = selectedCardViewerModel.characterModel != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
     override fun onItemSelected(adapterPosition: Int) {
@@ -97,7 +98,7 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected = (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected == false
         (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
         selectedCardViewerModel.itemModel = itemsList.getOrNull(index = adapterPosition) as? ItemModel
-        sendButtonState = selectedCardViewerModel.user != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
+        sendButtonState = selectedCardViewerModel.characterModel != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
     private val characterModelList by lazy { arguments?.getParcelableArrayList<CharacterModel>(CHARACTER_MODEL_LIST_EXTRA) }
@@ -126,15 +127,19 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
 
     private fun setupUI() {
         sendButton.setOnClickListener {
-            (activity as? NotePadActivity)?.viewModel?.sendFirebaseToken(
-                firebaseMessageModel = FirebaseMessageModel(
-                    firebaseToken = selectedCardViewerModel.user?.device ?: return@setOnClickListener,
-                    firebaseMessageDataModel = FirebaseMessageDataModel(
-                        itemHeaderType = selectedCardViewerModel.itemHeaderType ?: return@setOnClickListener,
-                        itemModel = selectedCardViewerModel.itemModel ?: return@setOnClickListener
+            (activity as? NotePadActivity)?.initializeUser(
+                character = selectedCardViewerModel.characterModel?.characterEnum ?: return@setOnClickListener
+            ) inner@ { user ->
+                (activity as? NotePadActivity)?.viewModel?.sendFirebaseToken(
+                    firebaseMessageModel = FirebaseMessageModel(
+                        firebaseToken = user.device ?: return@inner,
+                        firebaseMessageDataModel = FirebaseMessageDataModel(
+                            itemHeaderType = selectedCardViewerModel.itemHeaderType ?: return@inner,
+                            itemModel = selectedCardViewerModel.itemModel ?: return@inner
+                        )
                     )
                 )
-            )
+            }
         }
     }
 
@@ -171,9 +176,9 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         )
     }
 
-    override fun dismiss() {
+    override fun onCancel(dialog: DialogInterface) {
         characterModelList?.forEach { it.playerIsSelected = false }
-        super.dismiss()
+        super.onCancel(dialog)
     }
 
 }

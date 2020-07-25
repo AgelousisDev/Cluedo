@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="presenter"
             type="com.agelousis.cluedonotepad.roomCreationDialog.presenters.RoomCreationPresenter" />
     </data>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/basic_dialog_background">
@@ -69,10 +70,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/roomGenerationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+            android:layout_marginBottom="@dimen/nav_header_vertical_spacing"
+            android:layout_gravity="center_horizontal"
             android:textAllCaps="false"
             android:fontFamily="@font/ubuntu_regular"
             android:textColor="@color/colorAccent"
@@ -94,22 +97,22 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/roomDialogOfflineButton"
-                android:layout_width="150dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_monospace"
+                android:onClick="@{() -> presenter.onOffline()}"
                 android:text="@string/key_play_offline_label"
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:onClick="@{() -> presenter.onOffline()}"
                 app:cornerRadius="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/roomDialogJoinButton"
-                android:layout_width="150dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_monospace"
                 android:text="@string/key_join_room_label"
@@ -123,11 +126,11 @@
                 app:backgroundTint="@color/colorAccent"
                 app:cornerRadius="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/roomDialogOfflineButton" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/roomDialogCreationButton"
-                android:layout_width="150dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_monospace"
                 android:text="@string/key_create_room_label"

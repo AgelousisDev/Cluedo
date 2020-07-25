@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.agelousis.cluedonotepad">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -27,7 +29,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        <receiver android:name=".receivers.NotificationDataReceiver">
+        <receiver android:name=".receivers.NotificationDataReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="SHOW_NOTIFICATION" />
             </intent-filter>

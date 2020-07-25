@@ -22,7 +22,7 @@
     <string name="key_language_label">Γλώσσα</string>
     <string name="key_cancel_label">Ακύρωση</string>
     <string name="key_cluedo_room_label">Cluedo Δωμάτιο</string>
-    <string name="key_room_field_hint">Δωμάτιο (6 χαρακτήρες το λιγότερο)</string>
+    <string name="key_room_field_hint">ID Δωματίου</string>
     <string name="key_play_offline_label">Εκτός Σύνδεσης</string>
     <string name="key_join_room_label">Συμμετοχή σε δωμάτιο</string>
     <string name="key_create_room_label">Δημιουργία Δωματίου</string>
