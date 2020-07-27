@@ -3,8 +3,8 @@
     android:shape="rectangle">
 
     <gradient
-        android:startColor="@color/colorPrimary"
-        android:centerColor="@color/colorPrimary"
+        android:startColor="@android:color/transparent"
+        android:centerColor="@android:color/transparent"
         android:endColor="@color/selectedPlayerColor"
         android:type="radial"
         android:gradientRadius="65dp"

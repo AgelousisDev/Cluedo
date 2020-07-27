@@ -11,9 +11,7 @@ import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
-import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
 import com.agelousis.cluedonotepad.extensions.makeSoundNotification
-import com.agelousis.cluedonotepad.extensions.openPlayStore
 import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
 import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageDataModel
@@ -86,7 +84,6 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
             gameTypeModel?.gameType == GameType.ROOM_CREATION ||
                     gameTypeModel?.gameType == GameType.JOINED_ROOM
         }
-        initializeRateDialog()
     }
 
     override fun onResume() {
@@ -145,20 +142,6 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
             RealTimeDatabaseHelper.shared.deleteChannel(
                 channel = gameTypeModel?.channel ?: return
             )
-    }
-
-    private fun initializeRateDialog() {
-        BasicDialog.show(
-            supportFragmentManager = supportFragmentManager,
-            dialogType = BasicDialogType(
-                basicDialogTypeEnum = BasicDialogTypeEnum.INFORMATION,
-                title = resources.getString(R.string.key_rate_label),
-                text = resources.getString(R.string.key_rate_app_message),
-                basicDialogButtonBlock = {
-                    openPlayStore()
-                }
-            )
-        )
     }
 
     fun initializeUser(character: Character, block: (user: User) -> Unit) {

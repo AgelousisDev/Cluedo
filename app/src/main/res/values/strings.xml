@@ -28,7 +28,6 @@
     <string name="key_create_room_label">Δημιουργία Δωματίου</string>
     <string name="key_send_label">Αποστολή</string>
     <string name="key_create_random_room_label">Δημιουργία Τυχαίου</string>
-    <string name="key_rate_app_message">Θέλετε να βαθμολογήσετε την εφαρμογή μας? Μετάβαση στο Play Store…</string>
     <string name="key_room_not_exists_message">Το δωμάτιο που καταχωρήσατε δεν υπάρχει. Δοκιμάστε διαφορετικό…</string>
 
     <string-array name="key_characters_array">

@@ -19,13 +19,13 @@ class RealTimeDatabaseHelper {
     }
 
     fun getUsers(channel: String, usersSuccessBlock: UsersSuccessBlock) {
-        databaseReference.child(Constants.DATABASE_USERS_CHILD).orderByChild(Constants.DATABASE_CHANNEL_FIELD).equalTo(channel)
+        databaseReference.child(Constants.DATABASE_USERS_CHILD)
             .addListenerForSingleValueEvent(object: ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {}
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val users = snapshot.children.mapNotNull { it.getValue(User::class.java) }
                     usersSuccessBlock(
-                        users
+                        users.filter { it.channel == channel }
                     )
                 }
         })

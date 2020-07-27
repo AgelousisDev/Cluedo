@@ -150,7 +150,7 @@ fun AppCompatActivity.setLoaderState(state: Boolean) =
 
 val Int.generatedRandomString: String
     get() {
-        val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~>?<:{}|:>"
+        val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqstuvwxyz0123456789?!@#$%&*"
         val salt = StringBuilder()
         val rnd = Random()
         while(salt.length < this) {
@@ -159,8 +159,6 @@ val Int.generatedRandomString: String
         }
         return salt.toString()
     }
-
-fun Context.openPlayStore() = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.GOOGLE_PLAY_STORE_URL)))
 
 fun Context.makeSoundNotification() {
     try {

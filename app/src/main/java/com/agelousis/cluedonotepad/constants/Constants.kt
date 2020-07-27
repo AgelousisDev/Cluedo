@@ -19,5 +19,4 @@ object Constants {
     const val DATABASE_USERS_CHILD = "Users"
     const val DATABASE_CHANNEL_FIELD = "channel"
     const val SHOW_NOTIFICATION_INTENT_ACTION = "SHOW_NOTIFICATION"
-    const val GOOGLE_PLAY_STORE_URL = "market://details?id=com.agelousis.cluedonotepad"
 }
