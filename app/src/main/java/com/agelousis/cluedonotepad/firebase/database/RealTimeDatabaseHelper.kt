@@ -5,6 +5,7 @@ import com.agelousis.cluedonotepad.firebase.models.User
 import com.google.firebase.database.*
 
 typealias UsersSuccessBlock = (List<User>) -> Unit
+typealias SearchBlock = (isAvailable: Boolean) -> Unit
 class RealTimeDatabaseHelper {
 
     companion object {
@@ -22,12 +23,7 @@ class RealTimeDatabaseHelper {
             .addListenerForSingleValueEvent(object: ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {}
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val users = arrayListOf<User>()
-                    snapshot.children.forEach { dataSnapShot ->
-                        dataSnapShot.getValue(User::class.java)?.let { user ->
-                            users.add(user)
-                        }
-                    }
+                    val users = snapshot.children.mapNotNull { it.getValue(User::class.java) }
                     usersSuccessBlock(
                         users
                     )
@@ -44,6 +40,17 @@ class RealTimeDatabaseHelper {
                 override fun onChildRemoved(snapshot: DataSnapshot) {}
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     snapshot.ref.removeValue()
+                }
+            })
+    }
+
+    fun searchChannel(channel: String, searchBlock: SearchBlock) {
+        databaseReference.child(Constants.DATABASE_USERS_CHILD)
+            .addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {}
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val users = snapshot.children.mapNotNull { it.getValue(User::class.java) }
+                    searchBlock(users.any { it.channel == channel })
                 }
             })
     }

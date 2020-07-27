@@ -30,6 +30,7 @@
     <string name="key_send_label">Send</string>
     <string name="key_create_random_room_label">Generate</string>
     <string name="key_rate_app_message">Do you want to rate our APP? Redirecting on Play Store…</string>
+    <string name="key_room_not_exists_message">Room ID doesn\'t exist. Enter another…</string>
 
     <string-array name="key_characters_array">
         <item>Miss Scarlett</item>

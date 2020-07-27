@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.databinding.RoomCreationDialogFragmentLayoutBinding
 import com.agelousis.cluedonotepad.extensions.generatedRandomString
+import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.FirebaseInstanceHelper
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
 import com.agelousis.cluedonotepad.firebase.models.User
@@ -52,7 +54,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
     }
 
     override fun onRoomJoined() =
-        pushUser(gameType = GameType.JOINED_ROOM)
+        checkRoomAvailability()
 
     override fun onRoomCreation() =
         pushUser(gameType = GameType.ROOM_CREATION)
@@ -123,6 +125,25 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
                     channel = roomDialogField.text?.toString()
                 )
             )
+        }
+    }
+
+    private fun checkRoomAvailability() {
+        (activity as? SplashActivity)?.setLoaderState(
+            state = true
+        )
+        RealTimeDatabaseHelper.shared.searchChannel(
+            channel = roomDialogField.text?.toString() ?: return
+        ) { isAvailable ->
+            (activity as? SplashActivity)?.setLoaderState(
+                state = false
+            )
+            if (isAvailable)
+                pushUser(
+                    gameType = GameType.JOINED_ROOM
+                )
+            else
+                Toast.makeText(context, resources.getString(R.string.key_room_not_exists_message), Toast.LENGTH_SHORT).show()
         }
     }
 
