@@ -8,8 +8,7 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
+import android.media.RingtoneManager
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
@@ -163,6 +162,14 @@ val Int.generatedRandomString: String
 
 fun Context.openPlayStore() = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.GOOGLE_PLAY_STORE_URL)))
 
+fun Context.makeSoundNotification() {
+    try {
+        val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val ringtone = RingtoneManager.getRingtone(this, notification)
+        ringtone.play()
+    } catch (e: Exception) {}
+}
+
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {
     drawableId?.let {
@@ -181,11 +188,6 @@ fun setCustomBackground(viewGroup: ViewGroup, drawableId: Int?) {
     drawableId?.let { viewGroup.setBackgroundResource(it) }
 }
 
-@BindingAdapter("customDrawable")
-fun setCustomDrawable(appCompatImageView: AppCompatImageView, drawable: Drawable?) {
-    drawable?.let { appCompatImageView.setImageDrawable(it) }
-}
-
 @BindingAdapter("itemModel")
 fun setItemModel(materialTextView: MaterialTextView, itemModel: ItemModel?) {
     itemModel?.let {
@@ -200,10 +202,12 @@ fun setItemModel(materialTextView: MaterialTextView, itemModel: ItemModel?) {
 @BindingAdapter("itemModel")
 fun setItemModel(appCompatImageView: AppCompatImageView, itemModel: ItemModel?) {
     itemModel?.let {
-        appCompatImageView.setImageResource(when(it.itemHeaderType) {
-            ItemHeaderType.WHO -> appCompatImageView.context.resources.getIntArray(R.array.key_character_icons_array).getOrNull(index = it.itemPosition) ?: 0
-            ItemHeaderType.WHAT -> appCompatImageView.context.resources.getIntArray(R.array.key_tool_icons_array).getOrNull(index = it.itemPosition) ?: 0
-            ItemHeaderType.WHERE -> appCompatImageView.context.resources.getIntArray(R.array.key_room_icons_array).getOrNull(index = it.itemPosition) ?: 0
-        })
+        val arrayOfIcons = when(it.itemHeaderType) {
+            ItemHeaderType.WHO -> appCompatImageView.context.resources.obtainTypedArray(R.array.key_character_icons_array)
+            ItemHeaderType.WHAT -> appCompatImageView.context.resources.obtainTypedArray(R.array.key_tool_icons_array)
+            ItemHeaderType.WHERE -> appCompatImageView.context.resources.obtainTypedArray(R.array.key_room_icons_array)
+        }
+        appCompatImageView.setImageResource(arrayOfIcons.getResourceId(it.itemPosition, -1))
+        arrayOfIcons.recycle()
     }
 }

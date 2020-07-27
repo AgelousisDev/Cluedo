@@ -29,8 +29,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/notificationDataImageView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 tools:srcCompat="@drawable/ic_candlestick"
                 itemModel="@{firebaseMessageDataModel.itemModel}" />
 

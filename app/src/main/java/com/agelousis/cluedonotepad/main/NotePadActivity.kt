@@ -12,6 +12,7 @@ import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
+import com.agelousis.cluedonotepad.extensions.makeSoundNotification
 import com.agelousis.cluedonotepad.extensions.openPlayStore
 import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
@@ -42,11 +43,13 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         notepadTimer.text = time
     }
 
-    override fun onNotificationReceived(firebaseMessageDataModel: FirebaseMessageDataModel) =
+    override fun onNotificationReceived(firebaseMessageDataModel: FirebaseMessageDataModel) {
+        makeSoundNotification()
         NotificationDataViewerDialogFragment.show(
             supportFragmentManager = supportFragmentManager,
             firebaseMessageDataModel = firebaseMessageDataModel
         )
+    }
 
     val viewModel by lazy { ViewModelProvider(this).get(NotePadViewModel::class.java) }
     private val controller by lazy {
