@@ -19,10 +19,11 @@ object CardViewerController {
             isExpanded = withPlayers
         ))
         if (withPlayers)
-            context.resources.getStringArray(R.array.key_characters_array).forEach {
+            context.resources.getStringArray(R.array.key_characters_array).forEachIndexed { index, value ->
                 cards.add(
                     ItemModel(
-                        item = it,
+                        item = value,
+                        itemPosition = index,
                         itemHeaderType = ItemHeaderType.WHO
                     )
                 )
@@ -34,10 +35,11 @@ object CardViewerController {
             isExpanded = withTools
         ))
         if (withTools)
-            context.resources.getStringArray(R.array.key_tools_array).forEach {
+            context.resources.getStringArray(R.array.key_tools_array).forEachIndexed { index, value ->
                 cards.add(
                     ItemModel(
-                        item = it,
+                        item = value,
+                        itemPosition = index,
                         itemHeaderType = ItemHeaderType.WHAT
                     )
                 )
@@ -49,10 +51,11 @@ object CardViewerController {
             isExpanded = withRooms
         ))
         if (withRooms)
-            context.resources.getStringArray(R.array.key_rooms_array).forEach {
+            context.resources.getStringArray(R.array.key_rooms_array).forEachIndexed { index, value ->
                 cards.add(
                     ItemModel(
-                        item = it,
+                        item = value,
+                        itemPosition = index,
                         itemHeaderType = ItemHeaderType.WHERE
                     )
                 )

@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.agelousis.cluedonotepad.R
+import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
+import com.agelousis.cluedonotepad.cardViewer.models.ItemModel
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.constants.IndexedLoopBlock
 import com.agelousis.cluedonotepad.custom.loader_dialog.LoaderDialog
@@ -182,4 +184,26 @@ fun setCustomBackground(viewGroup: ViewGroup, drawableId: Int?) {
 @BindingAdapter("customDrawable")
 fun setCustomDrawable(appCompatImageView: AppCompatImageView, drawable: Drawable?) {
     drawable?.let { appCompatImageView.setImageDrawable(it) }
+}
+
+@BindingAdapter("itemModel")
+fun setItemModel(materialTextView: MaterialTextView, itemModel: ItemModel?) {
+    itemModel?.let {
+        materialTextView.text = when(it.itemHeaderType) {
+            ItemHeaderType.WHO -> materialTextView.context.resources.getStringArray(R.array.key_characters_array).getOrNull(index = it.itemPosition)
+            ItemHeaderType.WHAT -> materialTextView.context.resources.getStringArray(R.array.key_tools_array).getOrNull(index = it.itemPosition)
+            ItemHeaderType.WHERE -> materialTextView.context.resources.getStringArray(R.array.key_rooms_array).getOrNull(index = it.itemPosition)
+        }
+    }
+}
+
+@BindingAdapter("itemModel")
+fun setItemModel(appCompatImageView: AppCompatImageView, itemModel: ItemModel?) {
+    itemModel?.let {
+        appCompatImageView.setImageResource(when(it.itemHeaderType) {
+            ItemHeaderType.WHO -> appCompatImageView.context.resources.getIntArray(R.array.key_character_icons_array).getOrNull(index = it.itemPosition) ?: 0
+            ItemHeaderType.WHAT -> appCompatImageView.context.resources.getIntArray(R.array.key_tool_icons_array).getOrNull(index = it.itemPosition) ?: 0
+            ItemHeaderType.WHERE -> appCompatImageView.context.resources.getIntArray(R.array.key_room_icons_array).getOrNull(index = it.itemPosition) ?: 0
+        })
+    }
 }

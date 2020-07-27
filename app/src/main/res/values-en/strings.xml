@@ -8,6 +8,7 @@
     <string name="key_choose_character_title">Choose Player</string>
     <string name="key_ok_label">OK</string>
     <string name="key_warning_label">WARNING</string>
+    <string name="key_not_selected_players_message">"Select a player by clicking on each icon and player name. You cannot select the same player. Players must be more than one!!! "</string>
     <string name="key_discard_message">All your changes to the table will be deleted. Are you sure;</string>
     <string name="key_players_label">PLAYERS</string>
     <string name="key_who_label">WHO?</string>
@@ -66,6 +67,15 @@
         <item>Tool</item>
     </string-array>
 
+    <integer-array name="key_tool_icons_array">
+        <item>@drawable/ic_candlestick</item>
+        <item>@drawable/ic_dagger</item>
+        <item>@drawable/ic_tubing</item>
+        <item>@drawable/ic_revolver</item>
+        <item>@drawable/ic_rope</item>
+        <item>@drawable/ic_gear</item>
+    </integer-array>
+
     <string-array name="key_rooms_array">
         <item>Dance</item>
         <item>Billiards</item>
@@ -77,6 +87,17 @@
         <item>Living room</item>
         <item>Study</item>
     </string-array>
-    <string name="key_not_selected_players_message">"Select a player by clicking on each icon and player name. You cannot select the same player. Players must be more than one!!! "</string>
+
+    <integer-array name="key_room_icons_array">
+        <item>@drawable/ic_dance_room</item>
+        <item>@drawable/ic_billiards_room</item>
+        <item>@drawable/ic_greenhouse_room</item>
+        <item>@drawable/ic_dinning_room</item>
+        <item>@drawable/ic_hall_room</item>
+        <item>@drawable/ic_kitchen</item>
+        <item>@drawable/ic_library</item>
+        <item>@drawable/ic_living_room</item>
+        <item>@drawable/ic_study_room</item>
+    </integer-array>
 
 </resources>
