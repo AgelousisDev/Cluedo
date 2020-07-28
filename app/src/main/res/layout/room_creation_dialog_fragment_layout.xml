@@ -17,19 +17,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
-        android:background="@drawable/basic_dialog_header_background"
-        android:padding="@dimen/activity_horizontal_margin">
+        android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/roomDialogHeaderTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:gravity="center"
             android:fontFamily="@font/ubuntu"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:text="@string/key_cluedo_room_label"/>
+            android:text="@string/key_room_creation_message"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/grey"/>
 
     </LinearLayout>
 

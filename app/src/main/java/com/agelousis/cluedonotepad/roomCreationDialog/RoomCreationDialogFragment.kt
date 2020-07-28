@@ -54,10 +54,10 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
     }
 
     override fun onRoomJoined() =
-        checkRoomAvailability()
+        checkRoomAvailability(gameType = GameType.JOINED_ROOM)
 
     override fun onRoomCreation() =
-        pushUser(gameType = GameType.ROOM_CREATION)
+        checkRoomAvailability(gameType = GameType.ROOM_CREATION)
 
     private val uiScope = CoroutineScope(Dispatchers.Main)
 
@@ -96,7 +96,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
                     roomDialogField.setText(p0.trim())
                     roomDialogField.setSelection(p0.length - 1)
                 }
-                roomButtonsState = (p0?.length ?: 0) >= 6
+                roomButtonsState = (p0?.length ?: 0) >= 9
             }
         })
     }
@@ -128,7 +128,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
         }
     }
 
-    private fun checkRoomAvailability() {
+    private fun checkRoomAvailability(gameType: GameType) {
         (activity as? SplashActivity)?.setLoaderState(
             state = true
         )
@@ -138,12 +138,23 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
             (activity as? SplashActivity)?.setLoaderState(
                 state = false
             )
-            if (isAvailable)
-                pushUser(
-                    gameType = GameType.JOINED_ROOM
-                )
-            else
-                Toast.makeText(context, resources.getString(R.string.key_room_not_exists_message), Toast.LENGTH_SHORT).show()
+            when(gameType) {
+                GameType.ROOM_CREATION ->
+                    if (isAvailable)
+                        Toast.makeText(context, resources.getString(R.string.key_room_exists_message), Toast.LENGTH_SHORT).show()
+                    else
+                        pushUser(
+                            gameType = GameType.ROOM_CREATION
+                        )
+                GameType.JOINED_ROOM ->
+                    if (isAvailable)
+                        pushUser(
+                            gameType = gameType
+                        )
+                    else
+                        Toast.makeText(context, resources.getString(R.string.key_room_not_exists_message), Toast.LENGTH_SHORT).show()
+                else -> {}
+            }
         }
     }
 
