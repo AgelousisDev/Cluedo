@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cluedo Notepad</string>
+    <string name="key_how_many_players_label">Scegli il numero di giocatori</string>
+    <string name="key_play_label">Giocare</string>
+    <string name="key_player_name_hint">Nome del giocatore</string>
+    <string name="key_your_name_hint">&#160;&#160;Il tuo nome&#160;&#160;</string>
+    <string name="key_choose_character_title">Scegli il giocatore</string>
+    <string name="key_ok_label">OK</string>
+    <string name="key_warning_label">AVVERTIMENTO</string>
+    <string name="key_not_selected_players_message">Seleziona un giocatore facendo clic su ciascuna icona e nome del giocatore. Non puoi selezionare lo stesso giocatore. I giocatori devono essere più di uno!!!</string>
+    <string name="key_discard_message">Tutte le modifiche alla tabella verranno eliminate. Sei sicuro;</string>
+    <string name="key_players_label">GIOCATRICI</string>
+    <string name="key_who_label">OMS?</string>
+    <string name="key_what_label">CHE COSA?</string>
+    <string name="key_where_label">DOVE?</string>
+    <string name="key_final_label">Finale</string>
+    <string name="key_enable_dark_mode">Modalità Scura</string>
+    <string name="key_stats_label">Punto</string>
+    <string name="key_rate_label">Vota</string>
+    <string name="key_rate_message">Prima di partire, vuoi valutare la domanda?</string>
+    <string name="key_exit_label">Uscita</string>
+    <string name="key_language_label">Linguaggio</string>
+    <string name="key_cancel_label">Annulla</string>
+    <string name="key_cluedo_room_label">Room Cluedo</string>
+    <string name="key_room_field_hint">ID Room</string>
+    <string name="key_play_offline_label">"Gioca Offline "</string>
+    <string name="key_join_room_label">Unisciti a Room</string>
+    <string name="key_create_room_label">Crea Room</string>
+    <string name="key_send_label">Spedire</string>
+    <string name="key_create_random_room_label">Creare</string>
+    <string name="key_room_not_exists_message">ID camera non esiste. Inserisci un altro…</string>
+    <string name="key_room_exists_message">La stanza esiste già. Prova un altro…</string>
+    <string name="key_room_creation_message">Crea una stanza e &amp; condividere le carte selezionate nella schermata successiva</string>
+
+    <string-array name="key_characters_array">
+        <item>Miss Scarlett</item>
+        <item>Professor Plum</item>
+        <item>Mrs Peacock</item>
+        <item>Reverend Green</item>
+        <item>Colonel Mustard</item>
+        <item>Dr Orchid</item>
+    </string-array>
+
+    <integer-array name="key_characters_colors_array">
+        <item>@color/red</item>
+        <item>@color/purple</item>
+        <item>@color/iced</item>
+        <item>@color/green</item>
+        <item>@color/mustard</item>
+        <item>@color/orchid</item>
+    </integer-array>
+
+    <integer-array name="key_character_icons_array">
+        <item>@drawable/ms_fire</item>
+        <item>@drawable/mr_purple</item>
+        <item>@drawable/ms_iced</item>
+        <item>@drawable/mr_green</item>
+        <item>@drawable/mr_mustard</item>
+        <item>@drawable/ms_pink</item>
+    </integer-array>
+
+    <string-array name="key_tools_array">
+        <item>Candeliere</item>
+        <item>Pugnale</item>
+        <item>Tubing</item>
+        <item>Rivoltella</item>
+        <item>Corda</item>
+        <item>Attrezzo</item>
+    </string-array>
+
+    <integer-array name="key_tool_icons_array">
+        <item>@drawable/ic_candlestick</item>
+        <item>@drawable/ic_dagger</item>
+        <item>@drawable/ic_tubing</item>
+        <item>@drawable/ic_revolver</item>
+        <item>@drawable/ic_rope</item>
+        <item>@drawable/ic_gear</item>
+    </integer-array>
+
+    <string-array name="key_rooms_array">
+        <item>Danza</item>
+        <item>Biliardo</item>
+        <item>Serra</item>
+        <item>Sala da pranzo</item>
+        <item>Sala</item>
+        <item>Cucina</item>
+        <item>Biblioteca</item>
+        <item>Soggiorno</item>
+        <item>Studia</item>
+    </string-array>
+
+    <integer-array name="key_room_icons_array">
+        <item>@drawable/ic_dance_room</item>
+        <item>@drawable/ic_billiards_room</item>
+        <item>@drawable/ic_greenhouse_room</item>
+        <item>@drawable/ic_dinning_room</item>
+        <item>@drawable/ic_hall_room</item>
+        <item>@drawable/ic_kitchen</item>
+        <item>@drawable/ic_library</item>
+        <item>@drawable/ic_living_room</item>
+        <item>@drawable/ic_study_room</item>
+    </integer-array>
+
+</resources>

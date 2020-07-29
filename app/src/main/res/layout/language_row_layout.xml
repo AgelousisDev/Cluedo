@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.agelousis.cluedonotepad.splash.enumerations.Language" />
         <variable
             name="languageModel"
             type="com.agelousis.cluedonotepad.dialog.models.LanguageModel" />
@@ -14,7 +15,7 @@
     android:layout_margin="@dimen/activity_horizontal_margin"
     android:clickable="true"
     android:focusable="true"
-    android:onClick="@{() -> presenter.onLanguageSelected(languageModel.languageCode)}"
+    android:onClick="@{() -> presenter.onLanguageSelected(languageModel.language)}"
     android:background="?attr/selectableItemBackgroundBorderless"
     android:orientation="vertical">
 

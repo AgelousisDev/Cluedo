@@ -2,10 +2,10 @@ package com.agelousis.cluedonotepad.dialog.controller
 
 import android.content.Context
 import com.agelousis.cluedonotepad.R
-import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.dialog.models.CharacterRowModel
 import com.agelousis.cluedonotepad.dialog.models.LanguageModel
+import com.agelousis.cluedonotepad.splash.enumerations.Language
 
 object BasicDialogController {
 
@@ -26,15 +26,29 @@ object BasicDialogController {
         return characterModelList
     }
 
-    fun getAvailableLanguages() = listOf(
-        LanguageModel(
-            languageIcon = R.drawable.ic_english_flag,
-            languageCode = Constants.ENGLISH_LANGUAGE_CODE
-        ),
-        LanguageModel(
-            languageIcon = R.drawable.ic_greek_flag,
-            languageCode = Constants.GREEK_LANGUAGE_CODE
+    val availableLanguages by lazy {
+        listOf(
+            LanguageModel(
+                languageIcon = R.drawable.ic_english_flag,
+                language = Language.ENGLISH
+            ),
+            LanguageModel(
+                languageIcon = R.drawable.ic_greek_flag,
+                language = Language.GREEK
+            ),
+            LanguageModel(
+                languageIcon = R.drawable.ic_french_flag,
+                language = Language.FRENCH
+            ),
+            LanguageModel(
+                languageIcon = R.drawable.ic_german_flag,
+                language = Language.GERMAN
+            ),
+            LanguageModel(
+                languageIcon = R.drawable.ic_italian_flag,
+                language = Language.ITALIAN
+            )
         )
-    )
+    }
 
 }

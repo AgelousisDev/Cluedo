@@ -19,6 +19,7 @@ import com.agelousis.cluedonotepad.extensions.*
 import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.agelousis.cluedonotepad.roomCreationDialog.RoomCreationDialogFragment
 import com.agelousis.cluedonotepad.splash.adapters.PlayersAdapter
+import com.agelousis.cluedonotepad.splash.enumerations.Language
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.viewModels.CharacterViewModel
 import com.agelousis.cluedonotepad.stats.StatsSheetFragment
@@ -51,7 +52,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
 
     var statsModelList = arrayListOf<StatsModel>()
 
-    override fun onLanguageSelected(languageCode: String) = refreshActivity(
+    override fun onLanguageSelected(language: Language) = refreshActivity(
         extras = Bundle().also {
             it.putBoolean(LANGUAGE_DIALOG_STATE_EXTRA, false)
         }
@@ -88,7 +89,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
     }
 
     private fun showLanguageDialog() {
-        intent.extras.whenNull {
+        sharedPreferences.savedLanguage.whenNull {
             BasicDialog.show(
                 supportFragmentManager = supportFragmentManager,
                 dialogType = BasicDialogType(

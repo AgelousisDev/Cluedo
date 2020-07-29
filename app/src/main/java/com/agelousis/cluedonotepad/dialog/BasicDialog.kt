@@ -21,6 +21,7 @@ import com.agelousis.cluedonotepad.dialog.models.CharacterRowModel
 import com.agelousis.cluedonotepad.dialog.presenters.CharacterSelectPresenter
 import com.agelousis.cluedonotepad.dialog.presenters.LanguagePresenter
 import com.agelousis.cluedonotepad.extensions.savedLanguage
+import com.agelousis.cluedonotepad.splash.enumerations.Language
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -48,11 +49,11 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
         )
     }
 
-    override fun onLanguageSelected(languageCode: String) {
+    override fun onLanguageSelected(language: Language) {
         dismiss()
-        sharedPreferences?.savedLanguage = languageCode
+        sharedPreferences?.savedLanguage = language.locale
         dialogType.languagePresenter?.onLanguageSelected(
-            languageCode = languageCode
+            language = language
         )
     }
 
@@ -105,7 +106,7 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
         val adapter = BasicDialogAdapter(
             list = when(dialogType.basicDialogTypeEnum) {
                 BasicDialogTypeEnum.CHARACTER_SELECT -> BasicDialogController.getCluedoCharacters(context = context ?: return)
-                BasicDialogTypeEnum.LANGUAGE_SELECT -> BasicDialogController.getAvailableLanguages()
+                BasicDialogTypeEnum.LANGUAGE_SELECT -> BasicDialogController.availableLanguages
                 else -> return
             },
             characterSelectPresenter = this,

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cluedo Notepad</string>
+    <string name="key_how_many_players_label">Wählen Sie die Anzahl der Spieler</string>
+    <string name="key_play_label">Abspielen</string>
+    <string name="key_player_name_hint">Name des Spielers</string>
+    <string name="key_your_name_hint">&#160;&#160;Dein Name&#160;&#160;</string>
+    <string name="key_choose_character_title">Wählen Sie Spieler</string>
+    <string name="key_ok_label">OK</string>
+    <string name="key_warning_label">WARNUNG</string>
+    <string name="key_not_selected_players_message">Wählen Sie einen Spieler aus, indem Sie auf jedes Symbol und jeden Spielernamen klicken. Sie können nicht denselben Spieler auswählen. Spieler müssen mehr als einer sein!!!</string>
+    <string name="key_discard_message">Alle Ihre Änderungen an der Tabelle werden gelöscht. Bist du sicher;</string>
+    <string name="key_players_label">SPIELERINNEN</string>
+    <string name="key_who_label">WHO?</string>
+    <string name="key_what_label">WAS?</string>
+    <string name="key_where_label">WO?</string>
+    <string name="key_final_label">Finale</string>
+    <string name="key_enable_dark_mode">Dunkler Modus</string>
+    <string name="key_stats_label">Ergebnis</string>
+    <string name="key_rate_label">Bewertung</string>
+    <string name="key_rate_message">Möchten Sie die Bewerbung vor Ihrer Abreise bewerten?</string>
+    <string name="key_exit_label">Ausgang</string>
+    <string name="key_language_label">Sprache</string>
+    <string name="key_cancel_label">Stornieren</string>
+    <string name="key_cluedo_room_label">Cluedo Zimmer</string>
+    <string name="key_room_field_hint">ID des Zimmers</string>
+    <string name="key_play_offline_label">Offline Spielen</string>
+    <string name="key_join_room_label">Raum Betreten</string>
+    <string name="key_create_room_label">Platz Schaffen</string>
+    <string name="key_send_label">Senden</string>
+    <string name="key_create_random_room_label">Generieren</string>
+    <string name="key_room_not_exists_message">Raum-ID existiert nicht. Geben Sie eine andere…</string>
+    <string name="key_room_exists_message">Raum existiert bereits. Versuche einen anderen…</string>
+    <string name="key_room_creation_message">Erstellen Sie einen Raum &amp; Teilen Sie Ihre ausgewählten Karten im nächsten Bildschirm</string>
+
+    <string-array name="key_characters_array">
+        <item>Miss Scarlett</item>
+        <item>Professor Plum</item>
+        <item>Mrs Peacock</item>
+        <item>Reverend Green</item>
+        <item>Colonel Mustard</item>
+        <item>Dr Orchid</item>
+    </string-array>
+
+    <integer-array name="key_characters_colors_array">
+        <item>@color/red</item>
+        <item>@color/purple</item>
+        <item>@color/iced</item>
+        <item>@color/green</item>
+        <item>@color/mustard</item>
+        <item>@color/orchid</item>
+    </integer-array>
+
+    <integer-array name="key_character_icons_array">
+        <item>@drawable/ms_fire</item>
+        <item>@drawable/mr_purple</item>
+        <item>@drawable/ms_iced</item>
+        <item>@drawable/mr_green</item>
+        <item>@drawable/mr_mustard</item>
+        <item>@drawable/ms_pink</item>
+    </integer-array>
+
+    <string-array name="key_tools_array">
+        <item>Leuchter</item>
+        <item>Dolch</item>
+        <item>Schlauch</item>
+        <item>Revolver</item>
+        <item>Seil</item>
+        <item>Werkzeug</item>
+    </string-array>
+
+    <integer-array name="key_tool_icons_array">
+        <item>@drawable/ic_candlestick</item>
+        <item>@drawable/ic_dagger</item>
+        <item>@drawable/ic_tubing</item>
+        <item>@drawable/ic_revolver</item>
+        <item>@drawable/ic_rope</item>
+        <item>@drawable/ic_gear</item>
+    </integer-array>
+
+    <string-array name="key_rooms_array">
+        <item>Tanzen</item>
+        <item>Billard</item>
+        <item>Gewächshaus</item>
+        <item>Esszimmer</item>
+        <item>Halle</item>
+        <item>Küche</item>
+        <item>Bibliothek</item>
+        <item>Wohnzimmer</item>
+        <item>Studie</item>
+    </string-array>
+
+    <integer-array name="key_room_icons_array">
+        <item>@drawable/ic_dance_room</item>
+        <item>@drawable/ic_billiards_room</item>
+        <item>@drawable/ic_greenhouse_room</item>
+        <item>@drawable/ic_dinning_room</item>
+        <item>@drawable/ic_hall_room</item>
+        <item>@drawable/ic_kitchen</item>
+        <item>@drawable/ic_library</item>
+        <item>@drawable/ic_living_room</item>
+        <item>@drawable/ic_study_room</item>
+    </integer-array>
+
+</resources>

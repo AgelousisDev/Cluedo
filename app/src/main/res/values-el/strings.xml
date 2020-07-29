@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cluedo Notepad</string>
+    <string name="key_how_many_players_label">Επιλέξτε αριθμό παικτών;</string>
+    <string name="key_play_label">Παίξε</string>
+    <string name="key_player_name_hint">Όνομα Παίχτη</string>
+    <string name="key_your_name_hint">Το Όνομά σου</string>
+    <string name="key_choose_character_title">Επέλεξε Παίκτη</string>
+    <string name="key_ok_label">OK</string>
+    <string name="key_warning_label">ΠΡΟΣΟΧΗ</string>
+    <string name="key_not_selected_players_message">Διαλέξτε παίκτη πατώντας πάνω σε κάθε εικονίδιο καθώς και όνομα παίκτη. Δεν μπορείτε να διελέξετε ίδιο παίκτη. Οι παίκτες πρέπει να είναι περισσότεροι από ένας!!!</string>
+    <string name="key_discard_message">Όλες οι αλλαγές σας στον πίνακα θα διαγραφούν. Είστε σίγουροι;</string>
+    <string name="key_players_label">ΠΑΙΚΤΕΣ</string>
+    <string name="key_who_label">ΠΟΙΟΣ;</string>
+    <string name="key_what_label">ΤΙ;</string>
+    <string name="key_where_label">ΠΟΥ;</string>
+    <string name="key_final_label">Τελικός</string>
+    <string name="key_enable_dark_mode">Σκοτεινό Στυλ</string>
+    <string name="key_stats_label">Σκορ</string>
+    <string name="key_rate_label">Αξιολόγηση</string>
+    <string name="key_rate_message">Πριν την εξοδο θα ήθελες να αξιολογήσεις την εφαρνογή;</string>
+    <string name="key_exit_label">Έξοδος</string>
+    <string name="key_language_label">Γλώσσα</string>
+    <string name="key_cancel_label">Ακύρωση</string>
+    <string name="key_cluedo_room_label">Cluedo Δωμάτιο</string>
+    <string name="key_room_field_hint">ID Δωματίου</string>
+    <string name="key_play_offline_label">Εκτός Σύνδεσης</string>
+    <string name="key_join_room_label">Συμμετοχή σε δωμάτιο</string>
+    <string name="key_create_room_label">Δημιουργία Δωματίου</string>
+    <string name="key_send_label">Αποστολή</string>
+    <string name="key_create_random_room_label">Δημιουργία Τυχαίου</string>
+    <string name="key_room_not_exists_message">Το δωμάτιο που καταχωρήσατε δεν υπάρχει. Δοκιμάστε διαφορετικό…</string>
+    <string name="key_room_exists_message">Το δωμάτιο που καταχωρήσατε υπάρχει ήδη. Δοκιμάστε διαφορετικό…</string>
+    <string name="key_room_creation_message"><![CDATA[Δημιουργείστε ένα δωμάτιο & και μοιραστείτε τις κάρτες σας…]]></string>
+
+    <string-array name="key_characters_array">
+        <item>Φλόγα</item>
+        <item>Δαμασκηνός</item>
+        <item>Παγώνη</item>
+        <item>Πράσινος</item>
+        <item>Μουστάρδας</item>
+        <item>Ορχιδέα</item>
+    </string-array>
+
+    <integer-array name="key_characters_colors_array">
+        <item>@color/red</item>
+        <item>@color/purple</item>
+        <item>@color/iced</item>
+        <item>@color/green</item>
+        <item>@color/mustard</item>
+        <item>@color/orchid</item>
+    </integer-array>
+
+    <integer-array name="key_character_icons_array">
+        <item>@drawable/ms_fire</item>
+        <item>@drawable/mr_purple</item>
+        <item>@drawable/ms_iced</item>
+        <item>@drawable/mr_green</item>
+        <item>@drawable/mr_mustard</item>
+        <item>@drawable/ms_pink</item>
+    </integer-array>
+
+    <string-array name="key_tools_array">
+        <item>Κηροπήγιο</item>
+        <item>Στιλέτο</item>
+        <item>Σωλήνας</item>
+        <item>Περίστροφο</item>
+        <item>Σχοινί</item>
+        <item>Εργαλείο</item>
+    </string-array>
+
+    <integer-array name="key_tool_icons_array">
+        <item>@drawable/ic_candlestick</item>
+        <item>@drawable/ic_dagger</item>
+        <item>@drawable/ic_tubing</item>
+        <item>@drawable/ic_revolver</item>
+        <item>@drawable/ic_rope</item>
+        <item>@drawable/ic_gear</item>
+    </integer-array>
+
+    <string-array name="key_rooms_array">
+        <item>Χορού</item>
+        <item>Μπιλιάρδου</item>
+        <item>Θερμοκήπιο</item>
+        <item>Τραπεζαρία</item>
+        <item>Χολ</item>
+        <item>Κουζίνα</item>
+        <item>Βιβλιοθήκη</item>
+        <item>Σαλόνι</item>
+        <item>Μελέτης</item>
+    </string-array>
+
+    <integer-array name="key_room_icons_array">
+        <item>@drawable/ic_dance_room</item>
+        <item>@drawable/ic_billiards_room</item>
+        <item>@drawable/ic_greenhouse_room</item>
+        <item>@drawable/ic_dinning_room</item>
+        <item>@drawable/ic_hall_room</item>
+        <item>@drawable/ic_kitchen</item>
+        <item>@drawable/ic_library</item>
+        <item>@drawable/ic_living_room</item>
+        <item>@drawable/ic_study_room</item>
+    </integer-array>
+
+</resources>

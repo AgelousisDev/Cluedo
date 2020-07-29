@@ -1,44 +1,44 @@
 <resources>
     <string name="app_name">Cluedo Notepad</string>
-    <string name="key_how_many_players_label">Επιλέξτε αριθμό παικτών;</string>
-    <string name="key_play_label">Παίξε</string>
-    <string name="key_player_name_hint">Όνομα Παίχτη</string>
-    <string name="key_your_name_hint">Το Όνομά σου</string>
-    <string name="key_choose_character_title">Επέλεξε Παίκτη</string>
+    <string name="key_how_many_players_label">Choose number of players</string>
+    <string name="key_play_label">Play</string>
+    <string name="key_player_name_hint">Player\'s Name</string>
+    <string name="key_your_name_hint">&#160;&#160;Your Name&#160;&#160;</string>
+    <string name="key_choose_character_title">Choose Player</string>
     <string name="key_ok_label">OK</string>
-    <string name="key_warning_label">ΠΡΟΣΟΧΗ</string>
-    <string name="key_not_selected_players_message">Διαλέξτε παίκτη πατώντας πάνω σε κάθε εικονίδιο καθώς και όνομα παίκτη. Δεν μπορείτε να διελέξετε ίδιο παίκτη. Οι παίκτες πρέπει να είναι περισσότεροι από ένας!!!</string>
-    <string name="key_discard_message">Όλες οι αλλαγές σας στον πίνακα θα διαγραφούν. Είστε σίγουροι;</string>
-    <string name="key_players_label">ΠΑΙΚΤΕΣ</string>
-    <string name="key_who_label">ΠΟΙΟΣ;</string>
-    <string name="key_what_label">ΤΙ;</string>
-    <string name="key_where_label">ΠΟΥ;</string>
-    <string name="key_final_label">Τελικός</string>
-    <string name="key_enable_dark_mode">Σκοτεινό Στυλ</string>
-    <string name="key_stats_label">Σκορ</string>
-    <string name="key_rate_label">Αξιολόγηση</string>
-    <string name="key_rate_message">Πριν την εξοδο θα ήθελες να αξιολογήσεις την εφαρνογή;</string>
-    <string name="key_exit_label">Έξοδος</string>
-    <string name="key_language_label">Γλώσσα</string>
-    <string name="key_cancel_label">Ακύρωση</string>
-    <string name="key_cluedo_room_label">Cluedo Δωμάτιο</string>
-    <string name="key_room_field_hint">ID Δωματίου</string>
-    <string name="key_play_offline_label">Εκτός Σύνδεσης</string>
-    <string name="key_join_room_label">Συμμετοχή σε δωμάτιο</string>
-    <string name="key_create_room_label">Δημιουργία Δωματίου</string>
-    <string name="key_send_label">Αποστολή</string>
-    <string name="key_create_random_room_label">Δημιουργία Τυχαίου</string>
-    <string name="key_room_not_exists_message">Το δωμάτιο που καταχωρήσατε δεν υπάρχει. Δοκιμάστε διαφορετικό…</string>
-    <string name="key_room_exists_message">Το δωμάτιο που καταχωρήσατε υπάρχει ήδη. Δοκιμάστε διαφορετικό…</string>
-    <string name="key_room_creation_message"><![CDATA[Δημιουργείστε ένα δωμάτιο & και μοιραστείτε τις κάρτες σας…]]></string>
+    <string name="key_warning_label">WARNING</string>
+    <string name="key_not_selected_players_message">"Select a player by clicking on each icon and player name. You cannot select the same player. Players must be more than one!!! "</string>
+    <string name="key_discard_message">All your changes to the table will be deleted. Are you sure;</string>
+    <string name="key_players_label">PLAYERS</string>
+    <string name="key_who_label">WHO?</string>
+    <string name="key_what_label">WHAT?</string>
+    <string name="key_where_label">WHERE?</string>
+    <string name="key_final_label">Final</string>
+    <string name="key_enable_dark_mode">Dark Mode</string>
+    <string name="key_stats_label">Score</string>
+    <string name="key_rate_label">Rate</string>
+    <string name="key_rate_message">Before leaving, would you like to evaluate the application?</string>
+    <string name="key_exit_label">Exit</string>
+    <string name="key_language_label">Language</string>
+    <string name="key_cancel_label">Cancel</string>
+    <string name="key_cluedo_room_label">Cluedo Room</string>
+    <string name="key_room_field_hint">Room ID</string>
+    <string name="key_play_offline_label">Play Offline</string>
+    <string name="key_join_room_label">Join Room</string>
+    <string name="key_create_room_label">Create Room</string>
+    <string name="key_send_label">Send</string>
+    <string name="key_create_random_room_label">Generate</string>
+    <string name="key_room_not_exists_message">Room ID doesn\'t exist. Enter another…</string>
+    <string name="key_room_exists_message">Room already exists. Try another…</string>
+    <string name="key_room_creation_message">Create a room &amp; share your selected cards in the next screen</string>
 
     <string-array name="key_characters_array">
-        <item>Φλόγα</item>
-        <item>Δαμασκηνός</item>
-        <item>Παγώνη</item>
-        <item>Πράσινος</item>
-        <item>Μουστάρδας</item>
-        <item>Ορχιδέα</item>
+        <item>Miss Scarlett</item>
+        <item>Professor Plum</item>
+        <item>Mrs Peacock</item>
+        <item>Reverend Green</item>
+        <item>Colonel Mustard</item>
+        <item>Dr Orchid</item>
     </string-array>
 
     <integer-array name="key_characters_colors_array">
@@ -60,12 +60,12 @@
     </integer-array>
 
     <string-array name="key_tools_array">
-        <item>Κηροπήγιο</item>
-        <item>Στιλέτο</item>
-        <item>Σωλήνας</item>
-        <item>Περίστροφο</item>
-        <item>Σχοινί</item>
-        <item>Εργαλείο</item>
+        <item>Candlestick</item>
+        <item>Dagger</item>
+        <item>Tubing</item>
+        <item>Revolver</item>
+        <item>Rope</item>
+        <item>Tool</item>
     </string-array>
 
     <integer-array name="key_tool_icons_array">
@@ -78,15 +78,15 @@
     </integer-array>
 
     <string-array name="key_rooms_array">
-        <item>Χορού</item>
-        <item>Μπιλιάρδου</item>
-        <item>Θερμοκήπιο</item>
-        <item>Τραπεζαρία</item>
-        <item>Χολ</item>
-        <item>Κουζίνα</item>
-        <item>Βιβλιοθήκη</item>
-        <item>Σαλόνι</item>
-        <item>Μελέτης</item>
+        <item>Dance</item>
+        <item>Billiards</item>
+        <item>Greenhouse</item>
+        <item>Dinning room</item>
+        <item>Hall</item>
+        <item>Kitchen</item>
+        <item>Library</item>
+        <item>Living room</item>
+        <item>Study</item>
     </string-array>
 
     <integer-array name="key_room_icons_array">

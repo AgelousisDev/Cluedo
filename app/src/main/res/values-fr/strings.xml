@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cluedo Notepad</string>
+    <string name="key_how_many_players_label">Choisissez le nombre de joueurs</string>
+    <string name="key_play_label">Jouer</string>
+    <string name="key_player_name_hint">Nom du joueur</string>
+    <string name="key_your_name_hint">&#160;&#160;Votre nom&#160;&#160;</string>
+    <string name="key_choose_character_title">Choisissez le joueur</string>
+    <string name="key_ok_label">OK</string>
+    <string name="key_warning_label">AVERTISSEMENT</string>
+    <string name="key_not_selected_players_message">Sélectionnez un joueur en cliquant sur chaque icône et le nom du joueur. Vous ne pouvez pas sélectionner le même lecteur. Les joueurs doivent être plus d\'un!!!</string>
+    <string name="key_discard_message">Toutes vos modifications apportées au tableau seront supprimées. Êtes-vous sûr;</string>
+    <string name="key_players_label">JOUEUSES</string>
+    <string name="key_who_label">OMS?</string>
+    <string name="key_what_label">QUOI?</string>
+    <string name="key_where_label">OÙ?</string>
+    <string name="key_final_label">Finale</string>
+    <string name="key_enable_dark_mode">Mode sombre</string>
+    <string name="key_stats_label">But</string>
+    <string name="key_rate_label">Taux</string>
+    <string name="key_rate_message">Avant de partir, souhaitez-vous évaluer l\'application?</string>
+    <string name="key_exit_label">Sortie</string>
+    <string name="key_language_label">Langue</string>
+    <string name="key_cancel_label">Annuler</string>
+    <string name="key_cluedo_room_label">Chambre Cluedo</string>
+    <string name="key_room_field_hint">ID de la chambre</string>
+    <string name="key_play_offline_label">Jouer déconnecté</string>
+    <string name="key_join_room_label">Rejoindre la chambre</string>
+    <string name="key_create_room_label">Créer une chambre</string>
+    <string name="key_send_label">Envoyer</string>
+    <string name="key_create_random_room_label">Produire</string>
+    <string name="key_room_not_exists_message">L\'ID de la salle n\'existe pas. Entrez un autre…</string>
+    <string name="key_room_exists_message">La pièce existe déjà. Essaie un autre…</string>
+    <string name="key_room_creation_message">Créer une pièce &amp; partager vos cartes sélectionnées dans l\'écran suivant</string>
+
+    <string-array name="key_characters_array">
+        <item>Miss Scarlett</item>
+        <item>Professor Plum</item>
+        <item>Mrs Peacock</item>
+        <item>Reverend Green</item>
+        <item>Colonel Mustard</item>
+        <item>Dr Orchid</item>
+    </string-array>
+
+    <integer-array name="key_characters_colors_array">
+        <item>@color/red</item>
+        <item>@color/purple</item>
+        <item>@color/iced</item>
+        <item>@color/green</item>
+        <item>@color/mustard</item>
+        <item>@color/orchid</item>
+    </integer-array>
+
+    <integer-array name="key_character_icons_array">
+        <item>@drawable/ms_fire</item>
+        <item>@drawable/mr_purple</item>
+        <item>@drawable/ms_iced</item>
+        <item>@drawable/mr_green</item>
+        <item>@drawable/mr_mustard</item>
+        <item>@drawable/ms_pink</item>
+    </integer-array>
+
+    <string-array name="key_tools_array">
+        <item>Chandelier</item>
+        <item>Dague</item>
+        <item>Tubes</item>
+        <item>Revolver</item>
+        <item>Corde</item>
+        <item>Outil</item>
+    </string-array>
+
+    <integer-array name="key_tool_icons_array">
+        <item>@drawable/ic_candlestick</item>
+        <item>@drawable/ic_dagger</item>
+        <item>@drawable/ic_tubing</item>
+        <item>@drawable/ic_revolver</item>
+        <item>@drawable/ic_rope</item>
+        <item>@drawable/ic_gear</item>
+    </integer-array>
+
+    <string-array name="key_rooms_array">
+        <item>Danse</item>
+        <item>Billard</item>
+        <item>Serre</item>
+        <item>Salle à manger</item>
+        <item>Salle</item>
+        <item>Cuisine</item>
+        <item>Bibliothèque</item>
+        <item>Salon</item>
+        <item>Étude</item>
+    </string-array>
+
+    <integer-array name="key_room_icons_array">
+        <item>@drawable/ic_dance_room</item>
+        <item>@drawable/ic_billiards_room</item>
+        <item>@drawable/ic_greenhouse_room</item>
+        <item>@drawable/ic_dinning_room</item>
+        <item>@drawable/ic_hall_room</item>
+        <item>@drawable/ic_kitchen</item>
+        <item>@drawable/ic_library</item>
+        <item>@drawable/ic_living_room</item>
+        <item>@drawable/ic_study_room</item>
+    </integer-array>
+
+</resources>

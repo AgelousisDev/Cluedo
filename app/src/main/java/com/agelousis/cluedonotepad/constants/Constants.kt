@@ -14,8 +14,6 @@ object Constants {
     const val NOTIFICATION_DATA_VIEWER_DIALOG_TAG = "NotificationDataViewerDialogFragment"
     const val RATE_VALUE = "rating"
     const val playStoreUrl = "https://play.google.com/store/apps/details?id=com.agelousis.cluedonotepad"
-    const val ENGLISH_LANGUAGE_CODE = "en"
-    const val GREEK_LANGUAGE_CODE = "el"
     const val DATABASE_USERS_CHILD = "Users"
     const val DATABASE_CHANNEL_FIELD = "channel"
     const val SHOW_NOTIFICATION_INTENT_ACTION = "SHOW_NOTIFICATION"
