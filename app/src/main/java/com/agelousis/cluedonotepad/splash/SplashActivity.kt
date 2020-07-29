@@ -80,7 +80,9 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        showLanguageDialog()
+        showLanguageDialogIf {
+            sharedPreferences.savedLanguage.isNullOrEmpty()
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -88,8 +90,8 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         refreshActivity()
     }
 
-    private fun showLanguageDialog() {
-        sharedPreferences.savedLanguage.whenNull {
+    private fun showLanguageDialogIf(predicate: () -> Boolean) {
+        if (predicate())
             BasicDialog.show(
                 supportFragmentManager = supportFragmentManager,
                 dialogType = BasicDialogType(
@@ -98,7 +100,6 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
                     languagePresenter = this
                 )
             )
-        }
     }
 
     private fun setupNightModeIdSaved() {
@@ -179,6 +180,14 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
                     supportFragmentManager = supportFragmentManager,
                     statsModelList = ArrayList(statsModelList)
                 )
+            }
+        }
+        sharedPreferences.savedLanguage?.let { savedLanguage ->
+            languageButton.setImageResource(Language.values().firstOrNull { it.locale == savedLanguage }?.icon ?: R.drawable.ic_language)
+        }
+        languageButton.setOnClickListener {
+            showLanguageDialogIf {
+                true
             }
         }
     }

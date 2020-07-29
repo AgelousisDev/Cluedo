@@ -3,7 +3,7 @@
     <string name="app_name">Cluedo Notepad</string>
     <string name="key_how_many_players_label">Wählen Sie die Anzahl der Spieler</string>
     <string name="key_play_label">Abspielen</string>
-    <string name="key_player_name_hint">Name des Spielers</string>
+    <string name="key_player_name_hint">Name Spielers</string>
     <string name="key_your_name_hint">&#160;&#160;Dein Name&#160;&#160;</string>
     <string name="key_choose_character_title">Wählen Sie Spieler</string>
     <string name="key_ok_label">OK</string>

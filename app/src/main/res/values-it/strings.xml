@@ -3,8 +3,8 @@
     <string name="app_name">Cluedo Notepad</string>
     <string name="key_how_many_players_label">Scegli il numero di giocatori</string>
     <string name="key_play_label">Giocare</string>
-    <string name="key_player_name_hint">Nome del giocatore</string>
-    <string name="key_your_name_hint">&#160;&#160;Il tuo nome&#160;&#160;</string>
+    <string name="key_player_name_hint">Nome giocatore</string>
+    <string name="key_your_name_hint">&#160;Il tuo nome&#160;</string>
     <string name="key_choose_character_title">Scegli il giocatore</string>
     <string name="key_ok_label">OK</string>
     <string name="key_warning_label">AVVERTIMENTO</string>
@@ -24,7 +24,7 @@
     <string name="key_cancel_label">Annulla</string>
     <string name="key_cluedo_room_label">Room Cluedo</string>
     <string name="key_room_field_hint">ID Room</string>
-    <string name="key_play_offline_label">"Gioca Offline "</string>
+    <string name="key_play_offline_label">Gioca Offline</string>
     <string name="key_join_room_label">Unisciti a Room</string>
     <string name="key_create_room_label">Crea Room</string>
     <string name="key_send_label">Spedire</string>
