@@ -68,6 +68,15 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
             roomDialogJoinButton.isEnabled = value
             roomDialogCreationButton.alpha = if (value) 1.0f else 0.5f
             roomDialogCreationButton.isEnabled = value
+            if (!value) {
+                roomDialogField.isEnabled = false
+                roomDialogFieldLayout.error = resources.getString(R.string.key_no_internet_connection_label)
+            }
+        }
+    private var connectionState: Boolean = false
+        set(value) {
+            field = value
+            roomButtonsState = value
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -96,7 +105,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
                     roomDialogField.setText(p0.trim())
                     roomDialogField.setSelection(p0.length - 1)
                 }
-                roomButtonsState = (p0?.length ?: 0) >= 9
+                roomButtonsState = (p0?.length ?: 0) >= 9 && connectionState
             }
         })
     }
@@ -104,6 +113,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
     private fun checkInternetConnection() {
         uiScope.launch {
             ConnectionHelper.icConnectionAvailable {
+                connectionState = it
                 roomGenerationButton?.isEnabled = it
             }
         }

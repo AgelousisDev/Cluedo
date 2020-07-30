@@ -101,5 +101,6 @@
         <item>@drawable/ic_living_room</item>
         <item>@drawable/ic_study_room</item>
     </integer-array>
+    <string name="key_no_internet_connection_label">Εκτός σύνδεσης</string>
 
 </resources>
