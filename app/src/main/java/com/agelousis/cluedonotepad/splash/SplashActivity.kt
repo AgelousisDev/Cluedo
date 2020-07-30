@@ -78,13 +78,6 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         setupUI()
     }
 
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        showLanguageDialogIf {
-            sharedPreferences.savedLanguage.isNullOrEmpty()
-        }
-    }
-
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         refreshActivity()
@@ -118,11 +111,6 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
                 this?.apply()
             }
             setupNightModeIdSaved()
-            /*refreshActivity(
-                extras = Bundle().also {
-                    it.putBoolean(LANGUAGE_DIALOG_STATE_EXTRA, false)
-                }
-            )*/
         }
 
         playersSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
@@ -182,7 +170,9 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
                 )
             }
         }
-        sharedPreferences.savedLanguage?.let { savedLanguage ->
+        sharedPreferences.savedLanguage.whenNull {
+            languageButton.setImageResource(resources.currentLanguage?.icon ?: R.drawable.ic_language)
+        }?.let { savedLanguage ->
             languageButton.setImageResource(Language.values().firstOrNull { it.locale == savedLanguage }?.icon ?: R.drawable.ic_language)
         }
         languageButton.setOnClickListener {

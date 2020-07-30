@@ -10,6 +10,7 @@ import android.content.res.Resources
 import android.graphics.Typeface
 import android.media.RingtoneManager
 import android.net.Uri
+import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
@@ -26,6 +27,7 @@ import com.agelousis.cluedonotepad.custom.loader_dialog.LoaderDialog
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
+import com.agelousis.cluedonotepad.splash.enumerations.Language
 import com.agelousis.cluedonotepad.splash.presenters.CharacterPresenter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
@@ -167,6 +169,12 @@ fun Context.makeSoundNotification() {
         ringtone.play()
     } catch (e: Exception) {}
 }
+
+val Resources.currentLanguage: Language?
+    get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            Language.values().firstOrNull { it.locale == configuration.locales[0].language.toLowerCase(Locale.getDefault()) }
+        else
+            Language.values().firstOrNull { it.locale == configuration.locale.language.toLowerCase(Locale.getDefault()) }
 
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {
