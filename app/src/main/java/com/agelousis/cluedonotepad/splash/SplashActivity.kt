@@ -9,6 +9,7 @@ import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.agelousis.cluedonotepad.R
+import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.dialog.BasicDialog
@@ -24,12 +25,16 @@ import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.viewModels.CharacterViewModel
 import com.agelousis.cluedonotepad.stats.StatsSheetFragment
 import com.agelousis.cluedonotepad.stats.models.StatsModel
+import com.agelousis.cluedonotepad.utils.helpers.ConnectionHelper
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_splash.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
 
@@ -42,6 +47,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         getSharedPreferences(Constants.PREFERENCES_TAG, Context.MODE_PRIVATE)
     }
 
+    private val uiScope = CoroutineScope(Dispatchers.Main)
     var characterViewModel: CharacterViewModel? = null
         set(value) {
             field = value
@@ -76,6 +82,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         FirebaseApp.initializeApp(this)
         configureViewModel()
         setupUI()
+        initializeConnectionState()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -181,6 +188,13 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             }
         }
     }
+
+    private fun initializeConnectionState() =
+        uiScope.launch {
+            ConnectionHelper.icConnectionAvailable {
+                MainApplication.connectionIsEstablished = it
+            }
+        }
 
     private fun setupRecyclerView() {
         if (isPortrait) {

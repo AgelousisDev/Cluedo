@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.agelousis.cluedonotepad.R
+import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.databinding.RoomCreationDialogFragmentLayoutBinding
 import com.agelousis.cluedonotepad.extensions.generatedRandomString
@@ -23,11 +24,7 @@ import com.agelousis.cluedonotepad.roomCreationDialog.presenters.RoomDialogDismi
 import com.agelousis.cluedonotepad.splash.SplashActivity
 import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
-import com.agelousis.cluedonotepad.utils.helpers.ConnectionHelper
 import kotlinx.android.synthetic.main.room_creation_dialog_fragment_layout.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogDismissBlock): DialogFragment(), RoomCreationPresenter {
 
@@ -59,8 +56,6 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
     override fun onRoomCreation() =
         checkRoomAvailability(gameType = GameType.ROOM_CREATION)
 
-    private val uiScope = CoroutineScope(Dispatchers.Main)
-
     private var roomButtonsState: Boolean = false
         set(value) {
             field = value
@@ -68,15 +63,6 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
             roomDialogJoinButton.isEnabled = value
             roomDialogCreationButton.alpha = if (value) 1.0f else 0.5f
             roomDialogCreationButton.isEnabled = value
-            if (!value) {
-                roomDialogField.isEnabled = false
-                roomDialogFieldLayout.error = resources.getString(R.string.key_no_internet_connection_label)
-            }
-        }
-    private var connectionState: Boolean = false
-        set(value) {
-            field = value
-            roomButtonsState = value
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -93,10 +79,14 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
-        checkInternetConnection()
     }
 
     private fun setupUI() {
+        roomGenerationButton.isEnabled = MainApplication.connectionIsEstablished
+        if (!MainApplication.connectionIsEstablished) {
+            roomDialogField.isEnabled = false
+            roomDialogFieldLayout.error = resources.getString(R.string.key_no_internet_connection_label)
+        }
         roomDialogField.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {}
@@ -105,18 +95,9 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
                     roomDialogField.setText(p0.trim())
                     roomDialogField.setSelection(p0.length - 1)
                 }
-                roomButtonsState = (p0?.length ?: 0) >= 9 && connectionState
+                roomButtonsState = (p0?.length ?: 0) >= 9 && MainApplication.connectionIsEstablished
             }
         })
-    }
-
-    private fun checkInternetConnection() {
-        uiScope.launch {
-            ConnectionHelper.icConnectionAvailable {
-                connectionState = it
-                roomGenerationButton?.isEnabled = it
-            }
-        }
     }
 
     private fun pushUser(gameType: GameType) {
