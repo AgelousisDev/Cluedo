@@ -30,18 +30,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cluedoImageView" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/darkModeSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:text="@string/key_enable_dark_mode"
-        android:fontFamily="@font/ubuntu"
-        app:switchPadding="@dimen/nav_header_vertical_spacing"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playersRecyclerView" />
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -39,6 +39,7 @@ class PlayersAdapter(private val context: Context, private val characterListMode
             characterPresenter = this)
     }
 
+
     private fun removeLastPosition() {
         notifyItemRemoved(itemCount)
         notifyItemRangeChanged(itemCount, itemCount)
@@ -49,7 +50,7 @@ class PlayersAdapter(private val context: Context, private val characterListMode
             true -> notifyItemInserted(itemCount)
             false -> {
                 removeLastPosition()
-                notifyItemInserted(itemCount)
+                //notifyItemInserted(itemCount)
             }
         }
     }

@@ -6,7 +6,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
@@ -76,7 +75,6 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setupNightModeIdSaved()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         FirebaseApp.initializeApp(this)
@@ -102,24 +100,8 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             )
     }
 
-    private fun setupNightModeIdSaved() {
-        when (sharedPreferences.isNightMode) {
-            1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            0 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-    }
-
     private fun setupUI() {
         cluedoImageView.applyLightScaleAnimation()
-        darkModeSwitch.isChecked = sharedPreferences?.isNightMode == 1 || isNightMode == 1
-        darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            with(sharedPreferences?.edit()) {
-                this?.putInt(Constants.DARK_MODE_VALUE, if (isChecked) 1 else 0)
-                this?.apply()
-            }
-            setupNightModeIdSaved()
-        }
-
         playersSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
@@ -129,7 +111,6 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             }
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 cluedoImageView.visibility = if (progress > 0) View.GONE else View.VISIBLE
-                darkModeSwitch.visibility = if (progress > 0) View.GONE else View.VISIBLE
                 if (progress > lastSeekBarProgress)
                     (progress - lastSeekBarProgress).run {
                         characterViewModel?.addCharacter(characterModel = CharacterModel(characterNameHint = resources.getString(R.string.key_player_name_hint)))
