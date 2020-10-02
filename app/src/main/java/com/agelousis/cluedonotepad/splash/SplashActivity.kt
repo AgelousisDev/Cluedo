@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
@@ -29,7 +30,14 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,6 +48,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
     companion object {
         const val RATE_REQUEST_CODE = 1
         const val LANGUAGE_DIALOG_STATE_EXTRA = "SplashActivity=languageDialogStateExtra"
+        const val GOOGLE_SIGN_IN_REQUEST_CODE = 2
     }
 
     private val sharedPreferences by lazy {
@@ -77,7 +86,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        FirebaseApp.initializeApp(this)
+        initializeGoogleServices()
         configureViewModel()
         setupUI()
         initializeConnectionState()
@@ -86,6 +95,19 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         refreshActivity()
+    }
+
+    private fun initializeGoogleServices() {
+        FirebaseApp.initializeApp(this)
+        Firebase.auth.currentUser.whenNull {
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+            val googleSignInClient = GoogleSignIn.getClient(this, gso)
+            val signInIntent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, GOOGLE_SIGN_IN_REQUEST_CODE)
+        }
     }
 
     private fun showLanguageDialogIf(predicate: () -> Boolean) {
@@ -219,10 +241,39 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         this@SplashActivity.finish()
     }
 
+    private fun checkGoogleSignIn(data: Intent) {
+        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        try {
+            // Google Sign In was successful, authenticate with Firebase
+            val account = task.getResult(ApiException::class.java)
+            firebaseAuthWithGoogle(account?.idToken ?: return)
+        }
+        catch (e: ApiException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        Firebase.auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Snackbar.make(constraintLayout, "Authentication Success.", Snackbar.LENGTH_SHORT).show()
+                } else {
+                    Snackbar.make(constraintLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                }
+            }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode) {
             RATE_REQUEST_CODE -> sharedPreferences.setRatingValue(value = true)
+            GOOGLE_SIGN_IN_REQUEST_CODE ->
+                checkGoogleSignIn(
+                    data = data ?: return
+                )
+
         }
     }
 

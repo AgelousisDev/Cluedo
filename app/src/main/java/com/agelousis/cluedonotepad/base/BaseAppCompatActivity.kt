@@ -3,6 +3,8 @@ package com.agelousis.cluedonotepad.base
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.extensions.savedLanguage
