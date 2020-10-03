@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.BitmapFactory
 import android.graphics.Typeface
 import android.media.RingtoneManager
 import android.net.Uri
@@ -17,6 +18,7 @@ import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.databinding.BindingAdapter
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
@@ -31,6 +33,12 @@ import com.agelousis.cluedonotepad.splash.enumerations.Language
 import com.agelousis.cluedonotepad.splash.presenters.CharacterPresenter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.*
 
 fun Context.showCharacterOptions(title: String, adapterPosition: Int, characterPresenter: CharacterPresenter) {
@@ -175,6 +183,26 @@ val Resources.currentLanguage: Language?
             Language.values().firstOrNull { it.locale == configuration.locales[0].language.toLowerCase(Locale.getDefault()) }
         else
             Language.values().firstOrNull { it.locale == configuration.locale.language.toLowerCase(Locale.getDefault()) }
+
+fun AppCompatImageView.setImageUri(uri: Uri) {
+    val url = URL(uri.toString())
+    val httpUrlConnection = url.openConnection() as? HttpURLConnection
+    httpUrlConnection?.doInput = true
+    CoroutineScope(Dispatchers.Default).launch {
+        val imageInputStream = httpUrlConnection?.inputStream ?: return@launch
+        val bitmap = BitmapFactory.decodeStream(imageInputStream)
+        withContext(Dispatchers.Main) {
+            setImageDrawable(
+                RoundedBitmapDrawableFactory.create(
+                    context.resources,
+                    bitmap
+                ).also { roundedBitmapDrawable ->
+                    roundedBitmapDrawable.isCircular = true
+                }
+            )
+        }
+    }
+}
 
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {

@@ -21,4 +21,6 @@
     <color name="lightGrey">#F5F5E5</color>
     <color name="selectedPlayerColor">#9F9F9F</color>
 
+    <color name="white">#FFFFFF</color>
+
 </resources>

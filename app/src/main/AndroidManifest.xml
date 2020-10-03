@@ -13,24 +13,32 @@
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".notepad.NotepadNewActivity"></activity>
         <activity
             android:name=".splash.SplashActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:configChanges="keyboardHidden|orientation|screenSize">
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.NotePadActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
-        <service android:name=".firebase.FirebaseMessaging" android:enabled="true" android:exported="false">
+        <activity
+            android:name=".main.NotePadActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+
+        <service
+            android:name=".firebase.FirebaseMessaging"
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <receiver android:name=".receivers.NotificationDataReceiver"
+
+        <receiver
+            android:name=".receivers.NotificationDataReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="SHOW_NOTIFICATION" />

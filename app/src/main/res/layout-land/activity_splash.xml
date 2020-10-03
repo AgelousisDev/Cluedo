@@ -36,18 +36,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        android:animateLayoutChanges="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/googleUserImage"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="@dimen/nav_header_vertical_spacing"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/playersSeekBar" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/playersSizeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             app:fontFamily="@font/ubuntu_monospace"
             android:text="@string/key_how_many_players_label"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/googleUserImage" />
 
         <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/playersSeekBar"

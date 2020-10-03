@@ -15,4 +15,6 @@
 
     <color name="selectedPlayerColor">#FFFFFF</color>
 
+    <color name="white">#FFFFFF</color>
+
 </resources>

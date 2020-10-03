@@ -6,7 +6,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
@@ -33,7 +32,6 @@ import com.google.android.flexbox.JustifyContent
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
@@ -107,6 +105,11 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             val googleSignInClient = GoogleSignIn.getClient(this, gso)
             val signInIntent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, GOOGLE_SIGN_IN_REQUEST_CODE)
+        }?.let { googleUser ->
+            googleUserImage.visibility = View.VISIBLE
+            googleUserImage.setImageUri(
+                uri = googleUser.photoUrl ?: return@let
+            )
         }
     }
 
@@ -257,11 +260,8 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         Firebase.auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Snackbar.make(constraintLayout, "Authentication Success.", Snackbar.LENGTH_SHORT).show()
-                } else {
-                    Snackbar.make(constraintLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
-                }
+                if (task.isSuccessful)
+                    initializeGoogleServices()
             }
     }
 
