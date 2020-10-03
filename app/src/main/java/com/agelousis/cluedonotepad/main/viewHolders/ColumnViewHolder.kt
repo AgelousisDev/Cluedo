@@ -3,7 +3,7 @@ package com.agelousis.cluedonotepad.main.viewHolders
 import androidx.recyclerview.widget.RecyclerView
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.databinding.NotepadRowColumnLayoutBinding
-import com.agelousis.cluedonotepad.extensions.px
+import com.agelousis.cluedonotepad.extensions.setAnimatedImageResourceId
 import com.agelousis.cluedonotepad.main.enums.ColumnState
 import com.agelousis.cluedonotepad.main.enums.ColumnType
 import com.agelousis.cluedonotepad.main.models.ColumnDataModel
@@ -18,13 +18,8 @@ class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): Recy
             binding.rowColumnImageView.tag = columnDataModel.columnState ?: ColumnState.EMPTY
             setImageListeners(columnPresenter = columnPresenter)
         }
-        columnDataModel.columnType.takeIf { it == ColumnType.HEADER_PLAYER }?.let {
-            binding.rowColumnTextView.setTextColor(columnDataModel.color ?: 0)
-        }
-        columnDataModel.columnType.takeIf { it != ColumnType.ITEMS_TITLE && it != ColumnType.ITEM }?.let {
-            binding.rowColumnConstraintLayout.layoutParams.also {
-                it.width = 30.px
-            }
+        columnDataModel.columnType.takeIf { it == ColumnType.HEADER_PLAYER || it == ColumnType.CUSTOM_TITLE }?.let {
+            binding.rowColumnTextView.setTextColor(columnDataModel.color ?: return@let)
         }
         binding.executePendingBindings()
     }
@@ -32,16 +27,22 @@ class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): Recy
     private fun setImageListeners(columnPresenter: ColumnPresenter) {
         (binding.rowColumnImageView.tag as? ColumnState)?.let {
             if (binding.rowColumnImageView.drawable == null)
-                binding.rowColumnImageView.setImageResource(it.icon)
+                binding.rowColumnImageView.setAnimatedImageResourceId(
+                    resourceId = it.icon
+                )
         }
         itemView.setOnClickListener {
             binding.rowColumnImageView.tag = (binding.rowColumnImageView.tag as? ColumnState)?.nextState
-            binding.rowColumnImageView.setImageResource((binding.rowColumnImageView.tag as? ColumnState)?.icon ?: 0)
+            binding.rowColumnImageView.setAnimatedImageResourceId(
+                resourceId = (binding.rowColumnImageView.tag as? ColumnState)?.icon ?: 0
+            )
             columnPresenter.onIconSet(columnState = binding.rowColumnImageView.tag as? ColumnState ?: ColumnState.EMPTY, adapterPosition = adapterPosition)
         }
         itemView.setOnLongClickListener {
             binding.rowColumnImageView.tag = ColumnState.APPROVED
-            binding.rowColumnImageView.setImageResource(R.drawable.ic_checkmark)
+            binding.rowColumnImageView.setAnimatedImageResourceId(
+                resourceId = R.drawable.ic_checkmark
+            )
             columnPresenter.onIconSet(columnState = ColumnState.APPROVED, adapterPosition = adapterPosition)
             true
         }

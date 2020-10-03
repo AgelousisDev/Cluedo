@@ -9,7 +9,7 @@ data class ColumnDataModel(val columnType: ColumnType, @DrawableRes var icon: In
 
     val columnIconIsVisible: Boolean
         get() = when(columnType) {
-            ColumnType.FIELD -> true
+            ColumnType.FIELD, ColumnType.HEADER_PLAYER -> true
             else -> false
         }
 

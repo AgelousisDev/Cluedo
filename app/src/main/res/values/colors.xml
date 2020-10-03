@@ -10,6 +10,7 @@
     <color name="shadowEndColor">#11000000</color>
 
     <color name="red">#BC1F28</color>
+    <color name="lightRed">#50BC1F28</color>
     <color name="mustard">#DFB873</color>
     <color name="orchid">#D0699E</color>
     <color name="iced">#088FBC</color>
@@ -19,6 +20,7 @@
     <color name="dialogFooterBackground">#F5F5F5</color>
     <color name="grey">#454545</color>
     <color name="lightGrey">#F5F5E5</color>
+    <color name="whiteTwo">#F5F5F5</color>
     <color name="selectedPlayerColor">#9F9F9F</color>
 
     <color name="white">#FFFFFF</color>

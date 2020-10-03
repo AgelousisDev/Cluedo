@@ -4,4 +4,7 @@
 
     <solid android:color="@color/lightGrey" />
 
+    <corners
+        android:topLeftRadius="8dp" />
+
 </shape>

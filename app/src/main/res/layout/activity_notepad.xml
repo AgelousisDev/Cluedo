@@ -5,62 +5,85 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".main.NotePadActivity"
+    android:background="@color/colorPrimary"
     android:animateLayoutChanges="true">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/notepadRowRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/notepadTimer"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:layout_gravity="top|end"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        app:fontFamily="@font/ubuntu_monospace"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:rotation="45"
-        tools:text="00:12:12"
-        android:layerType="software"
-        android:shadowColor="@color/red"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="4" />
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/notePadTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:navigationIcon="?attr/homeAsUpIndicator"
-        app:fabAlignmentMode="end"
-        app:fabCradleRoundedCornerRadius="16dp"
-        app:elevation="32dp">
+        android:background="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabRippleColor="@color/colorAccent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bottomAppBarTitle"
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ubuntu_regular"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:text="@string/app_name"/>
+            android:text="@string/key_who_label"/>
 
-    </com.google.android.material.bottomappbar.BottomAppBar>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/key_what_label"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/key_where_label"/>
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/bottomAppBarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/nav_header_vertical_spacing"
+        android:fontFamily="@font/ubuntu_regular"
+        android:text="@string/app_name"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cardViewerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@+id/bottomAppBar"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/nav_header_vertical_spacing"
         app:backgroundTint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_image"
-        app:tint="@color/colorPrimary"/>
+        app:tint="@color/colorPrimary" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/notePadViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/notepadTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/nav_header_vertical_spacing"
+        android:layerType="software"
+        android:shadowColor="@color/red"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/ubuntu_monospace"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="00:12:12" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -3,7 +3,6 @@ package com.agelousis.cluedonotepad.main
 import android.content.IntentFilter
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.cardViewer.CardViewerBottomSheetFragment
@@ -16,8 +15,7 @@ import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
 import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageDataModel
 import com.agelousis.cluedonotepad.firebase.models.User
-import com.agelousis.cluedonotepad.main.adapters.RowAdapter
-import com.agelousis.cluedonotepad.main.controller.NotePadController
+import com.agelousis.cluedonotepad.main.adapters.SuspectFragmentAdapter
 import com.agelousis.cluedonotepad.main.timer.TimerHelper
 import com.agelousis.cluedonotepad.main.timer.TimerListener
 import com.agelousis.cluedonotepad.main.viewModel.NotePadViewModel
@@ -50,10 +48,7 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
     }
 
     val viewModel by lazy { ViewModelProvider(this).get(NotePadViewModel::class.java) }
-    private val controller by lazy {
-        NotePadController(context = this)
-    }
-    private val characterModelArray by lazy {
+    val characterModelArray by lazy {
         intent?.extras?.getParcelableArrayList<CharacterModel>(CHARACTER_MODEL_LIST_EXTRA)
     }
     private val gameTypeModel by lazy { intent?.extras?.getParcelable<GameTypeModel>(GAME_TYPE_MODEL_EXTRA) }
@@ -78,7 +73,7 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notepad)
         setupToolbar()
-        configureRecyclerView()
+        configureViewPagerAndTabLayout()
         configureTimer()
         initializeGameRoom {
             gameTypeModel?.gameType == GameType.ROOM_CREATION ||
@@ -102,9 +97,7 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
     }
 
     private fun setupToolbar() {
-        setSupportActionBar(bottomAppBar)
         bottomAppBarTitle.text = gameTypeModel?.channel ?: resources.getString(R.string.app_name)
-        bottomAppBar.setNavigationOnClickListener { onBackPressed() }
         cardViewerButton.setOnClickListener {
             CardViewerBottomSheetFragment.show(
                 supportFragmentManager = supportFragmentManager,
@@ -113,17 +106,13 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         }
     }
 
-    private fun configureRecyclerView() {
-        notepadRowRecyclerView.adapter = RowAdapter(rowDataModelList = controller.getCluedoList(characterModelList = characterModelArray ?: return))
-        notepadRowRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1))
-                    bottomAppBar.elevation = 4.0f
-                else
-                    bottomAppBar.elevation = 32f
-            }
-        })
+    private fun configureViewPagerAndTabLayout() {
+        notePadViewPager.adapter = SuspectFragmentAdapter(
+            context = this,
+            supportFragmentManager = supportFragmentManager
+        )
+        notePadViewPager.offscreenPageLimit = 3
+        notePadTabLayout.setupWithViewPager(notePadViewPager)
     }
 
     private fun configureTimer() {

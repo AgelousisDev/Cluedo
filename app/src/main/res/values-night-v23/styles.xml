@@ -10,5 +10,6 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
 </resources>

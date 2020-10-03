@@ -204,6 +204,16 @@ fun AppCompatImageView.setImageUri(uri: Uri) {
     }
 }
 
+fun AppCompatImageView.setAnimatedImageResourceId(resourceId: Int?, duration: Long? = null) {
+    resourceId?.let {
+        post {
+            alpha = 0.0f
+            setImageResource(it)
+            animate().alpha(1.0f).interpolator = LinearInterpolator()
+        }
+    }
+}
+
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {
     drawableId?.let {
