@@ -10,6 +10,7 @@ import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
+import com.agelousis.cluedonotepad.extensions.hideSystemUI
 import com.agelousis.cluedonotepad.extensions.makeSoundNotification
 import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
@@ -71,6 +72,7 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window?.hideSystemUI()
         setContentView(R.layout.activity_notepad)
         setupToolbar()
         configureViewPagerAndTabLayout()

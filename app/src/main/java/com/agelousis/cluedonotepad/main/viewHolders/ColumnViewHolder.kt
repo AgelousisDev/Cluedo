@@ -3,6 +3,7 @@ package com.agelousis.cluedonotepad.main.viewHolders
 import androidx.recyclerview.widget.RecyclerView
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.databinding.NotepadRowColumnLayoutBinding
+import com.agelousis.cluedonotepad.extensions.px
 import com.agelousis.cluedonotepad.extensions.setAnimatedImageResourceId
 import com.agelousis.cluedonotepad.main.enums.ColumnState
 import com.agelousis.cluedonotepad.main.enums.ColumnType
@@ -20,6 +21,11 @@ class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): Recy
         }
         columnDataModel.columnType.takeIf { it == ColumnType.HEADER_PLAYER || it == ColumnType.CUSTOM_TITLE }?.let {
             binding.rowColumnTextView.setTextColor(columnDataModel.color ?: return@let)
+        }
+        columnDataModel.columnType.takeIf { it != ColumnType.HEADER_PLAYER }?.let {
+            binding.rowColumnConstraintLayout.layoutParams.apply {
+                height = 30.px
+            }
         }
         binding.executePendingBindings()
     }

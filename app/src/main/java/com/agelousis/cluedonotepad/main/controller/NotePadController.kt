@@ -49,7 +49,13 @@ class NotePadController(private val context: Context) {
         arrayOfItems.forEachIndexed { index, title ->
             val customBackground = if (index % 2 == 0) R.color.whiteTwo else R.color.lightGrey
             val arrayListOfColumns = arrayListOf<ColumnDataModel>()
-            arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.ITEM, title = title, customBackground = customBackground))
+            arrayListOfColumns.add(
+                ColumnDataModel(
+                    columnType = ColumnType.ITEM,
+                    title = title,
+                    customBackground = customBackground
+                )
+            )
             (size + 1).run {
                 arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.FIELD, customBackground = customBackground))
             }
