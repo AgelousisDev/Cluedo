@@ -19,8 +19,10 @@ import com.agelousis.cluedonotepad.extensions.*
 import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.agelousis.cluedonotepad.roomCreationDialog.RoomCreationDialogFragment
 import com.agelousis.cluedonotepad.splash.adapters.PlayersAdapter
+import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.enumerations.Language
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
+import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 import com.agelousis.cluedonotepad.splash.viewModels.CharacterViewModel
 import com.agelousis.cluedonotepad.stats.StatsSheetFragment
 import com.agelousis.cluedonotepad.stats.models.StatsModel
@@ -153,14 +155,20 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         setupRecyclerView()
         playButton.setOnClickListener {
             if (isPlayersAvailable())
-                RoomCreationDialogFragment.show(
-                    supportFragmentManager = supportFragmentManager
-                ) { gameTypeModel ->
-                    startActivity(with(Intent(this, NotePadActivity::class.java)) {
-                        putParcelableArrayListExtra(NotePadActivity.CHARACTER_MODEL_LIST_EXTRA, characterViewModel?.characterArray)
-                        putExtra(NotePadActivity.GAME_TYPE_MODEL_EXTRA, gameTypeModel)
-                        this
-                    })
+                Firebase.auth.currentUser.whenNull {
+                    openNotePad(
+                        gameTypeModel = GameTypeModel(
+                            gameType = GameType.OFFLINE
+                        )
+                    )
+                }?.let {
+                    RoomCreationDialogFragment.show(
+                        supportFragmentManager = supportFragmentManager
+                    ) { gameTypeModel ->
+                        openNotePad(
+                            gameTypeModel = gameTypeModel
+                        )
+                    }
                 }
         }
         statsButton.setOnClickListener {
@@ -194,6 +202,14 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             }
         }
     }
+
+    private fun openNotePad(gameTypeModel: GameTypeModel) =
+        startActivity(
+            Intent(this, NotePadActivity::class.java).also {
+                it.putParcelableArrayListExtra(NotePadActivity.CHARACTER_MODEL_LIST_EXTRA, characterViewModel?.characterArray)
+                it.putExtra(NotePadActivity.GAME_TYPE_MODEL_EXTRA, gameTypeModel)
+            }
+        )
 
     private fun initializeConnectionState() =
         uiScope.launch {
@@ -249,7 +265,9 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         try {
             // Google Sign In was successful, authenticate with Firebase
             val account = task.getResult(ApiException::class.java)
-            firebaseAuthWithGoogle(account?.idToken ?: return)
+            firebaseAuthWithGoogle(
+                idToken = account?.idToken ?: return
+            )
         }
         catch (e: ApiException) {
             e.printStackTrace()
