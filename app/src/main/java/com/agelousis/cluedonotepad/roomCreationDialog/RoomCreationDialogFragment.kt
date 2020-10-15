@@ -102,6 +102,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
 
     private fun pushUser(gameType: GameType) {
         FirebaseInstanceHelper.shared.initializeFirebaseToken {
+            MainApplication.firebaseToken = it
             RealTimeDatabaseHelper.shared.addUser(
                 user = User(
                     channel = roomDialogField.text?.toString(),

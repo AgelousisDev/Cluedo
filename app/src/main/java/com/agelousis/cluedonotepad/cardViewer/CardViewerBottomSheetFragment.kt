@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import com.agelousis.cluedonotepad.R
+import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.cardViewer.adapters.ItemsAdapter
 import com.agelousis.cluedonotepad.cardViewer.adapters.PlayersAdapter
 import com.agelousis.cluedonotepad.cardViewer.controller.CardViewerController
@@ -53,7 +54,6 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         characterModelList?.getOrNull(index = adapterPosition)?.playerIsSelected = isSelected
         (playersRecyclerView.adapter as? PlayersAdapter)?.reloadData()
         selectedCardViewerModel.characterModel = if (isSelected) characterModelList?.getOrNull(index = adapterPosition) else null
-        sendButtonState = selectedCardViewerModel.characterModel != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
     override fun onItemHeaderSelected(itemTitleModel: ItemTitleModel) {
@@ -81,10 +81,9 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
                 ))
             }
         }
-        itemsRecyclerView.scheduleLayoutAnimation()
         (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
         selectedCardViewerModel.itemHeaderType = itemTitleModel.itemHeaderType
-        sendButtonState = selectedCardViewerModel.characterModel != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
+        sendButtonState = selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
     override fun onItemSelected(adapterPosition: Int) {
@@ -98,7 +97,7 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected = (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected == false
         (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
         selectedCardViewerModel.itemModel = itemsList.getOrNull(index = adapterPosition) as? ItemModel
-        sendButtonState = selectedCardViewerModel.characterModel != null && selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
+        sendButtonState = selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
     private val characterModelList by lazy { arguments?.getParcelableArrayList<CharacterModel>(CHARACTER_MODEL_LIST_EXTRA) }
@@ -127,18 +126,20 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
 
     private fun setupUI() {
         sendButton.setOnClickListener {
-            (activity as? NotePadActivity)?.initializeUser(
+            (activity as? NotePadActivity)?.initializeUsers(
                 character = selectedCardViewerModel.characterModel?.characterEnum ?: return@setOnClickListener
-            ) inner@ { user ->
-                (activity as? NotePadActivity)?.viewModel?.sendFirebaseToken(
-                    firebaseMessageModel = FirebaseMessageModel(
-                        firebaseToken = user.device ?: return@inner,
-                        firebaseMessageDataModel = FirebaseMessageDataModel(
-                            itemHeaderType = selectedCardViewerModel.itemHeaderType ?: return@inner,
-                            itemModel = selectedCardViewerModel.itemModel ?: return@inner
+            ) inner@ { users ->
+                users.filterNot { it?.device == MainApplication.firebaseToken }.mapNotNull { it?.device }.forEach { device ->
+                    (activity as? NotePadActivity)?.viewModel?.sendFirebaseToken(
+                        firebaseMessageModel = FirebaseMessageModel(
+                            firebaseToken = device,
+                            firebaseMessageDataModel = FirebaseMessageDataModel(
+                                itemHeaderType = selectedCardViewerModel.itemHeaderType ?: return@inner,
+                                itemModel = selectedCardViewerModel.itemModel ?: return@inner
+                            )
                         )
                     )
-                )
+                }
             }
         }
     }

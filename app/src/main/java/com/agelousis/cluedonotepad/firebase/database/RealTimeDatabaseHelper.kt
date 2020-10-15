@@ -33,13 +33,12 @@ class RealTimeDatabaseHelper {
 
     fun deleteChannel(channel: String) {
         databaseReference.child(Constants.DATABASE_USERS_CHILD).orderByChild(Constants.DATABASE_CHANNEL_FIELD).equalTo(channel)
-            .addChildEventListener(object: ChildEventListener {
+            .addListenerForSingleValueEvent(object: ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {}
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-                override fun onChildRemoved(snapshot: DataSnapshot) {}
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    snapshot.ref.removeValue()
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (singleSnapshot in snapshot.children) {
+                        singleSnapshot.ref.removeValue()
+                    }
                 }
             })
     }

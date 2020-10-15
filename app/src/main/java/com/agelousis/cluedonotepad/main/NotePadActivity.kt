@@ -70,9 +70,13 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
             }))
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        window?.hideSystemUI()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window?.hideSystemUI()
         setContentView(R.layout.activity_notepad)
         setupToolbar()
         configureViewPagerAndTabLayout()
@@ -135,9 +139,14 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
             )
     }
 
-    fun initializeUser(character: Character, block: (user: User) -> Unit) {
+    fun initializeUsers(character: Character?, block: (users: List<User?>) -> Unit) {
         if (users.isNotEmpty())
-            block(users.firstOrNull { user -> user.character == character } ?: return)
+            block(
+                character?.let {
+                    listOf(
+                        users.firstOrNull { user -> user.character == it }
+                    )
+                } ?: users)
         else {
             setLoaderState(
                 state = true
@@ -148,8 +157,14 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
                 setLoaderState(
                     state = false
                 )
-                users.addAll(it)
-                block(users.firstOrNull { user -> user.character == character } ?: return@inner)
+                users.addAll(
+                    it
+                )
+                block(
+                    listOf(
+                        users.firstOrNull { user -> user.character == character }
+                    )
+                )
             }
         }
     }

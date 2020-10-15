@@ -6,6 +6,7 @@ class MainApplication: Application() {
 
     companion object {
         var connectionIsEstablished = false
+        var firebaseToken: String? = null
     }
 
 }
