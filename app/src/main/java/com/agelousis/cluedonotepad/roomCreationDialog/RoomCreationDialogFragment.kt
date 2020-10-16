@@ -1,12 +1,10 @@
 package com.agelousis.cluedonotepad.roomCreationDialog
 
+import android.app.Dialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -65,16 +63,21 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
             roomDialogCreationButton.isEnabled = value
         }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation
-        return RoomCreationDialogFragmentLayoutBinding.inflate(
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return super.onCreateDialog(savedInstanceState).also {
+            it.window?.requestFeature(Window.FEATURE_NO_TITLE)
+            it.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            it.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+        RoomCreationDialogFragmentLayoutBinding.inflate(
             inflater, container, false
         ).also {
+            it.currentChannel = MainApplication.currentChannel
             it.presenter = this
         }.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -111,6 +114,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
                 )
             )
             dismiss()
+            MainApplication.currentChannel = roomDialogField.text?.toString()
             roomDialogDismissBlock(
                 GameTypeModel(
                     gameType = gameType,

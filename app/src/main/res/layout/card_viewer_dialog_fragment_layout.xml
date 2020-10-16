@@ -42,6 +42,7 @@
         android:textAllCaps="false"
         android:alpha="0.5"
         android:enabled="false"
+        app:cornerRadius="0dp"
         app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

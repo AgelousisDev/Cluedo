@@ -1,9 +1,7 @@
 package com.agelousis.cluedonotepad.cardViewer
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.agelousis.cluedonotepad.R
@@ -63,7 +61,6 @@ class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout),
             }
         }
         (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
-        itemsRecyclerView.smoothScrollToPosition(itemsList.size - 1)
         selectedCardViewerModel.itemHeaderType = itemTitleModel.itemHeaderType
         sendButtonState = selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
@@ -108,7 +105,7 @@ class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout),
     private fun setupUI() {
         sendButton.setOnClickListener {
             (activity as? NotePadActivity)?.initializeUsers(
-                character = selectedCardViewerModel.characterModel?.characterEnum ?: return@setOnClickListener
+                character = selectedCardViewerModel.characterModel?.characterEnum
             ) inner@ { users ->
                 users.filterNot { it?.device == MainApplication.firebaseToken }.mapNotNull { it?.device }.forEach { device ->
                     (activity as? NotePadActivity)?.viewModel?.sendFirebaseToken(
@@ -157,10 +154,5 @@ class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout),
             itemPresenter = this
         )
     }
-
-    /*override fun onCancel(dialog: DialogInterface) {
-        characterModelList?.forEach { it.playerIsSelected = false }
-        super.onCancel(dialog)
-    }*/
 
 }

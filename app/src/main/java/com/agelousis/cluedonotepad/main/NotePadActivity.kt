@@ -143,7 +143,8 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
                     listOf(
                         users.firstOrNull { user -> user.character == it }
                     )
-                } ?: users)
+                } ?: users
+            )
         else {
             setLoaderState(
                 state = true
@@ -158,9 +159,11 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
                     it
                 )
                 block(
-                    listOf(
-                        users.firstOrNull { user -> user.character == character }
-                    )
+                    character?.let {
+                        listOf(
+                            users.firstOrNull { user -> user.character == it }
+                        )
+                    } ?: users
                 )
             }
         }
