@@ -28,7 +28,7 @@ class FirebaseMessaging: FirebaseMessagingService() {
                     itemModel = Gson().fromJson(p0.data["itemModel"], ItemModel::class.java)
                 )
                 )
-            intent.action =Constants.SHOW_NOTIFICATION_INTENT_ACTION
+            intent.action = Constants.SHOW_NOTIFICATION_INTENT_ACTION
             sendBroadcast(intent)
         }
     }

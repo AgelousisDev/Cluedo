@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
+import com.agelousis.cluedonotepad.cards.EmptyModel
+import com.agelousis.cluedonotepad.cards.interfaces.CardsUpdateListener
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
@@ -42,6 +44,12 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
     }
 
     override fun onNotificationReceived(firebaseMessageDataModel: FirebaseMessageDataModel) {
+        if (firebaseMessageDataModel !in cardsSharedList) {
+            if (cardsSharedList.any { it is EmptyModel })
+                cardsSharedList.clear()
+            cardsSharedList.add(firebaseMessageDataModel)
+            cardsUpdateListener?.onUpdate()
+        }
         makeSoundNotification()
         NotificationDataViewerDialogFragment.show(
             supportFragmentManager = supportFragmentManager,
@@ -67,6 +75,16 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         it.notificationListener = this
     } }
     private val notificationIntentFilter by lazy { IntentFilter(Constants.SHOW_NOTIFICATION_INTENT_ACTION) }
+    val cardsSharedList by lazy {
+        arrayListOf<Any>(
+            EmptyModel(
+                imageIconResource = R.drawable.ic_image,
+                title = resources.getString(R.string.key_cards_label),
+                message = resources.getString(R.string.key_no_cards_message)
+            )
+        )
+    }
+    var cardsUpdateListener: CardsUpdateListener? = null
 
     override fun onBackPressed() {
         BasicDialog.show(supportFragmentManager = supportFragmentManager, dialogType = BasicDialogType(title = resources.getString(R.string.key_warning_label),
@@ -119,7 +137,7 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
             supportFragmentManager = supportFragmentManager
         )
         notePadViewPager.offscreenPageLimit = if (gameTypeModel?.gameType == GameType.ROOM_CREATION ||
-            gameTypeModel?.gameType == GameType.JOINED_ROOM) 4 else 3
+            gameTypeModel?.gameType == GameType.JOINED_ROOM) 5 else 3
         notePadTabLayout.setupWithViewPager(notePadViewPager)
         notePadTabLayout.getTabAt(3)?.setIcon(R.drawable.ic_image)
         notePadViewPager.addOnPageChangeListener(this)

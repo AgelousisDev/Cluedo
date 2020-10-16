@@ -33,6 +33,8 @@
     <string name="key_room_exists_message">Raum existiert bereits. Versuche einen anderen…</string>
     <string name="key_room_creation_message">Erstellen Sie einen Raum &amp; Teilen Sie Ihre ausgewählten Karten im nächsten Bildschirm</string>
     <string name="key_share_label">Teilen</string>
+    <string name="key_cards_label">Cards</string>
+    <string name="key_no_cards_message">Ups! You have not shared any cards yet…</string>
 
     <string-array name="key_characters_array">
         <item>Miss Scarlett</item>
