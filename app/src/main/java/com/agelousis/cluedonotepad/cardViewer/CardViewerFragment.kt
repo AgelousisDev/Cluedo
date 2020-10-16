@@ -1,11 +1,10 @@
 package com.agelousis.cluedonotepad.cardViewer
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
@@ -19,41 +18,23 @@ import com.agelousis.cluedonotepad.cardViewer.models.SelectedCardViewerModel
 import com.agelousis.cluedonotepad.cardViewer.presenters.ItemHeaderPresenter
 import com.agelousis.cluedonotepad.cardViewer.presenters.ItemPresenter
 import com.agelousis.cluedonotepad.cardViewer.presenters.PlayersPresenter
-import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.extensions.forEachIfEach
 import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageDataModel
 import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageModel
 import com.agelousis.cluedonotepad.main.NotePadActivity
-import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.card_viewer_dialog_fragment_layout.*
 
-class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresenter, ItemHeaderPresenter, ItemPresenter {
-
-    companion object {
-
-        private const val CHARACTER_MODEL_LIST_EXTRA = "CardViewerBottomSheetFragment=characterModelListExtra"
-
-        fun show(supportFragmentManager: FragmentManager, charactersModelList: ArrayList<CharacterModel>) {
-            CardViewerBottomSheetFragment().also {
-                it.arguments = with(Bundle()) {
-                    putParcelableArrayList(CHARACTER_MODEL_LIST_EXTRA, charactersModelList)
-                    this
-                }
-                it.retainInstance = true
-            }.show(supportFragmentManager, Constants.CARD_VIEWER_SHEET_FRAGMENT)
-        }
-    }
+class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout), PlayersPresenter, ItemHeaderPresenter, ItemPresenter {
 
     override fun onPlayerSelected(adapterPosition: Int, isSelected: Boolean) {
-        characterModelList?.forEach { it.playerIsSelected = false }
-        characterModelList?.getOrNull(index = adapterPosition)?.playerIsSelected = isSelected
+        characterModelList.forEach { it.playerIsSelected = false }
+        characterModelList.getOrNull(index = adapterPosition)?.playerIsSelected = isSelected
         (playersRecyclerView.adapter as? PlayersAdapter)?.reloadData()
-        selectedCardViewerModel.characterModel = if (isSelected) characterModelList?.getOrNull(index = adapterPosition) else null
+        selectedCardViewerModel.characterModel = if (isSelected) characterModelList.getOrNull(index = adapterPosition) else null
     }
 
     override fun onItemHeaderSelected(itemTitleModel: ItemTitleModel) {
@@ -82,6 +63,7 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
             }
         }
         (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
+        itemsRecyclerView.smoothScrollToPosition(itemsList.size - 1)
         selectedCardViewerModel.itemHeaderType = itemTitleModel.itemHeaderType
         sendButtonState = selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
@@ -100,7 +82,9 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         sendButtonState = selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
-    private val characterModelList by lazy { arguments?.getParcelableArrayList<CharacterModel>(CHARACTER_MODEL_LIST_EXTRA) }
+    private val characterModelList by lazy {
+        ArrayList((activity as? NotePadActivity)?.characterModelArray?.drop(n = 1) ?: listOf())
+    }
     private val itemsList by lazy {
         context?.let {
             CardViewerController.getCards(context = it)
@@ -113,9 +97,6 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         sendButton.alpha = if (value) 1.0f else 0.5f
         sendButton.isEnabled = value
     }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.card_viewer_dialog_fragment_layout, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -151,9 +132,9 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
             it.alignItems = AlignItems.CENTER
         }
         playersRecyclerView.adapter = PlayersAdapter(
-            playerList = characterModelList ?: return,
+            playerList = characterModelList,
             presenter = this
-            )
+        )
     }
 
     private fun configureItemsRecyclerView() {
@@ -177,9 +158,9 @@ class CardViewerBottomSheetFragment: BottomSheetDialogFragment(), PlayersPresent
         )
     }
 
-    override fun onCancel(dialog: DialogInterface) {
+    /*override fun onCancel(dialog: DialogInterface) {
         characterModelList?.forEach { it.playerIsSelected = false }
         super.onCancel(dialog)
-    }
+    }*/
 
 }

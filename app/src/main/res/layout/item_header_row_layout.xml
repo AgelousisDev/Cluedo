@@ -13,12 +13,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/lightGrey"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackgroundBorderless"
     android:onClick="@{() -> presenter.onItemHeaderSelected(itemTitleModel)}"
     android:padding="@dimen/nav_header_vertical_spacing"
+    customBackground="@{itemTitleModel.background}"
     tools:targetApi="m">
 
     <androidx.appcompat.widget.AppCompatImageView

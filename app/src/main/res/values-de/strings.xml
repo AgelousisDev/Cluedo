@@ -32,6 +32,7 @@
     <string name="key_room_not_exists_message">Raum-ID existiert nicht. Geben Sie eine andere…</string>
     <string name="key_room_exists_message">Raum existiert bereits. Versuche einen anderen…</string>
     <string name="key_room_creation_message">Erstellen Sie einen Raum &amp; Teilen Sie Ihre ausgewählten Karten im nächsten Bildschirm</string>
+    <string name="key_share_label">Teilen</string>
 
     <string-array name="key_characters_array">
         <item>Miss Scarlett</item>

@@ -4,19 +4,21 @@ import android.content.Context
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.agelousis.cluedonotepad.R
+import com.agelousis.cluedonotepad.cardViewer.CardViewerFragment
 import com.agelousis.cluedonotepad.main.fragments.SuspectWhatFragment
 import com.agelousis.cluedonotepad.main.fragments.SuspectWhereFragment
 import com.agelousis.cluedonotepad.main.fragments.SuspectWhoFragment
 
-class SuspectFragmentAdapter(private val context: Context, supportFragmentManager: FragmentManager): FragmentStatePagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class SuspectFragmentAdapter(private val context: Context, private val hasSharingAccess: Boolean, supportFragmentManager: FragmentManager): FragmentStatePagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    override fun getCount() = 3
+    override fun getCount() = if (hasSharingAccess) 4 else 3
 
     override fun getItem(position: Int) =
         when(position) {
             0 -> SuspectWhoFragment()
             1 -> SuspectWhatFragment()
             2 -> SuspectWhereFragment()
+            3 -> CardViewerFragment()
             else -> SuspectWhoFragment()
         }
 
@@ -25,8 +27,8 @@ class SuspectFragmentAdapter(private val context: Context, supportFragmentManage
             0 -> context.resources.getString(R.string.key_who_label)
             1 -> context.resources.getString(R.string.key_what_label)
             2 -> context.resources.getString(R.string.key_where_label)
+            3 -> context.resources.getString(R.string.key_share_label)
             else -> context.resources.getString(R.string.key_who_label)
         }
-
 
 }

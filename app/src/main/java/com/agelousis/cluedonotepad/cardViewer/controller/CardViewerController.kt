@@ -16,7 +16,8 @@ object CardViewerController {
             title = context.resources.getString(R.string.key_who_label),
             itemHeaderType = ItemHeaderType.WHO,
             icon = R.drawable.ic_person,
-            isExpanded = withPlayers
+            isExpanded = withPlayers,
+            background = R.drawable.item_row_background_top_left_right_corner
         ))
         if (withPlayers)
             context.resources.getStringArray(R.array.key_characters_array).forEachIndexed { index, value ->
@@ -32,7 +33,8 @@ object CardViewerController {
             title = context.resources.getString(R.string.key_what_label),
             itemHeaderType = ItemHeaderType.WHAT,
             icon = R.drawable.ic_tool,
-            isExpanded = withTools
+            isExpanded = withTools,
+            background = R.drawable.item_row_background
         ))
         if (withTools)
             context.resources.getStringArray(R.array.key_tools_array).forEachIndexed { index, value ->
@@ -48,7 +50,8 @@ object CardViewerController {
             title = context.resources.getString(R.string.key_where_label),
             itemHeaderType = ItemHeaderType.WHERE,
             icon = R.drawable.ic_room,
-            isExpanded = withRooms
+            isExpanded = withRooms,
+            background = R.drawable.item_row_background_bottom_left_right_background
         ))
         if (withRooms)
             context.resources.getStringArray(R.array.key_rooms_array).forEachIndexed { index, value ->

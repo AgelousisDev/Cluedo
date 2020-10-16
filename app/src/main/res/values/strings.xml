@@ -32,6 +32,7 @@
     <string name="key_room_exists_message">Room already exists. Try another…</string>
     <string name="key_room_creation_message">Create a room &amp; share your selected cards in the next screen</string>
     <string name="key_no_internet_connection_label">No internet connection</string>
+    <string name="key_share_label">Share</string>
 
     <string-array name="key_characters_array">
         <item>Miss Scarlett</item>

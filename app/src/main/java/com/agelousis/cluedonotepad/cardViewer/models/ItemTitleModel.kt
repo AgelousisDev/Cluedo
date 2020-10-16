@@ -6,5 +6,6 @@ import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
 data class ItemTitleModel(val title: String,
                           val itemHeaderType: ItemHeaderType,
                           @DrawableRes val icon: Int,
-                          val isExpanded: Boolean
+                          val isExpanded: Boolean,
+                          val background: Int
 )

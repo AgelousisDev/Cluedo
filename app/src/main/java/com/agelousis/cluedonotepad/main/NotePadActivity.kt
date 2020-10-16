@@ -2,10 +2,11 @@ package com.agelousis.cluedonotepad.main
 
 import android.content.IntentFilter
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager.widget.ViewPager
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
-import com.agelousis.cluedonotepad.cardViewer.CardViewerBottomSheetFragment
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
@@ -28,7 +29,7 @@ import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 import kotlinx.android.synthetic.main.activity_notepad.*
 
-class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationListener {
+class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationListener, ViewPager.OnPageChangeListener {
 
     companion object {
         const val CHARACTER_MODEL_LIST_EXTRA = "NotePadActivity=characterModelListExtra"
@@ -46,6 +47,14 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
             supportFragmentManager = supportFragmentManager,
             firebaseMessageDataModel = firebaseMessageDataModel
         )
+    }
+
+    override fun onPageScrollStateChanged(state: Int) {}
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+    override fun onPageSelected(position: Int) {
+        notepadTimer.visibility = if (position != 3) View.VISIBLE else View.GONE
     }
 
     val viewModel by lazy { ViewModelProvider(this).get(NotePadViewModel::class.java) }
@@ -81,10 +90,6 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         setupToolbar()
         configureViewPagerAndTabLayout()
         configureTimer()
-        initializeGameRoom {
-            gameTypeModel?.gameType == GameType.ROOM_CREATION ||
-                    gameTypeModel?.gameType == GameType.JOINED_ROOM
-        }
     }
 
     override fun onResume() {
@@ -104,32 +109,24 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
 
     private fun setupToolbar() {
         bottomAppBarTitle.text = gameTypeModel?.channel ?: resources.getString(R.string.app_name)
-        cardViewerButton.setOnClickListener {
-            CardViewerBottomSheetFragment.show(
-                supportFragmentManager = supportFragmentManager,
-                charactersModelList = ArrayList(characterModelArray?.drop(n = 1) ?: return@setOnClickListener)
-            )
-        }
     }
 
     private fun configureViewPagerAndTabLayout() {
         notePadViewPager.adapter = SuspectFragmentAdapter(
             context = this,
+            hasSharingAccess = gameTypeModel?.gameType == GameType.ROOM_CREATION ||
+                    gameTypeModel?.gameType == GameType.JOINED_ROOM,
             supportFragmentManager = supportFragmentManager
         )
-        notePadViewPager.offscreenPageLimit = 3
+        notePadViewPager.offscreenPageLimit = if (gameTypeModel?.gameType == GameType.ROOM_CREATION ||
+            gameTypeModel?.gameType == GameType.JOINED_ROOM) 4 else 3
         notePadTabLayout.setupWithViewPager(notePadViewPager)
+        notePadTabLayout.getTabAt(3)?.setIcon(R.drawable.ic_image)
+        notePadViewPager.addOnPageChangeListener(this)
     }
 
     private fun configureTimer() {
         TimerHelper(timerListener = this)
-    }
-
-    private fun initializeGameRoom(predicate: () -> Boolean) {
-        if (predicate())
-            cardViewerButton.show()
-        else
-            cardViewerButton.hide()
     }
 
     private fun removeChannel(predicate: () -> Boolean) {

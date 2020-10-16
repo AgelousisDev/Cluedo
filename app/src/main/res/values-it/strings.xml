@@ -32,6 +32,7 @@
     <string name="key_room_not_exists_message">ID camera non esiste. Inserisci un altro…</string>
     <string name="key_room_exists_message">La stanza esiste già. Prova un altro…</string>
     <string name="key_room_creation_message">Crea una stanza e &amp; condividere le carte selezionate nella schermata successiva</string>
+    <string name="key_share_label">Condividere</string>
 
     <string-array name="key_characters_array">
         <item>Miss Scarlett</item>
