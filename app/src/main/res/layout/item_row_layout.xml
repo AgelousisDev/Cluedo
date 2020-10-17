@@ -22,6 +22,7 @@
         android:fontFamily="@font/ubuntu"
         android:text="@{itemModel.item}"
         android:textColor="@color/colorPrimary"
+        alphaIfItemContainedInArray="@{itemModel.item}"
         app:chipEndPadding="@dimen/nav_header_vertical_spacing"
         app:chipStartPadding="@dimen/nav_header_vertical_spacing"
         app:chipSurfaceColor="@color/colorAccent"

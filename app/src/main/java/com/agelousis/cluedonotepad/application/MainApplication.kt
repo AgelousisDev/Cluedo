@@ -8,6 +8,7 @@ class MainApplication: Application() {
         var connectionIsEstablished = false
         var firebaseToken: String? = null
         var currentChannel: String? = null
+        var currentSelectedCards = arrayListOf<String>()
     }
 
 }

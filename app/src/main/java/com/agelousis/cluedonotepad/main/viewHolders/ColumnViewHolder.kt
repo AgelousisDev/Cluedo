@@ -12,7 +12,7 @@ import com.agelousis.cluedonotepad.main.presenters.ColumnPresenter
 
 class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(columnDataModel: ColumnDataModel, columnPresenter: ColumnPresenter) {
+    fun bind(columnDataModel: ColumnDataModel, columnPresenter: ColumnPresenter?) {
         binding.columnDataModel = columnDataModel
         binding.rowColumnTextView.isSelected = true
         columnDataModel.columnType.takeIf { it == ColumnType.FIELD }?.let {
@@ -30,7 +30,7 @@ class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): Recy
         binding.executePendingBindings()
     }
 
-    private fun setImageListeners(columnPresenter: ColumnPresenter) {
+    private fun setImageListeners(columnPresenter: ColumnPresenter?) {
         (binding.rowColumnImageView.tag as? ColumnState)?.let {
             if (binding.rowColumnImageView.drawable == null)
                 binding.rowColumnImageView.setAnimatedImageResourceId(
@@ -42,14 +42,14 @@ class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): Recy
             binding.rowColumnImageView.setAnimatedImageResourceId(
                 resourceId = (binding.rowColumnImageView.tag as? ColumnState)?.icon ?: 0
             )
-            columnPresenter.onIconSet(columnState = binding.rowColumnImageView.tag as? ColumnState ?: ColumnState.EMPTY, adapterPosition = adapterPosition)
+            columnPresenter?.onIconSet(columnState = binding.rowColumnImageView.tag as? ColumnState ?: ColumnState.EMPTY, adapterPosition = adapterPosition)
         }
         itemView.setOnLongClickListener {
             binding.rowColumnImageView.tag = ColumnState.APPROVED
             binding.rowColumnImageView.setAnimatedImageResourceId(
                 resourceId = R.drawable.ic_checkmark
             )
-            columnPresenter.onIconSet(columnState = ColumnState.APPROVED, adapterPosition = adapterPosition)
+            columnPresenter?.onIconSet(columnState = ColumnState.APPROVED, adapterPosition = adapterPosition)
             true
         }
     }

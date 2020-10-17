@@ -22,6 +22,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.databinding.BindingAdapter
 import com.agelousis.cluedonotepad.R
+import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
 import com.agelousis.cluedonotepad.cardViewer.models.ItemModel
 import com.agelousis.cluedonotepad.constants.Constants
@@ -32,6 +33,7 @@ import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
 import com.agelousis.cluedonotepad.splash.enumerations.Language
 import com.agelousis.cluedonotepad.splash.presenters.CharacterPresenter
+import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
@@ -263,5 +265,13 @@ fun setItemModel(appCompatImageView: AppCompatImageView, itemModel: ItemModel?) 
         }
         appCompatImageView.setImageResource(arrayOfIcons.getResourceId(it.itemPosition, -1))
         arrayOfIcons.recycle()
+    }
+}
+
+@BindingAdapter("alphaIfItemContainedInArray")
+fun setAlphaIfItemContainedInArray(chip: Chip, item: String?) {
+    item?.let {
+        chip.alpha = if (it !in MainApplication.currentSelectedCards) 0.2f else 1.0f
+        chip.isEnabled = it !in MainApplication.currentSelectedCards
     }
 }
