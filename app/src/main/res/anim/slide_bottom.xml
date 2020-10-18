@@ -17,8 +17,4 @@
         android:fromAlpha="1"
         android:toAlpha="0" />
 
-    <rotate
-        android:fromDegrees="0"
-        android:toDegrees="180" />
-
 </set>

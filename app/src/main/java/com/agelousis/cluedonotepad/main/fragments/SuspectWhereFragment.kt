@@ -26,8 +26,7 @@ class SuspectWhereFragment: Fragment(R.layout.suspect_fragment_layout) {
             rowDataModelList = controller?.getCluedoList(
                 characterModelList = (activity as? NotePadActivity)?.characterModelArray ?: return,
                 itemHeaderType = ItemHeaderType.WHERE
-            ) ?: return,
-            columnPresenter = activity as? NotePadActivity
+            ) ?: return
         )
     }
 

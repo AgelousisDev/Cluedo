@@ -267,11 +267,3 @@ fun setItemModel(appCompatImageView: AppCompatImageView, itemModel: ItemModel?) 
         arrayOfIcons.recycle()
     }
 }
-
-@BindingAdapter("alphaIfItemContainedInArray")
-fun setAlphaIfItemContainedInArray(chip: Chip, item: String?) {
-    item?.let {
-        chip.alpha = if (it !in MainApplication.currentSelectedCards) 0.2f else 1.0f
-        chip.isEnabled = it !in MainApplication.currentSelectedCards
-    }
-}

@@ -8,7 +8,6 @@ import androidx.viewpager.widget.ViewPager
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
-import com.agelousis.cluedonotepad.cardViewer.interfaces.CardViewerListener
 import com.agelousis.cluedonotepad.cards.EmptyModel
 import com.agelousis.cluedonotepad.cards.interfaces.CardsUpdateListener
 import com.agelousis.cluedonotepad.constants.Constants
@@ -22,8 +21,6 @@ import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
 import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageDataModel
 import com.agelousis.cluedonotepad.firebase.models.User
 import com.agelousis.cluedonotepad.main.adapters.SuspectFragmentAdapter
-import com.agelousis.cluedonotepad.main.enums.ColumnState
-import com.agelousis.cluedonotepad.main.presenters.ColumnPresenter
 import com.agelousis.cluedonotepad.main.timer.TimerHelper
 import com.agelousis.cluedonotepad.main.timer.TimerListener
 import com.agelousis.cluedonotepad.main.viewModel.NotePadViewModel
@@ -35,16 +32,12 @@ import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 import kotlinx.android.synthetic.main.activity_notepad.*
 
-class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationListener, ViewPager.OnPageChangeListener, ColumnPresenter {
+class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationListener, ViewPager.OnPageChangeListener {
 
     companion object {
         const val CHARACTER_MODEL_LIST_EXTRA = "NotePadActivity=characterModelListExtra"
         const val GAME_TYPE_MODEL_EXTRA = "NotePadActivity=gameTypeModelExtra"
         const val NOTIFICATION_DATA_MODEL_EXTRA = "NotePadActivity=notificationDataModelExtra"
-    }
-
-    override fun onIconSet(columnState: ColumnState, adapterPosition: Int) {
-        cardViewerListener?.onUpdate()
     }
 
     override fun onTimeUpdate(time: String) {
@@ -93,7 +86,6 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         )
     }
     var cardsUpdateListener: CardsUpdateListener? = null
-    var cardViewerListener: CardViewerListener? = null
 
     override fun onBackPressed() {
         BasicDialog.show(supportFragmentManager = supportFragmentManager, dialogType = BasicDialogType(title = resources.getString(R.string.key_warning_label),

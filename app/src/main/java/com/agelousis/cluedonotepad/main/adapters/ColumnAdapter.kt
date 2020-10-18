@@ -10,22 +10,18 @@ import com.agelousis.cluedonotepad.main.models.ColumnDataModel
 import com.agelousis.cluedonotepad.main.presenters.ColumnPresenter
 import com.agelousis.cluedonotepad.main.viewHolders.ColumnViewHolder
 
-class ColumnAdapter(private val columnDataModelList: List<ColumnDataModel>, private val columnPresenter: ColumnPresenter?): RecyclerView.Adapter<RecyclerView.ViewHolder>(), ColumnPresenter {
+class ColumnAdapter(private val columnDataModelList: List<ColumnDataModel>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), ColumnPresenter {
 
     override fun onIconSet(columnState: ColumnState, adapterPosition: Int) {
         columnDataModelList.getOrNull(index = adapterPosition)?.columnState = columnState
         if (adapterPosition == 1 || adapterPosition ==  2) {
-            columnPresenter?.onIconSet(
-                columnState = columnState,
-                adapterPosition = adapterPosition
-            )
             if (columnState != ColumnState.EMPTY)
                 MainApplication.currentSelectedCards.add(
-                    columnDataModelList.getOrNull(index = adapterPosition)?.title ?: return
+                    columnDataModelList.firstOrNull()?.title ?: return
                 )
             else
                 MainApplication.currentSelectedCards.remove(
-                    columnDataModelList.getOrNull(index = adapterPosition)?.title ?: return
+                    columnDataModelList.firstOrNull()?.title ?: return
                 )
         }
     }
@@ -39,7 +35,7 @@ class ColumnAdapter(private val columnDataModelList: List<ColumnDataModel>, priv
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? ColumnViewHolder)?.bind(
             columnDataModel = columnDataModelList.getOrNull(index = position) ?: return,
-            columnPresenter = columnPresenter
+            columnPresenter = this
         )
     }
 

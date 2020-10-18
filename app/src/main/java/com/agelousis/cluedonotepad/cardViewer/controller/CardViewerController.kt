@@ -2,11 +2,11 @@ package com.agelousis.cluedonotepad.cardViewer.controller
 
 import android.content.Context
 import com.agelousis.cluedonotepad.R
+import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
 import com.agelousis.cluedonotepad.cardViewer.models.ItemModel
 import com.agelousis.cluedonotepad.cardViewer.models.ItemTitleModel
 import com.agelousis.cluedonotepad.extensions.firstOrNullWithType
-import com.agelousis.cluedonotepad.extensions.forEachIfEach
 
 object CardViewerController {
 
@@ -25,7 +25,8 @@ object CardViewerController {
                     ItemModel(
                         item = value,
                         itemPosition = index,
-                        itemHeaderType = ItemHeaderType.WHO
+                        itemHeaderType = ItemHeaderType.WHO,
+                        isEnabled = value in MainApplication.currentSelectedCards
                     )
                 )
             }
@@ -42,7 +43,8 @@ object CardViewerController {
                     ItemModel(
                         item = value,
                         itemPosition = index,
-                        itemHeaderType = ItemHeaderType.WHAT
+                        itemHeaderType = ItemHeaderType.WHAT,
+                        isEnabled = value in MainApplication.currentSelectedCards
                     )
                 )
             }
@@ -59,7 +61,8 @@ object CardViewerController {
                     ItemModel(
                         item = value,
                         itemPosition = index,
-                        itemHeaderType = ItemHeaderType.WHERE
+                        itemHeaderType = ItemHeaderType.WHERE,
+                        isEnabled = value in MainApplication.currentSelectedCards
                     )
                 )
             }

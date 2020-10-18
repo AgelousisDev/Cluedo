@@ -10,7 +10,6 @@ import com.agelousis.cluedonotepad.cardViewer.adapters.ItemsAdapter
 import com.agelousis.cluedonotepad.cardViewer.adapters.PlayersAdapter
 import com.agelousis.cluedonotepad.cardViewer.controller.CardViewerController
 import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
-import com.agelousis.cluedonotepad.cardViewer.interfaces.CardViewerListener
 import com.agelousis.cluedonotepad.cardViewer.models.ItemModel
 import com.agelousis.cluedonotepad.cardViewer.models.ItemTitleModel
 import com.agelousis.cluedonotepad.cardViewer.models.SelectedCardViewerModel
@@ -27,11 +26,7 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import kotlinx.android.synthetic.main.card_viewer_dialog_fragment_layout.*
 
-class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout), PlayersPresenter, ItemHeaderPresenter, ItemPresenter, CardViewerListener {
-
-    override fun onUpdate() {
-        (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
-    }
+class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout), PlayersPresenter, ItemHeaderPresenter, ItemPresenter {
 
     override fun onPlayerSelected(adapterPosition: Int, isSelected: Boolean) {
         characterModelList.forEach { it.playerIsSelected = false }
@@ -102,7 +97,6 @@ class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as? NotePadActivity)?.cardViewerListener = this
         setupUI()
         configurePlayersRecyclerView()
         configureItemsRecyclerView()

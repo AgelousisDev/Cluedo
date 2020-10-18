@@ -9,14 +9,14 @@ import com.agelousis.cluedonotepad.main.presenters.ColumnPresenter
 
 class RowViewHolder(private val binding: NotepadRowLayoutBinding): RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(rowDataModel: RowDataModel, columnPresenter: ColumnPresenter?) {
+    fun bind(rowDataModel: RowDataModel) {
         binding.rowDataModel = rowDataModel
-        configureRecyclerView(columnDataModelList = rowDataModel.columnDataModelList, columnPresenter = columnPresenter)
+        configureRecyclerView(columnDataModelList = rowDataModel.columnDataModelList)
         binding.executePendingBindings()
     }
 
-    private fun configureRecyclerView(columnDataModelList: List<ColumnDataModel>, columnPresenter: ColumnPresenter?) {
-        binding.notepadColumnRecyclerView.adapter = ColumnAdapter(columnDataModelList = columnDataModelList, columnPresenter = columnPresenter)
+    private fun configureRecyclerView(columnDataModelList: List<ColumnDataModel>) {
+        binding.notepadColumnRecyclerView.adapter = ColumnAdapter(columnDataModelList = columnDataModelList)
     }
 
 }
