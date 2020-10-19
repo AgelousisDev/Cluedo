@@ -91,7 +91,6 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        initializeGoogleServices()
         configureViewModel()
         setupUI()
         initializeConnectionState()
@@ -220,6 +219,8 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         uiScope.launch {
             ConnectionHelper.icConnectionAvailable {
                 MainApplication.connectionIsEstablished = it
+                if (it)
+                    initializeGoogleServices()
             }
         }
 
