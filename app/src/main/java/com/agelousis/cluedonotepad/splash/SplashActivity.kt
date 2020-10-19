@@ -39,10 +39,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_splash.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-
 class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
 
     companion object {
@@ -55,7 +51,6 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         getSharedPreferences(Constants.PREFERENCES_TAG, Context.MODE_PRIVATE)
     }
 
-    private val uiScope = CoroutineScope(Dispatchers.Main)
     var characterViewModel: CharacterViewModel? = null
         set(value) {
             field = value
@@ -91,6 +86,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        initializeGoogleServices()
         configureViewModel()
         setupUI()
         initializeConnectionState()
@@ -216,12 +212,8 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         )
 
     private fun initializeConnectionState() =
-        uiScope.launch {
-            ConnectionHelper.icConnectionAvailable {
-                MainApplication.connectionIsEstablished = it
-                if (it)
-                    initializeGoogleServices()
-            }
+        ConnectionHelper.icConnectionAvailable {
+            MainApplication.connectionIsEstablished = it
         }
 
     private fun setupRecyclerView() {

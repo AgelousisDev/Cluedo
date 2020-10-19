@@ -22,7 +22,6 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.databinding.BindingAdapter
 import com.agelousis.cluedonotepad.R
-import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
 import com.agelousis.cluedonotepad.cardViewer.models.ItemModel
 import com.agelousis.cluedonotepad.constants.Constants
@@ -33,7 +32,6 @@ import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
 import com.agelousis.cluedonotepad.splash.enumerations.Language
 import com.agelousis.cluedonotepad.splash.presenters.CharacterPresenter
-import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
@@ -60,7 +58,7 @@ fun Int.run(indexedLoopBlock: IndexedLoopBlock) {
 val Int.px: Int
     get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
-val SharedPreferences?.isNightMode: Int
+/*val SharedPreferences?.isNightMode: Int
     get() = this?.getInt(Constants.DARK_MODE_VALUE, -1) ?: -1
 
 val Context?.isNightMode: Int
@@ -69,6 +67,8 @@ val Context?.isNightMode: Int
         Configuration.UI_MODE_NIGHT_YES -> 1
         else -> -1
     }
+
+*/
 
 val Context.isPortrait: Boolean
     get() = resources?.configuration?.orientation == Configuration.ORIENTATION_PORTRAIT
@@ -192,7 +192,7 @@ fun AppCompatImageView.setImageUri(uri: Uri) {
     val httpUrlConnection = url.openConnection() as? HttpURLConnection
     httpUrlConnection?.doInput = true
     CoroutineScope(Dispatchers.Default).launch {
-        val imageInputStream = httpUrlConnection?.inputStream ?: return@launch
+        val imageInputStream = try { httpUrlConnection?.inputStream ?: return@launch }  catch (e: Exception) { return@launch }
         val bitmap = BitmapFactory.decodeStream(imageInputStream)
         withContext(Dispatchers.Main) {
             setImageDrawable(
