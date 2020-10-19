@@ -16,7 +16,7 @@ enum class ColumnState {
 
     val icon: Int
         get() = when(this) {
-            EMPTY -> 0
+            EMPTY -> R.drawable.row_field_background
             CANCELLED -> R.drawable.ic_cancel
             LIGHT_APPROVED -> R.drawable.ic_lightbulb
             WARNING -> R.drawable.ic_warning

@@ -24,5 +24,6 @@
     <color name="selectedPlayerColor">#9F9F9F</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="darkAlphaWhite">#10000000</color>
 
 </resources>

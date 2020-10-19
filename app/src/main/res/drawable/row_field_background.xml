@@ -3,9 +3,9 @@
     android:shape="rectangle">
 
     <gradient
-        android:startColor="@color/dialogFooterBackground"
-        android:centerColor="@color/colorPrimary"
-        android:endColor="@color/colorPrimary"
+        android:startColor="@color/darkAlphaWhite"
+        android:centerColor="@android:color/transparent"
+        android:endColor="@android:color/transparent"
         android:type="radial"
         android:gradientRadius="20dp"/>
 
