@@ -226,8 +226,10 @@ fun Window.hideSystemUI() {
             or View.SYSTEM_UI_FLAG_FULLSCREEN)
 }
 
-infix fun Int.isAny(intArray: IntArray) =
-    this in intArray
+val Window.hasNotch
+    get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+                decorView.rootWindowInsets.displayCutout != null
+            else false
 
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {

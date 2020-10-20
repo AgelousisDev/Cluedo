@@ -20,9 +20,10 @@ class TimerHelper(private val timerListener: TimerListener): Runnable {
         var seconds = (millisSecondTime.toInt() / 1000)
         val minutes = seconds / 60
         seconds %= 60
-        val milliSeconds = (millisSecondTime.toInt() % 1000)
-        timerListener.onTimeUpdate(time = "${String.format("%02d", minutes)}:${String.format("%02d", seconds)}:${String.format("%03d", milliSeconds)}")
-        handler?.postDelayed(this, 0)
+        timerListener.onTimeUpdate(time = "${String.format("%02d", minutes)}:${String.format("%02d", seconds)}")
+        if (minutes > 0 && minutes % 1 == 0 && seconds == 0)
+            timerListener.onEveryMinute()
+        handler?.postDelayed(this, 1000)
     }
 
 }

@@ -2,7 +2,6 @@ package com.agelousis.cluedonotepad.main
 
 import android.content.IntentFilter
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
@@ -14,15 +13,12 @@ import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.extensions.hideSystemUI
-import com.agelousis.cluedonotepad.extensions.isAny
 import com.agelousis.cluedonotepad.extensions.makeSoundNotification
 import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
 import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageDataModel
 import com.agelousis.cluedonotepad.firebase.models.User
 import com.agelousis.cluedonotepad.main.adapters.SuspectFragmentAdapter
-import com.agelousis.cluedonotepad.main.timer.TimerHelper
-import com.agelousis.cluedonotepad.main.timer.TimerListener
 import com.agelousis.cluedonotepad.main.viewModel.NotePadViewModel
 import com.agelousis.cluedonotepad.notificationDataViewer.NotificationDataViewerDialogFragment
 import com.agelousis.cluedonotepad.receivers.NotificationDataReceiver
@@ -30,19 +26,14 @@ import com.agelousis.cluedonotepad.receivers.interfaces.NotificationListener
 import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
-import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_notepad.*
 
-class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationListener, TabLayout.OnTabSelectedListener {
+class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
 
     companion object {
         const val CHARACTER_MODEL_LIST_EXTRA = "NotePadActivity=characterModelListExtra"
         const val GAME_TYPE_MODEL_EXTRA = "NotePadActivity=gameTypeModelExtra"
         const val NOTIFICATION_DATA_MODEL_EXTRA = "NotePadActivity=notificationDataModelExtra"
-    }
-
-    override fun onTimeUpdate(time: String) {
-        notepadTimer.text = time
     }
 
     override fun onNotificationReceived(firebaseMessageDataModel: FirebaseMessageDataModel) {
@@ -59,20 +50,11 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         )
     }
 
-    override fun onTabReselected(tab: TabLayout.Tab?) {}
-    override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-    override fun onTabSelected(tab: TabLayout.Tab?) {
-        val position = tab?.position ?: return
-        notepadTimer.visibility = if (!(position isAny intArrayOf(3, 4))) View.VISIBLE else View.GONE
-        bottomAppBarTitle.visibility = if (!(position isAny intArrayOf(3, 4))) View.VISIBLE else View.GONE
-    }
-
     val viewModel by lazy { ViewModelProvider(this).get(NotePadViewModel::class.java) }
     val characterModelArray by lazy {
         intent?.extras?.getParcelableArrayList<CharacterModel>(CHARACTER_MODEL_LIST_EXTRA)
     }
-    private val gameTypeModel by lazy { intent?.extras?.getParcelable<GameTypeModel>(GAME_TYPE_MODEL_EXTRA) }
+    val gameTypeModel by lazy { intent?.extras?.getParcelable<GameTypeModel>(GAME_TYPE_MODEL_EXTRA) }
     private val users by lazy { arrayListOf<User>() }
     private val notificationDataReceiver by lazy { NotificationDataReceiver().also {
         it.notificationListener = this
@@ -109,9 +91,7 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notepad)
         clearSelectedCardsCache()
-        setupToolbar()
         configureViewPagerAndTabLayout()
-        configureTimer()
     }
 
     private fun clearSelectedCardsCache() {
@@ -133,10 +113,6 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         super.onPause()
     }
 
-    private fun setupToolbar() {
-        bottomAppBarTitle.text = gameTypeModel?.channel ?: resources.getString(R.string.app_name)
-    }
-
     private fun configureViewPagerAndTabLayout() {
         notePadViewPager.adapter = SuspectFragmentAdapter(
             context = this,
@@ -147,13 +123,9 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         notePadViewPager.offscreenPageLimit = if (gameTypeModel?.gameType == GameType.ROOM_CREATION ||
             gameTypeModel?.gameType == GameType.JOINED_ROOM) 5 else 3
         notePadTabLayout.setupWithViewPager(notePadViewPager)
-        notePadTabLayout.getTabAt(3)?.setIcon(R.drawable.ic_send)
-        notePadTabLayout.getTabAt(4)?.setIcon(R.drawable.ic_image)
-        notePadTabLayout.addOnTabSelectedListener(this)
-    }
-
-    private fun configureTimer() {
-        TimerHelper(timerListener = this)
+        notePadTabLayout.getTabAt(0)?.setIcon(R.drawable.ic_info)
+        notePadTabLayout.getTabAt(4)?.setIcon(R.drawable.ic_send)
+        notePadTabLayout.getTabAt(5)?.setIcon(R.drawable.ic_image)
     }
 
     private fun removeChannel(predicate: () -> Boolean) {

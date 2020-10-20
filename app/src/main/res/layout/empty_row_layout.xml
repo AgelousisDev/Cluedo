@@ -17,6 +17,7 @@
         android:id="@+id/emptyRowImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginBottom="100dp"
         srcCompat="@{emptyModel.imageIconResource}"
         app:tint="@color/colorAccent"
         tools:srcCompat="@drawable/ic_image"
