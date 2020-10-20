@@ -32,9 +32,8 @@
     <string name="key_room_not_exists_message">Το δωμάτιο που καταχωρήσατε δεν υπάρχει. Δοκιμάστε διαφορετικό…</string>
     <string name="key_room_exists_message">Το δωμάτιο που καταχωρήσατε υπάρχει ήδη. Δοκιμάστε διαφορετικό…</string>
     <string name="key_room_creation_message"><![CDATA[Δημιουργείστε ένα δωμάτιο & και μοιραστείτε τις κάρτες σας…]]></string>
-    <string name="key_share_label">Μοιράσου</string>
-    <string name="key_cards_label">Cards</string>
-    <string name="key_no_cards_message">Ups! You have not shared any cards yet…</string>
+    <string name="key_cards_label">Καρτέλλες</string>
+    <string name="key_no_cards_message">Ωχ! Δεν έχετε μοιραστεί ακόμα κάρτες…</string>
 
     <string-array name="key_characters_array">
         <item>Φλόγα</item>

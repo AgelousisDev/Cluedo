@@ -16,7 +16,7 @@
         app:tabIndicatorColor="@color/colorAccent"
         app:tabSelectedTextColor="@color/colorAccent"
         app:tabRippleColor="@color/colorAccent"
-        app:tabIconTint="@color/colorAccent"
+        app:tabIconTint="@color/tab_icon_selector"
         app:tabInlineLabel="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -40,9 +40,25 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/key_share_label"/>
+            android:icon="@drawable/ic_send"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_image"/>
 
     </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/notePadViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+        android:layout_marginBottom="@dimen/nav_header_vertical_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bottomAppBarTitle"
@@ -53,18 +69,8 @@
         android:text="@string/app_name"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/notePadViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/nav_header_vertical_spacing"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/notepadTimer"
@@ -72,12 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/nav_header_vertical_spacing"
-        android:layerType="software"
-        android:shadowColor="@color/red"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="4"
-        android:textSize="16sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:fontFamily="@font/ubuntu_monospace"
         app:layout_constraintBottom_toBottomOf="parent"

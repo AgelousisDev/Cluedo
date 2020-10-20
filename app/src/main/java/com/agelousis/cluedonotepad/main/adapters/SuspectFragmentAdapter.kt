@@ -29,8 +29,7 @@ class SuspectFragmentAdapter(private val context: Context, private val hasSharin
             0 -> context.resources.getString(R.string.key_who_label)
             1 -> context.resources.getString(R.string.key_what_label)
             2 -> context.resources.getString(R.string.key_where_label)
-            3 -> context.resources.getString(R.string.key_share_label)
-            4 -> context.resources.getString(R.string.key_cards_label)
+            3, 4 -> null
             else -> context.resources.getString(R.string.key_who_label)
         }
 

@@ -226,6 +226,9 @@ fun Window.hideSystemUI() {
             or View.SYSTEM_UI_FLAG_FULLSCREEN)
 }
 
+infix fun Int.isAny(intArray: IntArray) =
+    this in intArray
+
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {
     drawableId?.let {

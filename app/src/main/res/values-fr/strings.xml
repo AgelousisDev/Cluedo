@@ -32,9 +32,8 @@
     <string name="key_room_not_exists_message">L\'ID de la salle n\'existe pas. Entrez un autre…</string>
     <string name="key_room_exists_message">La pièce existe déjà. Essaie un autre…</string>
     <string name="key_room_creation_message">Créer une pièce &amp; partager vos cartes sélectionnées dans l\'écran suivant</string>
-    <string name="key_share_label">Partager</string>
-    <string name="key_cards_label">Cards</string>
-    <string name="key_no_cards_message">Ups! You have not shared any cards yet…</string>
+    <string name="key_cards_label">Cartes</string>
+    <string name="key_no_cards_message">Ups! Vous n\'avez encore partagé aucune carte…</string>
 
     <string-array name="key_characters_array">
         <item>Miss Scarlett</item>

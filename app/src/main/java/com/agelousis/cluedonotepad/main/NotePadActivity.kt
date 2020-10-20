@@ -4,7 +4,6 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.ViewPager
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
@@ -15,6 +14,7 @@ import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.extensions.hideSystemUI
+import com.agelousis.cluedonotepad.extensions.isAny
 import com.agelousis.cluedonotepad.extensions.makeSoundNotification
 import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
@@ -30,9 +30,10 @@ import com.agelousis.cluedonotepad.receivers.interfaces.NotificationListener
 import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_notepad.*
 
-class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationListener, ViewPager.OnPageChangeListener {
+class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationListener, TabLayout.OnTabSelectedListener {
 
     companion object {
         const val CHARACTER_MODEL_LIST_EXTRA = "NotePadActivity=characterModelListExtra"
@@ -58,12 +59,13 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         )
     }
 
-    override fun onPageScrollStateChanged(state: Int) {}
+    override fun onTabReselected(tab: TabLayout.Tab?) {}
+    override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-
-    override fun onPageSelected(position: Int) {
-        notepadTimer.visibility = if (position != 3) View.VISIBLE else View.GONE
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+        val position = tab?.position ?: return
+        notepadTimer.visibility = if (!(position isAny intArrayOf(3, 4))) View.VISIBLE else View.GONE
+        bottomAppBarTitle.visibility = if (!(position isAny intArrayOf(3, 4))) View.VISIBLE else View.GONE
     }
 
     val viewModel by lazy { ViewModelProvider(this).get(NotePadViewModel::class.java) }
@@ -145,8 +147,9 @@ class NotePadActivity : BaseAppCompatActivity(), TimerListener, NotificationList
         notePadViewPager.offscreenPageLimit = if (gameTypeModel?.gameType == GameType.ROOM_CREATION ||
             gameTypeModel?.gameType == GameType.JOINED_ROOM) 5 else 3
         notePadTabLayout.setupWithViewPager(notePadViewPager)
-        notePadTabLayout.getTabAt(3)?.setIcon(R.drawable.ic_image)
-        notePadViewPager.addOnPageChangeListener(this)
+        notePadTabLayout.getTabAt(3)?.setIcon(R.drawable.ic_send)
+        notePadTabLayout.getTabAt(4)?.setIcon(R.drawable.ic_image)
+        notePadTabLayout.addOnTabSelectedListener(this)
     }
 
     private fun configureTimer() {
