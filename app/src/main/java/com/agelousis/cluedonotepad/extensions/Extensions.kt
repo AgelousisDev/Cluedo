@@ -228,7 +228,7 @@ fun Window.hideSystemUI() {
 
 val Window.hasNotch
     get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-                decorView.rootWindowInsets.displayCutout != null
+                decorView.rootWindowInsets?.displayCutout != null
             else false
 
 @BindingAdapter("srcCompat")
