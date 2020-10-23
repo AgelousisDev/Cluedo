@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.databinding.InfoFragmentLayoutBinding
 import com.agelousis.cluedonotepad.extensions.applyLightScaleAnimation
-import com.agelousis.cluedonotepad.extensions.makeSoundNotification
 import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.agelousis.cluedonotepad.main.models.InfoModel
 import com.agelousis.cluedonotepad.main.timer.TimerHelper
@@ -22,9 +21,7 @@ class InfoFragment: Fragment(), TimerListener {
         infoModel.timerValue.set(time)
     }
 
-    override fun onEveryMinute() {
-        context?.makeSoundNotification()
-    }
+    override fun onEveryMinute() {}
 
     private val infoModel by lazy {
         InfoModel(

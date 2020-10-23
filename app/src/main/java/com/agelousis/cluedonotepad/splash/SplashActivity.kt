@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
@@ -139,6 +140,9 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             }
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 cluedoImageView.visibility = if (progress > 0) View.GONE else View.VISIBLE
+                (playersRecyclerView.layoutParams as? ConstraintLayout.LayoutParams)?.apply {
+                    setMargins(if (progress > 0) 40.px else marginStart, topMargin, marginEnd, bottomMargin)
+                }
                 if (progress > lastSeekBarProgress)
                     (progress - lastSeekBarProgress).run {
                         characterViewModel?.addCharacter(characterModel = CharacterModel(characterNameHint = resources.getString(R.string.key_player_name_hint)))
