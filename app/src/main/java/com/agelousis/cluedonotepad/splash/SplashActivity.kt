@@ -141,7 +141,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 cluedoImageView.visibility = if (progress > 0) View.GONE else View.VISIBLE
                 (playersRecyclerView.layoutParams as? ConstraintLayout.LayoutParams)?.apply {
-                    setMargins(if (progress > 0) 40.px else marginStart, topMargin, marginEnd, bottomMargin)
+                    setMargins(if (progress > 0 && window?.hasNotch == true) 40.px else marginStart, topMargin, marginEnd, bottomMargin)
                 }
                 if (progress > lastSeekBarProgress)
                     (progress - lastSeekBarProgress).run {

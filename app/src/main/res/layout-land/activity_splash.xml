@@ -8,6 +8,8 @@
     android:animateLayoutChanges="true"
     android:focusableInTouchMode="true"
     android:focusable="true"
+    android:clipToPadding="false"
+    android:clipChildren="false"
     android:id="@+id/constraintLayout">
 
     <androidx.appcompat.widget.AppCompatImageView
