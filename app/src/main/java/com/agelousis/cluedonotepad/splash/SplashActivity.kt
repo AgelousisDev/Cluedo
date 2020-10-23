@@ -147,8 +147,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
                     (lastSeekBarProgress - progress).run {
                         characterViewModel?.removeCharacter()
                     }
-
-                (playersRecyclerView.adapter as? PlayersAdapter)?.update(appendState = progress > lastSeekBarProgress)
+                (playersRecyclerView.adapter as? PlayersAdapter)?.reloadData()
                 lastSeekBarProgress = progress
             }
         })
@@ -218,19 +217,16 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         }
 
     private fun setupRecyclerView() {
-        if (isPortrait) {
-            val flexLayoutManager = FlexboxLayoutManager(this@SplashActivity, FlexDirection.ROW)
-            flexLayoutManager.flexDirection = FlexDirection.ROW
-            flexLayoutManager.justifyContent = JustifyContent.CENTER
-            flexLayoutManager.alignItems = AlignItems.CENTER
-            playersRecyclerView.layoutManager = flexLayoutManager
-        }
         characterViewModel?.characterArray?.firstOrNull()?.let {
             characterViewModel?.characterArray?.clear()
             characterViewModel?.characterArray?.add(it)
         }
-        val playersAdapter = PlayersAdapter(context = this, characterListModel = characterViewModel?.characterArray ?: listOf())
-        playersRecyclerView.adapter = playersAdapter
+        playersRecyclerView.layoutManager = FlexboxLayoutManager(this@SplashActivity, FlexDirection.ROW).also {
+            it.flexDirection = FlexDirection.ROW
+            it.justifyContent = JustifyContent.FLEX_START
+            it.alignItems = AlignItems.CENTER
+        }
+        playersRecyclerView.adapter = PlayersAdapter(context = this, characterListModel = characterViewModel?.characterArray ?: listOf())
     }
 
     private fun configureViewModel() {
