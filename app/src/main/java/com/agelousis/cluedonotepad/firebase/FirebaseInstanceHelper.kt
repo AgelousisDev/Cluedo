@@ -1,6 +1,6 @@
 package com.agelousis.cluedonotepad.firebase
 
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 
 typealias FirebaseTokenSuccessBlock = (token: String) -> Unit
 class FirebaseInstanceHelper {
@@ -10,8 +10,8 @@ class FirebaseInstanceHelper {
     }
 
     fun initializeFirebaseToken(firebaseTokenSuccessBlock: FirebaseTokenSuccessBlock) {
-        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
-            firebaseTokenSuccessBlock(it.token)
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            firebaseTokenSuccessBlock(it.result ?: return@addOnCompleteListener)
         }
     }
 
