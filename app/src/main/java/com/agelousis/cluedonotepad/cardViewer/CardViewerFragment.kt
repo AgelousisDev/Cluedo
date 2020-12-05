@@ -1,10 +1,11 @@
 package com.agelousis.cluedonotepad.cardViewer
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.cardViewer.adapters.ItemsAdapter
 import com.agelousis.cluedonotepad.cardViewer.adapters.PlayersAdapter
@@ -16,6 +17,7 @@ import com.agelousis.cluedonotepad.cardViewer.models.SelectedCardViewerModel
 import com.agelousis.cluedonotepad.cardViewer.presenters.ItemHeaderPresenter
 import com.agelousis.cluedonotepad.cardViewer.presenters.ItemPresenter
 import com.agelousis.cluedonotepad.cardViewer.presenters.PlayersPresenter
+import com.agelousis.cluedonotepad.databinding.CardViewerDialogFragmentLayoutBinding
 import com.agelousis.cluedonotepad.extensions.forEachIfEach
 import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageDataModel
 import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageModel
@@ -24,14 +26,13 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import kotlinx.android.synthetic.main.card_viewer_dialog_fragment_layout.*
 
-class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout), PlayersPresenter, ItemHeaderPresenter, ItemPresenter {
+class CardViewerFragment: Fragment(), PlayersPresenter, ItemHeaderPresenter, ItemPresenter {
 
     override fun onPlayerSelected(adapterPosition: Int, isSelected: Boolean) {
         characterModelList.forEach { it.playerIsSelected = false }
         characterModelList.getOrNull(index = adapterPosition)?.playerIsSelected = isSelected
-        (playersRecyclerView.adapter as? PlayersAdapter)?.reloadData()
+        (binding?.playersRecyclerView?.adapter as? PlayersAdapter)?.reloadData()
         selectedCardViewerModel.characterModel = if (isSelected) characterModelList.getOrNull(index = adapterPosition) else null
     }
 
@@ -60,7 +61,7 @@ class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout),
                 ))
             }
         }
-        (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
+        (binding?.itemsRecyclerView?.adapter as? ItemsAdapter)?.reloadData()
         selectedCardViewerModel.itemHeaderType = itemTitleModel.itemHeaderType
         sendButtonState = selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
@@ -74,11 +75,12 @@ class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout),
             (it as ItemModel).isSelected = false
         }
         (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected = (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected == false
-        (itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
+        (binding?.itemsRecyclerView?.adapter as? ItemsAdapter)?.reloadData()
         selectedCardViewerModel.itemModel = itemsList.getOrNull(index = adapterPosition) as? ItemModel
         sendButtonState = selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
+    private var binding: CardViewerDialogFragmentLayoutBinding? = null
     private val characterModelList by lazy {
         ArrayList((activity as? NotePadActivity)?.characterModelArray?.drop(n = 1) ?: listOf())
     }
@@ -91,8 +93,13 @@ class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout),
     private var sendButtonState = false
     set(value) {
         field = value
-        sendButton.alpha = if (value) 1.0f else 0.5f
-        sendButton.isEnabled = value
+        binding?.sendButton?.alpha = if (value) 1.0f else 0.5f
+        binding?.sendButton?.isEnabled = value
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = CardViewerDialogFragmentLayoutBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -103,7 +110,7 @@ class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout),
     }
 
     private fun setupUI() {
-        sendButton.setOnClickListener {
+        binding?.sendButton?.setOnClickListener {
             (activity as? NotePadActivity)?.initializeUsers(
                 character = selectedCardViewerModel.characterModel?.characterEnum
             ) inner@ { users ->
@@ -123,19 +130,19 @@ class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout),
     }
 
     private fun configurePlayersRecyclerView() {
-        playersRecyclerView.layoutManager = FlexboxLayoutManager(context, FlexDirection.ROW).also {
+        binding?.playersRecyclerView?.layoutManager = FlexboxLayoutManager(context, FlexDirection.ROW).also {
             it.flexDirection = FlexDirection.ROW
             it.justifyContent = JustifyContent.CENTER
             it.alignItems = AlignItems.CENTER
         }
-        playersRecyclerView.adapter = PlayersAdapter(
+        binding?.playersRecyclerView?.adapter = PlayersAdapter(
             playerList = characterModelList,
             presenter = this
         )
     }
 
     private fun configureItemsRecyclerView() {
-        itemsRecyclerView.layoutManager = GridLayoutManager(
+        binding?.itemsRecyclerView?.layoutManager = GridLayoutManager(
             context ?: return,
             2
         ).also {
@@ -148,7 +155,7 @@ class CardViewerFragment: Fragment(R.layout.card_viewer_dialog_fragment_layout),
                     }
             }
         }
-        itemsRecyclerView.adapter = ItemsAdapter(
+        binding?.itemsRecyclerView?.adapter = ItemsAdapter(
             itemsList = itemsList,
             itemHeaderPresenter = this,
             itemPresenter = this

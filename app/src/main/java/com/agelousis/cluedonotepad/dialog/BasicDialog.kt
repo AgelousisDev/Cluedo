@@ -13,6 +13,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.constants.Constants
+import com.agelousis.cluedonotepad.databinding.BasicDialogLayoutBinding
 import com.agelousis.cluedonotepad.dialog.adapters.BasicDialogAdapter
 import com.agelousis.cluedonotepad.dialog.controller.BasicDialogController
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
@@ -26,7 +27,6 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import kotlinx.android.synthetic.main.basic_dialog_layout.*
 
 class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), CharacterSelectPresenter, LanguagePresenter {
 
@@ -39,6 +39,7 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
         }
     }
 
+    private var binding: BasicDialogLayoutBinding? = null
     private val sharedPreferences by lazy { context?.getSharedPreferences(Constants.PREFERENCES_TAG, Context.MODE_PRIVATE) }
 
     override fun onCharacterSelected(characterRowModel: CharacterRowModel) {
@@ -61,7 +62,8 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation
-        return inflater.inflate(R.layout.basic_dialog_layout, container, false)
+        binding = BasicDialogLayoutBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,20 +73,20 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
 
     private fun configureUI() {
         val context = context.takeIf { it != null } ?: return
-        basicDialogHeader.background.colorFilter = PorterDuffColorFilter(dialogType.headerBackgroundColor ?: ContextCompat.getColor(context, R.color.colorAccent), PorterDuff.Mode.SRC_IN)
-        basicDialogHeaderTitle.text = dialogType.title
-        basicDialogHeaderImage.setImageResource(dialogType.icon ?: R.drawable.ic_cluedo)
+        binding?.basicDialogHeader?.background?.colorFilter = PorterDuffColorFilter(dialogType.headerBackgroundColor ?: ContextCompat.getColor(context, R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+        binding?.basicDialogHeaderTitle?.text = dialogType.title
+        binding?.basicDialogHeaderImage?.setImageResource(dialogType.icon ?: R.drawable.ic_cluedo)
         when(dialogType.basicDialogTypeEnum) {
             BasicDialogTypeEnum.INFORMATION -> {
-                basicDialogRecyclerView.visibility = View.GONE
-                basicDialogInstructionsText.text = dialogType.text
-                basicDialogOkButton.setBackgroundColor((dialogType.headerBackgroundColor ?: ContextCompat.getColor(context, R.color.colorAccent)))
-                basicDialogOkButton.setOnClickListener { dismiss(); dialogType.basicDialogButtonBlock?.invoke() ?: dismiss() }
+                binding?.basicDialogRecyclerView?.visibility = View.GONE
+                binding?.basicDialogInstructionsText?.text = dialogType.text
+                binding?.basicDialogOkButton?.setBackgroundColor((dialogType.headerBackgroundColor ?: ContextCompat.getColor(context, R.color.colorAccent)))
+                binding?.basicDialogOkButton?.setOnClickListener { dismiss(); dialogType.basicDialogButtonBlock?.invoke() ?: dismiss() }
             }
             BasicDialogTypeEnum.CHARACTER_SELECT, BasicDialogTypeEnum.LANGUAGE_SELECT -> {
-                basicDialogInstructionsText.visibility = View.GONE
-                basicDialogOkButton.visibility = View.GONE
-                basicDialogRecyclerView.visibility = View.VISIBLE
+                binding?.basicDialogInstructionsText?.visibility = View.GONE
+                binding?.basicDialogOkButton?.visibility = View.GONE
+                binding?.basicDialogRecyclerView?.visibility = View.VISIBLE
                 configureRecyclerView()
             }
         }
@@ -95,7 +97,7 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
         flexLayoutManager.flexDirection = FlexDirection.ROW
         flexLayoutManager.justifyContent = JustifyContent.CENTER
         flexLayoutManager.alignItems = AlignItems.CENTER
-        basicDialogRecyclerView.layoutManager = flexLayoutManager
+        binding?.basicDialogRecyclerView?.layoutManager = flexLayoutManager
         val adapter = BasicDialogAdapter(
             list = when(dialogType.basicDialogTypeEnum) {
                 BasicDialogTypeEnum.CHARACTER_SELECT -> BasicDialogController.getCluedoCharacters(context = context ?: return)
@@ -104,7 +106,7 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
             },
             characterSelectPresenter = this,
             languagePresenter = this)
-        basicDialogRecyclerView.adapter = adapter
+        binding?.basicDialogRecyclerView?.adapter = adapter
     }
 
 }

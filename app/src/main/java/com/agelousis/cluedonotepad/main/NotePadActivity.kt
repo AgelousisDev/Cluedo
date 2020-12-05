@@ -9,6 +9,7 @@ import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.cards.EmptyModel
 import com.agelousis.cluedonotepad.cards.interfaces.CardsUpdateListener
 import com.agelousis.cluedonotepad.constants.Constants
+import com.agelousis.cluedonotepad.databinding.ActivityNotepadBinding
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
@@ -26,7 +27,6 @@ import com.agelousis.cluedonotepad.receivers.interfaces.NotificationListener
 import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
-import kotlinx.android.synthetic.main.activity_notepad.*
 
 class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
 
@@ -50,6 +50,7 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
         )
     }
 
+    private var binding: ActivityNotepadBinding? = null
     val viewModel by lazy { ViewModelProvider(this).get(NotePadViewModel::class.java) }
     val characterModelArray by lazy {
         intent?.extras?.getParcelableArrayList<CharacterModel>(CHARACTER_MODEL_LIST_EXTRA)
@@ -89,7 +90,8 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notepad)
+        binding = ActivityNotepadBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
         clearSelectedCardsCache()
         configureViewPagerAndTabLayout()
     }
@@ -114,18 +116,18 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
     }
 
     private fun configureViewPagerAndTabLayout() {
-        notePadViewPager.adapter = SuspectFragmentAdapter(
+        binding?.notePadViewPager?.adapter = SuspectFragmentAdapter(
             context = this,
             hasSharingAccess = gameTypeModel?.gameType == GameType.ROOM_CREATION ||
                     gameTypeModel?.gameType == GameType.JOINED_ROOM,
             supportFragmentManager = supportFragmentManager
         )
-        notePadViewPager.offscreenPageLimit = if (gameTypeModel?.gameType == GameType.ROOM_CREATION ||
+        binding?.notePadViewPager?.offscreenPageLimit = if (gameTypeModel?.gameType == GameType.ROOM_CREATION ||
             gameTypeModel?.gameType == GameType.JOINED_ROOM) 5 else 3
-        notePadTabLayout.setupWithViewPager(notePadViewPager)
-        notePadTabLayout.getTabAt(0)?.setIcon(R.drawable.ic_info)
-        notePadTabLayout.getTabAt(4)?.setIcon(R.drawable.ic_send)
-        notePadTabLayout.getTabAt(5)?.setIcon(R.drawable.ic_image)
+        binding?.notePadTabLayout?.setupWithViewPager(binding?.notePadViewPager)
+        binding?.notePadTabLayout?.getTabAt(0)?.setIcon(R.drawable.ic_info)
+        binding?.notePadTabLayout?.getTabAt(4)?.setIcon(R.drawable.ic_send)
+        binding?.notePadTabLayout?.getTabAt(5)?.setIcon(R.drawable.ic_image)
     }
 
     private fun removeChannel(predicate: () -> Boolean) {

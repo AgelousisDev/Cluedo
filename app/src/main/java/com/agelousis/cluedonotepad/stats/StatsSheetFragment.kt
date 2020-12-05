@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
-import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.constants.Constants
+import com.agelousis.cluedonotepad.databinding.StatsSheetFragmentLayoutBinding
 import com.agelousis.cluedonotepad.splash.SplashActivity
 import com.agelousis.cluedonotepad.stats.adapters.StatsAdapter
 import com.agelousis.cluedonotepad.stats.models.StatsModel
@@ -16,7 +16,6 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.stats_sheet_fragment_layout.*
 
 class StatsSheetFragment: BottomSheetDialogFragment(), ScorePresenter {
 
@@ -40,10 +39,12 @@ class StatsSheetFragment: BottomSheetDialogFragment(), ScorePresenter {
         statsModelList?.getOrNull(index = adapterPosition)?.playerScore = score
     }
 
+    private var binding: StatsSheetFragmentLayoutBinding? = null
     private val statsModelList by lazy { this.arguments?.getParcelableArrayList<StatsModel>(STATS_MODEL_LIST_EXTRA) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.stats_sheet_fragment_layout, container, false)
+        binding = StatsSheetFragmentLayoutBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,8 +57,8 @@ class StatsSheetFragment: BottomSheetDialogFragment(), ScorePresenter {
         flexLayoutManager.flexDirection = FlexDirection.ROW
         flexLayoutManager.justifyContent = JustifyContent.CENTER
         flexLayoutManager.alignItems = AlignItems.CENTER
-        statsRecyclerView.layoutManager = flexLayoutManager
-        statsRecyclerView.adapter = StatsAdapter(statsModelList = statsModelList ?: return, scorePresenter = this)
+        binding?.statsRecyclerView?.layoutManager = flexLayoutManager
+        binding?.statsRecyclerView?.adapter = StatsAdapter(statsModelList = statsModelList ?: return, scorePresenter = this)
     }
 
     override fun onDestroy() {

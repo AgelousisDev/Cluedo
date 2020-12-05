@@ -12,6 +12,7 @@ import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.constants.Constants
+import com.agelousis.cluedonotepad.databinding.ActivitySplashBinding
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
@@ -39,7 +40,6 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
 
@@ -49,6 +49,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         const val GOOGLE_SIGN_IN_REQUEST_CODE = 2
     }
 
+    private var binding: ActivitySplashBinding? = null
     private val sharedPreferences by lazy {
         getSharedPreferences(Constants.PREFERENCES_TAG, Context.MODE_PRIVATE)
     }
@@ -87,7 +88,8 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
         initializeGoogleServices()
         configureViewModel()
         setupUI()
@@ -110,8 +112,8 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             val signInIntent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, GOOGLE_SIGN_IN_REQUEST_CODE)
         }?.let { googleUser ->
-            googleUserImage.visibility = View.VISIBLE
-            googleUserImage.setImageUri(
+            binding?.googleUserImage?.visibility = View.VISIBLE
+            binding?.googleUserImage?.setImageUri(
                 uri = googleUser.photoUrl ?: return@let
             )
         }
@@ -130,17 +132,17 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
     }
 
     private fun setupUI() {
-        cluedoImageView.applyLightScaleAnimation()
-        playersSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+        binding?.cluedoImageView?.applyLightScaleAnimation()
+        binding?.playersSeekBar?.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 lastSeekBarProgress = seekBar?.progress ?: 0
-                playButton.isEnabled = seekBar?.progress ?: 0 > 0
-                statsButton.isEnabled = seekBar?.progress ?: 0 > 0
+                binding?.playButton?.isEnabled = seekBar?.progress ?: 0 > 0
+                binding?.statsButton?.isEnabled = seekBar?.progress ?: 0 > 0
             }
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                cluedoImageView.visibility = if (progress > 0) View.GONE else View.VISIBLE
-                (playersRecyclerView.layoutParams as? ConstraintLayout.LayoutParams)?.apply {
+                binding?.cluedoImageView?.visibility = if (progress > 0) View.GONE else View.VISIBLE
+                (binding?.playersRecyclerView?.layoutParams as? ConstraintLayout.LayoutParams)?.apply {
                     setMargins(if (progress > 0 && window?.hasNotch == true) 40.px else marginStart, topMargin, marginEnd, bottomMargin)
                 }
                 if (progress > lastSeekBarProgress)
@@ -151,13 +153,13 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
                     (lastSeekBarProgress - progress).run {
                         characterViewModel?.removeCharacter()
                     }
-                (playersRecyclerView.adapter as? PlayersAdapter)?.reloadData()
+                (binding?.playersRecyclerView?.adapter as? PlayersAdapter)?.reloadData()
                 lastSeekBarProgress = progress
             }
         })
 
         setupRecyclerView()
-        playButton.setOnClickListener {
+        binding?.playButton?.setOnClickListener {
             if (isPlayersAvailable())
                 Firebase.auth.currentUser.whenNull {
                     openNotePad(
@@ -175,7 +177,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
                     }
                 }
         }
-        statsButton.setOnClickListener {
+        binding?.statsButton?.setOnClickListener {
             if (isPlayersAvailable()) {
                 statsModelList.takeIf { it.isNotEmpty() && it.size != characterViewModel?.characterArray?.size ?: 0 }?.also {
                     statsModelList = ArrayList(statsModelList.subList(fromIndex = 0, toIndex = (characterViewModel?.characterArray?.size ?: 1) - 1))
@@ -196,11 +198,11 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             }
         }
         sharedPreferences.savedLanguage.whenNull {
-            languageButton.setImageResource(resources.currentLanguage?.icon ?: R.drawable.ic_language)
+            binding?.languageButton?.setImageResource(resources.currentLanguage?.icon ?: R.drawable.ic_language)
         }?.let { savedLanguage ->
-            languageButton.setImageResource(Language.values().firstOrNull { it.locale == savedLanguage }?.icon ?: R.drawable.ic_language)
+            binding?.languageButton?.setImageResource(Language.values().firstOrNull { it.locale == savedLanguage }?.icon ?: R.drawable.ic_language)
         }
-        languageButton.setOnClickListener {
+        binding?.languageButton?.setOnClickListener {
             showLanguageDialogIf {
                 true
             }
@@ -225,12 +227,12 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             characterViewModel?.characterArray?.clear()
             characterViewModel?.characterArray?.add(it)
         }
-        playersRecyclerView.layoutManager = FlexboxLayoutManager(this@SplashActivity, FlexDirection.ROW).also {
+        binding?.playersRecyclerView?.layoutManager = FlexboxLayoutManager(this@SplashActivity, FlexDirection.ROW).also {
             it.flexDirection = FlexDirection.ROW
             it.justifyContent = JustifyContent.FLEX_START
             it.alignItems = AlignItems.CENTER
         }
-        playersRecyclerView.adapter = PlayersAdapter(context = this, characterListModel = characterViewModel?.characterArray ?: listOf())
+        binding?.playersRecyclerView?.adapter = PlayersAdapter(context = this, characterListModel = characterViewModel?.characterArray ?: listOf())
     }
 
     private fun configureViewModel() {

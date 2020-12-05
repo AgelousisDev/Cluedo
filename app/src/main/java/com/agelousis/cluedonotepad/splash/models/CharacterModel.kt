@@ -5,8 +5,8 @@ import androidx.annotation.DrawableRes
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.stats.models.StatsModel
-import kotlinx.android.parcel.IgnoredOnParcel
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CharacterModel(val characterNameHint: String,

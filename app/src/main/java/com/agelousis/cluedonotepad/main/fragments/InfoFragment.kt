@@ -13,7 +13,6 @@ import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.agelousis.cluedonotepad.main.models.InfoModel
 import com.agelousis.cluedonotepad.main.timer.TimerHelper
 import com.agelousis.cluedonotepad.main.timer.TimerListener
-import kotlinx.android.synthetic.main.info_fragment_layout.*
 
 class InfoFragment: Fragment(), TimerListener {
 
@@ -23,6 +22,7 @@ class InfoFragment: Fragment(), TimerListener {
 
     override fun onEveryMinute() {}
 
+    private var binding: InfoFragmentLayoutBinding? = null
     private val infoModel by lazy {
         InfoModel(
             title = (activity as? NotePadActivity)?.gameTypeModel?.channel ?: resources.getString(R.string.app_name),
@@ -30,14 +30,16 @@ class InfoFragment: Fragment(), TimerListener {
         )
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-        InfoFragmentLayoutBinding.inflate(
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = InfoFragmentLayoutBinding.inflate(
             inflater,
             container,
             false
         ).also {
             it.infoModel = infoModel
-        }.root
+        }
+        return binding?.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,7 +48,7 @@ class InfoFragment: Fragment(), TimerListener {
     }
 
     private fun setupUI() {
-        cluedoImageView.applyLightScaleAnimation()
+        binding?.cluedoImageView?.applyLightScaleAnimation()
     }
 
     private fun configureTimer() {

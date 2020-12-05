@@ -22,7 +22,6 @@ import com.agelousis.cluedonotepad.roomCreationDialog.presenters.RoomDialogDismi
 import com.agelousis.cluedonotepad.splash.SplashActivity
 import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
-import kotlinx.android.synthetic.main.room_creation_dialog_fragment_layout.*
 
 class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogDismissBlock): DialogFragment(), RoomCreationPresenter {
 
@@ -37,7 +36,9 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
         }
     }
 
-    override fun onRoomGeneration() = roomDialogField.setText(9.generatedRandomString)
+    override fun onRoomGeneration() {
+        binding?.roomDialogField?.setText(9.generatedRandomString)
+    }
 
     override fun onOffline() {
         dismiss()
@@ -54,13 +55,14 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
     override fun onRoomCreation() =
         checkRoomAvailability(gameType = GameType.ROOM_CREATION)
 
+    private var binding: RoomCreationDialogFragmentLayoutBinding? = null
     private var roomButtonsState: Boolean = false
         set(value) {
             field = value
-            roomDialogJoinButton.alpha = if (value) 1.0f else 0.5f
-            roomDialogJoinButton.isEnabled = value
-            roomDialogCreationButton.alpha = if (value) 1.0f else 0.5f
-            roomDialogCreationButton.isEnabled = value
+            binding?.roomDialogJoinButton?.alpha = if (value) 1.0f else 0.5f
+            binding?.roomDialogJoinButton?.isEnabled = value
+            binding?.roomDialogCreationButton?.alpha = if (value) 1.0f else 0.5f
+            binding?.roomDialogCreationButton?.isEnabled = value
         }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -71,13 +73,15 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-        RoomCreationDialogFragmentLayoutBinding.inflate(
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = RoomCreationDialogFragmentLayoutBinding.inflate(
             inflater, container, false
         ).also {
             it.currentChannel = MainApplication.currentChannel
             it.presenter = this
-        }.root
+        }
+        return binding?.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,18 +89,18 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
     }
 
     private fun setupUI() {
-        roomGenerationButton.isEnabled = MainApplication.connectionIsEstablished
+        binding?.roomGenerationButton?.isEnabled = MainApplication.connectionIsEstablished
         if (!MainApplication.connectionIsEstablished) {
-            roomDialogField.isEnabled = false
-            roomDialogFieldLayout.error = resources.getString(R.string.key_no_internet_connection_label)
+            binding?.roomDialogField?.isEnabled = false
+            binding?.roomDialogFieldLayout?.error = resources.getString(R.string.key_no_internet_connection_label)
         }
-        roomDialogField.addTextChangedListener(object: TextWatcher {
+        binding?.roomDialogField?.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p0?.contains(" ") == true) {
-                    roomDialogField.setText(p0.trim())
-                    roomDialogField.setSelection(p0.length - 1)
+                    binding?.roomDialogField?.setText(p0.trim())
+                    binding?.roomDialogField?.setSelection(p0.length - 1)
                 }
                 roomButtonsState = (p0?.length ?: 0) >= 9 && MainApplication.connectionIsEstablished
             }
@@ -108,17 +112,17 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
             MainApplication.firebaseToken = it
             RealTimeDatabaseHelper.shared.addUser(
                 user = User(
-                    channel = roomDialogField.text?.toString(),
+                    channel = binding?.roomDialogField?.text?.toString(),
                     device = it,
                     character = (activity as? SplashActivity)?.characterViewModel?.characterArray?.firstOrNull()?.characterEnum
                 )
             )
             dismiss()
-            MainApplication.currentChannel = roomDialogField.text?.toString()
+            MainApplication.currentChannel = binding?.roomDialogField?.text?.toString()
             roomDialogDismissBlock(
                 GameTypeModel(
                     gameType = gameType,
-                    channel = roomDialogField.text?.toString()
+                    channel = binding?.roomDialogField?.text?.toString()
                 )
             )
         }
@@ -129,7 +133,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
             state = true
         )
         RealTimeDatabaseHelper.shared.searchChannel(
-            channel = roomDialogField.text?.toString() ?: return
+            channel = binding?.roomDialogField?.text?.toString() ?: return
         ) { isAvailable ->
             (activity as? SplashActivity)?.setLoaderState(
                 state = false

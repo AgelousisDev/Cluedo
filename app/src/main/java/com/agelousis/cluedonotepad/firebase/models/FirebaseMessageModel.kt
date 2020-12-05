@@ -4,7 +4,7 @@ import android.os.Parcelable
 import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
 import com.agelousis.cluedonotepad.cardViewer.models.ItemModel
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 data class FirebaseMessageModel(
     @SerializedName(value = "to") val firebaseToken: String,
