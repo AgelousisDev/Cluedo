@@ -12,23 +12,22 @@ typealias ConnectionBlock = (status: Boolean) -> Unit
 object ConnectionHelper {
 
     fun icConnectionAvailable(connectionBlock: ConnectionBlock) {
-        try {
-            val httpURLConnection =
-                URL("https://google.com").openConnection() as? HttpURLConnection ?: return
-            httpURLConnection.setRequestProperty("User-Agent", "Test")
-            httpURLConnection.setRequestProperty("Connection", "close")
-            httpURLConnection.doInput = true
-            httpURLConnection.connectTimeout = 1000
-            GlobalScope.launch(Dispatchers.IO) {
-                try { httpURLConnection.connect() } catch (e: Exception) { return@launch }
+        val httpURLConnection = URL("https://google.com").openConnection() as? HttpURLConnection ?: return
+        httpURLConnection.setRequestProperty("User-Agent", "Test")
+        httpURLConnection.setRequestProperty("Connection", "close")
+        httpURLConnection.doInput = true
+        httpURLConnection.connectTimeout = 10000
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                httpURLConnection.connect()
                 val responseCode = httpURLConnection.responseCode
                 withContext(Dispatchers.Main) {
                     connectionBlock(responseCode == 200)
                 }
             }
-        }
-        catch (e: Exception) {
-            connectionBlock(false)
+            catch (e: Exception) {
+                connectionBlock(false)
+            }
         }
     }
 
