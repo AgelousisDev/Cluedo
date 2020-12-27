@@ -5,15 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
 import com.agelousis.cluedonotepad.databinding.SuspectFragmentLayoutBinding
 import com.agelousis.cluedonotepad.extensions.hasNotch
+import com.agelousis.cluedonotepad.extensions.isLandscape
 import com.agelousis.cluedonotepad.extensions.px
+import com.agelousis.cluedonotepad.extensions.run
 import com.agelousis.cluedonotepad.main.NotePadActivity
 import com.agelousis.cluedonotepad.main.adapters.RowAdapter
 import com.agelousis.cluedonotepad.main.controller.NotePadController
+import com.agelousis.cluedonotepad.main.presenters.RowPresenter
 
-class SuspectWhereFragment: Fragment() {
+class SuspectWhereFragment: Fragment(), RowPresenter {
+
+    override fun onRowScrolled(scrollX: Int) {
+        scrollRecyclerViewChildrenRecyclerViews(
+            scrollX = scrollX
+        )
+    }
 
     private var binding: SuspectFragmentLayoutBinding? = null
     private val controller by lazy {
@@ -32,7 +42,7 @@ class SuspectWhereFragment: Fragment() {
     }
 
     private fun setupUI() {
-        if (activity?.window?.hasNotch == true)
+        if (activity?.window?.hasNotch == true && context?.isLandscape == true)
             binding?.constraintLayout?.setPadding(40.px, 0, 0, 0)
     }
 
@@ -41,8 +51,16 @@ class SuspectWhereFragment: Fragment() {
             rowDataModelList = controller?.getCluedoList(
                 characterModelList = (activity as? NotePadActivity)?.characterModelArray ?: return,
                 itemHeaderType = ItemHeaderType.WHERE
-            ) ?: return
+            ) ?: return,
+            presenter = this
         )
+    }
+
+    private fun scrollRecyclerViewChildrenRecyclerViews(scrollX: Int) {
+        binding?.notePadRecyclerView?.childCount?.run {
+            val recyclerView = binding?.notePadRecyclerView?.layoutManager?.getChildAt(it) as? RecyclerView
+            recyclerView?.scrollBy(scrollX, 0)
+        }
     }
 
 }

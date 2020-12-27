@@ -16,8 +16,7 @@
         <activity
             android:name=".splash.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="landscape">
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +25,7 @@
         </activity>
         <activity
             android:name=".main.NotePadActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="landscape"/>
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <service
             android:name=".firebase.FirebaseMessaging"

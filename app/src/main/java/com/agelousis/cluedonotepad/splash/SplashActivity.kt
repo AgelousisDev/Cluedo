@@ -81,11 +81,6 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         }
     }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        window?.hideSystemUI()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
@@ -143,7 +138,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 binding?.cluedoImageView?.visibility = if (progress > 0) View.GONE else View.VISIBLE
                 (binding?.playersRecyclerView?.layoutParams as? ConstraintLayout.LayoutParams)?.apply {
-                    setMargins(if (progress > 0 && window?.hasNotch == true) 40.px else marginStart, topMargin, marginEnd, bottomMargin)
+                    setMargins(if (progress > 0 && window?.hasNotch == true && isLandscape) 40.px else marginStart, topMargin, marginEnd, bottomMargin)
                 }
                 if (progress > lastSeekBarProgress)
                     (progress - lastSeekBarProgress).run {
@@ -229,7 +224,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         }
         binding?.playersRecyclerView?.layoutManager = FlexboxLayoutManager(this@SplashActivity, FlexDirection.ROW).also {
             it.flexDirection = FlexDirection.ROW
-            it.justifyContent = JustifyContent.FLEX_START
+            it.justifyContent = if (isLandscape) JustifyContent.FLEX_START else JustifyContent.CENTER
             it.alignItems = AlignItems.CENTER
         }
         binding?.playersRecyclerView?.adapter = PlayersAdapter(context = this, characterListModel = characterViewModel?.characterArray ?: listOf())

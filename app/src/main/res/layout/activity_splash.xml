@@ -22,46 +22,46 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/playersRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:clipToPadding="false"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layoutAnimation="@anim/layout_animation_fall_down"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cluedoImageView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:clipToPadding="false"
         android:padding="@dimen/activity_horizontal_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:clipToPadding="false"
-        android:animateLayoutChanges="true">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/googleUserImage"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="@dimen/nav_header_vertical_spacing"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/playersSeekBar" />
+            app:layout_constraintStart_toStartOf="@+id/playersSeekBar"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/playersSizeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
-            app:fontFamily="@font/ubuntu_monospace"
             android:text="@string/key_how_many_players_label"
             android:textSize="16sp"
+            app:fontFamily="@font/ubuntu_monospace"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/googleUserImage" />
@@ -74,8 +74,8 @@
             android:max="5"
             android:progress="0"
             android:progressDrawable="@drawable/seekbar_style"
-            android:thumb="@drawable/custom_thumb"
             android:splitTrack="false"
+            android:thumb="@drawable/custom_thumb"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/playersSizeTextView" />
@@ -102,8 +102,8 @@
             android:id="@+id/statsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:enabled="false"
             android:fontFamily="@font/ubuntu_monospace"
             android:text="@string/key_stats_label"
@@ -123,10 +123,10 @@
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/nav_header_vertical_spacing"
             android:background="?attr/selectableItemBackgroundBorderless"
-            app:srcCompat="@drawable/ic_language"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/playersSeekBar" />
+            app:layout_constraintTop_toBottomOf="@+id/playersSeekBar"
+            app:srcCompat="@drawable/ic_language" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

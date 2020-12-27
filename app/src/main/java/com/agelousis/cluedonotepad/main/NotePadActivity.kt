@@ -13,7 +13,6 @@ import com.agelousis.cluedonotepad.databinding.ActivityNotepadBinding
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
-import com.agelousis.cluedonotepad.extensions.hideSystemUI
 import com.agelousis.cluedonotepad.extensions.makeSoundNotification
 import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
@@ -81,11 +80,6 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
               }
               super.onBackPressed()
             }))
-    }
-
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        window?.hideSystemUI()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

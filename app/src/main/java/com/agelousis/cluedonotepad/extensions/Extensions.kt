@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Typeface
@@ -69,6 +70,9 @@ val Context.isPortrait: Boolean
     get() = resources?.configuration?.orientation == Configuration.ORIENTATION_PORTRAIT
 
  */
+
+val Context.isLandscape: Boolean
+    get() = resources?.configuration?.orientation == Configuration.ORIENTATION_LANDSCAPE
 
 fun View.applyLightScaleAnimation(duration: Long? = null) {
     val scaleX = ObjectAnimator.ofFloat(this, "scaleX", 0.98f)
