@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.cards.interfaces.CardsUpdateListener
 import com.agelousis.cluedonotepad.cards.adapter.CardsAdapter
 import com.agelousis.cluedonotepad.databinding.CardsFragmentLayoutBinding
@@ -18,14 +17,14 @@ import com.google.android.flexbox.JustifyContent
 class CardsFragment: Fragment(), CardsUpdateListener {
 
     override fun onUpdate() {
-        (binding?.cardsRecyclerView?.adapter as? CardsAdapter)?.reloadData()
+        (binding.cardsRecyclerView.adapter as? CardsAdapter)?.reloadData()
     }
 
-    private var binding: CardsFragmentLayoutBinding? = null
+    private lateinit var binding: CardsFragmentLayoutBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = CardsFragmentLayoutBinding.inflate(inflater, container, false)
-        return binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,12 +34,12 @@ class CardsFragment: Fragment(), CardsUpdateListener {
     }
 
     private fun configureCardsRecyclerView() {
-        binding?.cardsRecyclerView?.layoutManager = FlexboxLayoutManager(context, FlexDirection.ROW).also {
+        binding.cardsRecyclerView.layoutManager = FlexboxLayoutManager(context, FlexDirection.ROW).also {
             it.flexDirection = FlexDirection.ROW
             it.justifyContent = JustifyContent.CENTER
             it.alignItems = AlignItems.CENTER
         }
-        binding?.cardsRecyclerView?.adapter = CardsAdapter(
+        binding.cardsRecyclerView.adapter = CardsAdapter(
             list = (activity as? NotePadActivity)?.cardsSharedList ?: return
         )
     }

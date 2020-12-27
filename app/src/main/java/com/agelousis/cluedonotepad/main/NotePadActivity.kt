@@ -49,7 +49,7 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
         )
     }
 
-    private var binding: ActivityNotepadBinding? = null
+    private lateinit var binding: ActivityNotepadBinding
     val viewModel by lazy { ViewModelProvider(this).get(NotePadViewModel::class.java) }
     val characterModelArray by lazy {
         intent?.extras?.getParcelableArrayList<CharacterModel>(CHARACTER_MODEL_LIST_EXTRA)
@@ -85,7 +85,7 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNotepadBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
+        setContentView(binding.root)
         clearSelectedCardsCache()
         configureViewPagerAndTabLayout()
     }
@@ -110,18 +110,18 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
     }
 
     private fun configureViewPagerAndTabLayout() {
-        binding?.notePadViewPager?.adapter = SuspectFragmentAdapter(
+        binding.notePadViewPager.adapter = SuspectFragmentAdapter(
             context = this,
             hasSharingAccess = gameTypeModel?.gameType == GameType.ROOM_CREATION ||
                     gameTypeModel?.gameType == GameType.JOINED_ROOM,
             supportFragmentManager = supportFragmentManager
         )
-        binding?.notePadViewPager?.offscreenPageLimit = if (gameTypeModel?.gameType == GameType.ROOM_CREATION ||
+        binding.notePadViewPager.offscreenPageLimit = if (gameTypeModel?.gameType == GameType.ROOM_CREATION ||
             gameTypeModel?.gameType == GameType.JOINED_ROOM) 5 else 3
-        binding?.notePadTabLayout?.setupWithViewPager(binding?.notePadViewPager)
-        binding?.notePadTabLayout?.getTabAt(0)?.setIcon(R.drawable.ic_info)
-        binding?.notePadTabLayout?.getTabAt(4)?.setIcon(R.drawable.ic_send)
-        binding?.notePadTabLayout?.getTabAt(5)?.setIcon(R.drawable.ic_image)
+        binding.notePadTabLayout.setupWithViewPager(binding.notePadViewPager)
+        binding.notePadTabLayout.getTabAt(0)?.setIcon(R.drawable.ic_info)
+        binding.notePadTabLayout.getTabAt(4)?.setIcon(R.drawable.ic_send)
+        binding.notePadTabLayout.getTabAt(5)?.setIcon(R.drawable.ic_image)
     }
 
     private fun removeChannel(predicate: () -> Boolean) {

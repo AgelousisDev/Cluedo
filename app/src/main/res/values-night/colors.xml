@@ -20,5 +20,6 @@
     <color name="darkAlphaWhite">#10FFFFFF</color>
 
     <color name="darkWhiteColor">#FFFFFF</color>
+    <color name="nativeBackgroundColor">#121212</color>
 
 </resources>

@@ -32,7 +32,7 @@ class CardViewerFragment: Fragment(), PlayersPresenter, ItemHeaderPresenter, Ite
     override fun onPlayerSelected(adapterPosition: Int, isSelected: Boolean) {
         characterModelList.forEach { it.playerIsSelected = false }
         characterModelList.getOrNull(index = adapterPosition)?.playerIsSelected = isSelected
-        (binding?.playersRecyclerView?.adapter as? PlayersAdapter)?.reloadData()
+        (binding.playersRecyclerView.adapter as? PlayersAdapter)?.reloadData()
         selectedCardViewerModel.characterModel = if (isSelected) characterModelList.getOrNull(index = adapterPosition) else null
     }
 
@@ -61,7 +61,7 @@ class CardViewerFragment: Fragment(), PlayersPresenter, ItemHeaderPresenter, Ite
                 ))
             }
         }
-        (binding?.itemsRecyclerView?.adapter as? ItemsAdapter)?.reloadData()
+        (binding.itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
         selectedCardViewerModel.itemHeaderType = itemTitleModel.itemHeaderType
         sendButtonState = selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
@@ -75,12 +75,12 @@ class CardViewerFragment: Fragment(), PlayersPresenter, ItemHeaderPresenter, Ite
             (it as ItemModel).isSelected = false
         }
         (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected = (itemsList.getOrNull(index = adapterPosition) as? ItemModel)?.isSelected == false
-        (binding?.itemsRecyclerView?.adapter as? ItemsAdapter)?.reloadData()
+        (binding.itemsRecyclerView.adapter as? ItemsAdapter)?.reloadData()
         selectedCardViewerModel.itemModel = itemsList.getOrNull(index = adapterPosition) as? ItemModel
         sendButtonState = selectedCardViewerModel.itemHeaderType != null && selectedCardViewerModel.itemModel != null
     }
 
-    private var binding: CardViewerDialogFragmentLayoutBinding? = null
+    private lateinit var binding: CardViewerDialogFragmentLayoutBinding
     private val characterModelList by lazy {
         ArrayList((activity as? NotePadActivity)?.characterModelArray?.drop(n = 1) ?: listOf())
     }
@@ -93,13 +93,13 @@ class CardViewerFragment: Fragment(), PlayersPresenter, ItemHeaderPresenter, Ite
     private var sendButtonState = false
     set(value) {
         field = value
-        binding?.sendButton?.alpha = if (value) 1.0f else 0.5f
-        binding?.sendButton?.isEnabled = value
+        binding.sendButton.alpha = if (value) 1.0f else 0.5f
+        binding.sendButton.isEnabled = value
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = CardViewerDialogFragmentLayoutBinding.inflate(inflater, container, false)
-        return binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -110,7 +110,7 @@ class CardViewerFragment: Fragment(), PlayersPresenter, ItemHeaderPresenter, Ite
     }
 
     private fun setupUI() {
-        binding?.sendButton?.setOnClickListener {
+        binding.sendButton.setOnClickListener {
             (activity as? NotePadActivity)?.initializeUsers(
                 character = selectedCardViewerModel.characterModel?.characterEnum
             ) inner@ { users ->
@@ -130,19 +130,19 @@ class CardViewerFragment: Fragment(), PlayersPresenter, ItemHeaderPresenter, Ite
     }
 
     private fun configurePlayersRecyclerView() {
-        binding?.playersRecyclerView?.layoutManager = FlexboxLayoutManager(context, FlexDirection.ROW).also {
+        binding.playersRecyclerView.layoutManager = FlexboxLayoutManager(context, FlexDirection.ROW).also {
             it.flexDirection = FlexDirection.ROW
             it.justifyContent = JustifyContent.CENTER
             it.alignItems = AlignItems.CENTER
         }
-        binding?.playersRecyclerView?.adapter = PlayersAdapter(
+        binding.playersRecyclerView.adapter = PlayersAdapter(
             playerList = characterModelList,
             presenter = this
         )
     }
 
     private fun configureItemsRecyclerView() {
-        binding?.itemsRecyclerView?.layoutManager = GridLayoutManager(
+        binding.itemsRecyclerView.layoutManager = GridLayoutManager(
             context ?: return,
             2
         ).also {
@@ -155,7 +155,7 @@ class CardViewerFragment: Fragment(), PlayersPresenter, ItemHeaderPresenter, Ite
                     }
             }
         }
-        binding?.itemsRecyclerView?.adapter = ItemsAdapter(
+        binding.itemsRecyclerView.adapter = ItemsAdapter(
             itemsList = itemsList,
             itemHeaderPresenter = this,
             itemPresenter = this

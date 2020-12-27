@@ -39,12 +39,12 @@ class StatsSheetFragment: BottomSheetDialogFragment(), ScorePresenter {
         statsModelList?.getOrNull(index = adapterPosition)?.playerScore = score
     }
 
-    private var binding: StatsSheetFragmentLayoutBinding? = null
+    private lateinit var binding: StatsSheetFragmentLayoutBinding
     private val statsModelList by lazy { this.arguments?.getParcelableArrayList<StatsModel>(STATS_MODEL_LIST_EXTRA) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = StatsSheetFragmentLayoutBinding.inflate(inflater, container, false)
-        return binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,8 +57,8 @@ class StatsSheetFragment: BottomSheetDialogFragment(), ScorePresenter {
         flexLayoutManager.flexDirection = FlexDirection.ROW
         flexLayoutManager.justifyContent = JustifyContent.CENTER
         flexLayoutManager.alignItems = AlignItems.CENTER
-        binding?.statsRecyclerView?.layoutManager = flexLayoutManager
-        binding?.statsRecyclerView?.adapter = StatsAdapter(statsModelList = statsModelList ?: return, scorePresenter = this)
+        binding.statsRecyclerView.layoutManager = flexLayoutManager
+        binding.statsRecyclerView.adapter = StatsAdapter(statsModelList = statsModelList ?: return, scorePresenter = this)
     }
 
     override fun onDestroy() {

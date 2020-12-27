@@ -22,7 +22,7 @@ class InfoFragment: Fragment(), TimerListener {
 
     override fun onEveryMinute() {}
 
-    private var binding: InfoFragmentLayoutBinding? = null
+    private lateinit var binding: InfoFragmentLayoutBinding
     private val infoModel by lazy {
         InfoModel(
             title = (activity as? NotePadActivity)?.gameTypeModel?.channel ?: resources.getString(R.string.app_name),
@@ -30,7 +30,7 @@ class InfoFragment: Fragment(), TimerListener {
         )
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = InfoFragmentLayoutBinding.inflate(
             inflater,
             container,
@@ -38,7 +38,7 @@ class InfoFragment: Fragment(), TimerListener {
         ).also {
             it.infoModel = infoModel
         }
-        return binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +48,7 @@ class InfoFragment: Fragment(), TimerListener {
     }
 
     private fun setupUI() {
-        binding?.cluedoImageView?.applyLightScaleAnimation()
+        binding.cluedoImageView.applyLightScaleAnimation()
     }
 
     private fun configureTimer() {

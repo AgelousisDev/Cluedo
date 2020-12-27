@@ -218,7 +218,7 @@ fun AppCompatImageView.setAnimatedImageResourceId(resourceId: Int?) {
     }
 }
 
-fun Window.hideSystemUI() {
+/*fun Window.hideSystemUI() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         setDecorFitsSystemWindows(false)
         insetsController?.let {
@@ -234,11 +234,13 @@ fun Window.hideSystemUI() {
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
 }
+*/
 
-val Window.hasNotch
+/*val Window.hasNotch
     get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
                 decorView.rootWindowInsets?.displayCutout != null
             else false
+*/
 
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {
