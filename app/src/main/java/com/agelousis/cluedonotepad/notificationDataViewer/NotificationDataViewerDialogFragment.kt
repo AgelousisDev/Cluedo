@@ -31,7 +31,7 @@ class NotificationDataViewerDialogFragment: DialogFragment() {
 
     private val firebaseNotificationDataModel by lazy { arguments?.getParcelable<FirebaseMessageDataModel>(FIREBASE_NOTIFICATION_DATA_MODEL_EXTRA) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation

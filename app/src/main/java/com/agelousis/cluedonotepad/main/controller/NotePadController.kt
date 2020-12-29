@@ -3,6 +3,7 @@ package com.agelousis.cluedonotepad.main.controller
 import android.content.Context
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.cardViewer.enumerations.ItemHeaderType
+import com.agelousis.cluedonotepad.extensions.px
 import com.agelousis.cluedonotepad.extensions.run
 import com.agelousis.cluedonotepad.main.enums.ColumnType
 import com.agelousis.cluedonotepad.main.models.ColumnDataModel
@@ -12,8 +13,8 @@ import com.agelousis.cluedonotepad.splash.models.CharacterModel
 class NotePadController(private val context: Context) {
 
     private fun getCharacterColumns(characterModelList: List<CharacterModel>): ArrayList<ColumnDataModel> {
-        val arrayList = arrayListOf(ColumnDataModel(columnType = ColumnType.ITEMS_TITLE, title = context.resources.getString(R.string.key_players_label), customBackground = R.drawable.item_row_background_left_top_corner),
-        ColumnDataModel(columnType = ColumnType.CUSTOM_TITLE, title = context.resources.getString(R.string.key_final_label), customBackground = R.drawable.item_row_background))
+        val arrayList = arrayListOf(ColumnDataModel(columnType = ColumnType.ITEMS_TITLE.also { it.customWidth = 110.px }, title = context.resources.getString(R.string.key_players_label), customBackground = R.drawable.item_row_background),
+        ColumnDataModel(columnType = ColumnType.CUSTOM_TITLE.also { it.customWidth = 50.px }, title = context.resources.getString(R.string.key_final_label)))
         characterModelList.forEach { characterModel ->
             arrayList.add(
                 ColumnDataModel(
@@ -29,8 +30,8 @@ class NotePadController(private val context: Context) {
 
     private fun getItemTitleColumn(colorList: List<Int>, titleList: List<String>): RowDataModel {
         val arrayListOfColumns = arrayListOf<ColumnDataModel>()
-        arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.EMPTY, customBackground = android.R.color.transparent))
-        arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.EMPTY, customBackground = android.R.color.transparent))
+        arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.EMPTY.also { it.customWidth = 80.px }, customBackground = android.R.color.transparent))
+        arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.EMPTY.also { it.customWidth = 80.px }, customBackground = android.R.color.transparent))
         titleList.forEachIndexed { index, title ->
             arrayListOfColumns.add(
                 ColumnDataModel(
@@ -51,7 +52,7 @@ class NotePadController(private val context: Context) {
             val arrayListOfColumns = arrayListOf<ColumnDataModel>()
             arrayListOfColumns.add(
                 ColumnDataModel(
-                    columnType = ColumnType.ITEM,
+                    columnType = ColumnType.ITEM.also { it.customWidth = 110.px },
                     title = title,
                     customBackground = customBackground
                 )

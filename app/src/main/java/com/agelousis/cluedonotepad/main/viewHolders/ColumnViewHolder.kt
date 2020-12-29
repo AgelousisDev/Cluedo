@@ -1,5 +1,7 @@
 package com.agelousis.cluedonotepad.main.viewHolders
 
+import android.view.ViewGroup
+import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.databinding.NotepadRowColumnLayoutBinding
@@ -19,13 +21,12 @@ class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): Recy
             binding.rowColumnImageView.tag = columnDataModel.columnState ?: ColumnState.EMPTY
             setImageListeners(columnPresenter = columnPresenter)
         }
-        columnDataModel.columnType.takeIf { it == ColumnType.HEADER_PLAYER || it == ColumnType.CUSTOM_TITLE }?.let {
-            binding.rowColumnTextView.setTextColor(columnDataModel.color ?: return@let)
+        binding.rowColumnConstraintLayout.updateLayoutParams<ViewGroup.LayoutParams> {
+            height = 50.px
+            width = columnDataModel.columnType.customWidth
         }
-        columnDataModel.columnType.takeIf { it != ColumnType.HEADER_PLAYER }?.let {
-            binding.rowColumnConstraintLayout.layoutParams.apply {
-                height = 30.px
-            }
+        columnDataModel.color?.let {
+            binding.rowColumnTextView.setTextColor(it)
         }
         binding.executePendingBindings()
     }
