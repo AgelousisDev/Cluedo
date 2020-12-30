@@ -26,15 +26,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="@{firebaseMessageDataModel.fromCharacter.characterName}"
+                tools:text="Vagelis" />
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/notificationDataImageView"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 tools:srcCompat="@drawable/ic_candlestick"
                 itemModel="@{firebaseMessageDataModel.itemModel}" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView2"
                 itemModel="@{firebaseMessageDataModel.itemModel}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

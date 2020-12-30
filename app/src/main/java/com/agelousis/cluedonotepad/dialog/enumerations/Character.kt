@@ -1,5 +1,6 @@
 package com.agelousis.cluedonotepad.dialog.enumerations
 
+
 enum class Character {
     MISS_SCARLETT,
     PROFESSOR_PLUM,
@@ -7,4 +8,5 @@ enum class Character {
     REVEREND_GREEN,
     COLONEL_MUSTARD,
     DR_ORCHID
+
 }

@@ -119,6 +119,7 @@ class CardViewerFragment: Fragment(), PlayersPresenter, ItemHeaderPresenter, Ite
                         firebaseMessageModel = FirebaseMessageModel(
                             firebaseToken = device,
                             firebaseMessageDataModel = FirebaseMessageDataModel(
+                                fromCharacter = (activity as? NotePadActivity)?.characterModelArray?.firstOrNull(),
                                 itemHeaderType = selectedCardViewerModel.itemHeaderType ?: return@inner,
                                 itemModel = selectedCardViewerModel.itemModel ?: return@inner
                             )
