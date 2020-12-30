@@ -29,4 +29,6 @@
     <color name="darkWhiteColor">#000000</color>
     <color name="nativeBackgroundColor">#FFFFFF</color>
 
+    <color name="black">#000000</color>
+
 </resources>

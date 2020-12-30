@@ -54,11 +54,40 @@ class NotePadController(private val context: Context) {
                 ColumnDataModel(
                     columnType = ColumnType.ITEM.also { it.customWidth = 110.px },
                     title = title,
-                    customBackground = customBackground
+                    customBackground =
+                    if (index == 0)
+                        if (customBackground == R.color.whiteTwo)
+                            R.drawable.item_row_white_top_left_background
+                        else
+                            R.drawable.item_row_background_top_left_right_corner
+                    else if (index ==  arrayOfItems.size - 1)
+                        if (customBackground == R.color.whiteTwo)
+                            R.drawable.item_row_white_bottom_left_background
+                        else
+                            R.drawable.item_row_bottom_left_background
+                    else
+                        customBackground
                 )
             )
             (size + 1).run {
-                arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.FIELD, customBackground = customBackground))
+                arrayListOfColumns.add(
+                    ColumnDataModel(
+                        columnType = ColumnType.FIELD,
+                        customBackground =
+                        if (index == 0 && it == size)
+                            if (customBackground == R.color.whiteTwo)
+                                R.drawable.item_row_white_top_right_background
+                            else
+                                R.drawable.item_row_background_right_top_corner
+                        else if (index == arrayOfItems.size - 1 && it == size)
+                            if (customBackground == R.color.whiteTwo)
+                                R.drawable.item_row_white_bottom_right_background
+                            else
+                                R.drawable.item_row_bottom_right_background
+                        else
+                            customBackground
+                    )
+                )
             }
             arrayListOfRows.add(RowDataModel(columnDataModelList = arrayListOfColumns))
         }
