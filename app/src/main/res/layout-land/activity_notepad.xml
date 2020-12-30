@@ -63,7 +63,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            android:visibility="gone"
             app:layout_constraintWidth_percent="0.4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,17 +71,17 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/pumpkinLottieView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/cluedoBanner"
+            app:layout_constraintEnd_toEndOf="@+id/cluedoBanner"
+            app:layout_constraintStart_toStartOf="@+id/cluedoBanner"
+            app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout"
             app:lottie_autoPlay="true"
             app:lottie_fileName="pumpkin_animation.json"
             app:lottie_loop="true"
-            app:lottie_speed="1"
-            app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout"
-            app:layout_constraintStart_toStartOf="@+id/cluedoBanner"
-            app:layout_constraintEnd_toEndOf="@+id/cluedoBanner"/>
+            app:lottie_speed="1" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/notePadViewPager"

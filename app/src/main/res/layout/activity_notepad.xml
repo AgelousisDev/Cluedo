@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="cluedoBannerResource"
             type="Integer" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".main.NotePadActivity"
     android:background="@color/colorPrimary"
     android:animateLayoutChanges="true">
@@ -63,7 +63,6 @@
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:scaleType="centerCrop"
-        android:visibility="gone"
         app:srcCompat="@drawable/cluedo_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,17 +70,17 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/pumpkinLottieView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
-        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/cluedoBanner"
+        app:layout_constraintEnd_toEndOf="@+id/cluedoBanner"
+        app:layout_constraintStart_toStartOf="@+id/cluedoBanner"
+        app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout"
         app:lottie_autoPlay="true"
         app:lottie_fileName="pumpkin_animation.json"
         app:lottie_loop="true"
-        app:lottie_speed="1"
-        app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout"
-        app:layout_constraintStart_toStartOf="@+id/cluedoBanner"
-        app:layout_constraintEnd_toEndOf="@+id/cluedoBanner"/>
+        app:lottie_speed="1" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/notePadViewPager"
