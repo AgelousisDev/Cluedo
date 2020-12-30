@@ -61,13 +61,27 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/cluedoBanner"
         android:layout_width="0dp"
-        android:layout_height="140dp"
+        android:layout_height="150dp"
         android:scaleType="centerCrop"
         android:visibility="gone"
         app:srcCompat="@drawable/cluedo_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/pumpkinLottieView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="pumpkin_animation.json"
+        app:lottie_loop="true"
+        app:lottie_speed="1"
+        app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout"
+        app:layout_constraintStart_toStartOf="@+id/cluedoBanner"
+        app:layout_constraintEnd_toEndOf="@+id/cluedoBanner"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/notePadViewPager"

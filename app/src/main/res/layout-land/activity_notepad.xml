@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="cluedoBannerResource"
+            type="Integer" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".main.NotePadActivity"
+        android:background="@color/colorPrimary"
+        android:animateLayoutChanges="true">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/notePadTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:elevation="8dp"
+            app:tabGravity="center"
+            app:tabIndicatorColor="@color/colorAccent"
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabRippleColor="@color/colorAccent"
+            app:tabIconTint="@color/tab_icon_selector"
+            app:tabInlineLabel="true"
+            app:tabMode="scrollable"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/key_who_label"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/key_what_label"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/key_where_label"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_send"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_image"/>
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/cluedoBanner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout"
+            app:srcCompat="@drawable/cluedo_banner" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/pumpkinLottieView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="pumpkin_animation.json"
+            app:lottie_loop="true"
+            app:lottie_speed="1"
+            app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout"
+            app:layout_constraintStart_toStartOf="@+id/cluedoBanner"
+            app:layout_constraintEnd_toEndOf="@+id/cluedoBanner"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/notePadViewPager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cluedoBanner"
+            app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

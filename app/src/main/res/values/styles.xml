@@ -19,6 +19,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
     </style>
 
     <style name="DialogAnimation">
@@ -43,6 +44,22 @@
 
     <style name="TextInputLayoutStyle">
         <item name="colorPrimary">@color/colorAccent</item>
+    </style>
+
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
     </style>
 
 </resources>

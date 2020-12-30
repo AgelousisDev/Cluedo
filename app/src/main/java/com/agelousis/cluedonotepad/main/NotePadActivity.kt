@@ -48,6 +48,10 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener, ViewPager
                 1, 2, 3 -> View.VISIBLE
                 else -> View.GONE
             }
+            binding.pumpkinLottieView.visibility = when(position) {
+                1, 2, 3 -> View.VISIBLE
+                else -> View.GONE
+            }
         }
     }
 

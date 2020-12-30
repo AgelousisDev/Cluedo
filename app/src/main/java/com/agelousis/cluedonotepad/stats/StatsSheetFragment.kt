@@ -24,13 +24,10 @@ class StatsSheetFragment: BottomSheetDialogFragment(), ScorePresenter {
         private const val STATS_MODEL_LIST_EXTRA = "StatsSheetFragment=statsModelListExtra"
 
         fun show(supportFragmentManager: FragmentManager, statsModelList: ArrayList<StatsModel>) {
-            with(StatsSheetFragment()) {
-                this.arguments = with(Bundle()) {
-                    putParcelableArrayList(STATS_MODEL_LIST_EXTRA, statsModelList)
-                    this
+            StatsSheetFragment().also { fragment ->
+                fragment.arguments = Bundle().also {
+                    it.putParcelableArrayList(STATS_MODEL_LIST_EXTRA, statsModelList)
                 }
-                retainInstance = true
-                this
             }.show(supportFragmentManager, Constants.STATS_SHEET_FRAGMENT)
         }
     }
