@@ -12,6 +12,8 @@ import android.graphics.Typeface
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.view.*
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AlertDialog
@@ -241,6 +243,13 @@ fun AppCompatImageView.setAnimatedImageResourceId(resourceId: Int?) {
                 decorView.rootWindowInsets?.displayCutout != null
             else false
 */
+
+fun after(millis: Long, runnable: Runnable) {
+    Handler(Looper.getMainLooper()).postDelayed(
+        runnable,
+        millis
+    )
+}
 
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {

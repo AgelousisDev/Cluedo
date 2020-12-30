@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="cluedoBannerResource"
+            type="Integer" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,6 +20,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:elevation="8dp"
+        app:tabGravity="center"
         app:tabIndicatorColor="@color/colorAccent"
         app:tabSelectedTextColor="@color/colorAccent"
         app:tabRippleColor="@color/colorAccent"
@@ -51,6 +58,17 @@
 
     </com.google.android.material.tabs.TabLayout>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/cluedoBanner"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        app:srcCompat="@drawable/cluedo_banner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/notePadViewPager"
         android:layout_width="match_parent"
@@ -59,6 +77,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/cluedoBanner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

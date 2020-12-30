@@ -13,8 +13,8 @@ import com.agelousis.cluedonotepad.splash.models.CharacterModel
 class NotePadController(private val context: Context) {
 
     private fun getCharacterColumns(characterModelList: List<CharacterModel>): ArrayList<ColumnDataModel> {
-        val arrayList = arrayListOf(ColumnDataModel(columnType = ColumnType.ITEMS_TITLE.also { it.customWidth = 110.px }, title = context.resources.getString(R.string.key_players_label), customBackground = R.drawable.item_row_background),
-        ColumnDataModel(columnType = ColumnType.CUSTOM_TITLE.also { it.customWidth = 50.px }, title = context.resources.getString(R.string.key_final_label)))
+        val arrayList = arrayListOf(ColumnDataModel(columnType = ColumnType.ITEMS_TITLE.also { it.customWidth = 110.px }, title = context.resources.getString(R.string.key_players_label)),
+        ColumnDataModel(columnType = ColumnType.CUSTOM_TITLE.also { it.customWidth = 60.px }, title = context.resources.getString(R.string.key_final_label)))
         characterModelList.forEach { characterModel ->
             arrayList.add(
                 ColumnDataModel(
@@ -30,8 +30,8 @@ class NotePadController(private val context: Context) {
 
     private fun getItemTitleColumn(colorList: List<Int>, titleList: List<String>): RowDataModel {
         val arrayListOfColumns = arrayListOf<ColumnDataModel>()
-        arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.EMPTY.also { it.customWidth = 80.px }, customBackground = android.R.color.transparent))
-        arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.EMPTY.also { it.customWidth = 80.px }, customBackground = android.R.color.transparent))
+        arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.EMPTY.also { it.customWidth = 85.px }, customBackground = android.R.color.transparent))
+        arrayListOfColumns.add(ColumnDataModel(columnType = ColumnType.EMPTY.also { it.customWidth = 85.px }, customBackground = android.R.color.transparent))
         titleList.forEachIndexed { index, title ->
             arrayListOfColumns.add(
                 ColumnDataModel(

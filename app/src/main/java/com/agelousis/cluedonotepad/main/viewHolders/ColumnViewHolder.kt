@@ -1,6 +1,7 @@
 package com.agelousis.cluedonotepad.main.viewHolders
 
 import android.view.ViewGroup
+import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
 import com.agelousis.cluedonotepad.R
@@ -25,6 +26,7 @@ class ColumnViewHolder(private val binding: NotepadRowColumnLayoutBinding): Recy
             height = 50.px
             width = columnDataModel.columnType.customWidth
         }
+        binding.rowColumnImageView.setPadding(if (columnDataModel.columnType == ColumnType.FIELD) 6.px else 0.px)
         columnDataModel.color?.let {
             binding.rowColumnTextView.setTextColor(it)
         }

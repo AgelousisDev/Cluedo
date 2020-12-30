@@ -2,7 +2,9 @@ package com.agelousis.cluedonotepad.main
 
 import android.content.IntentFilter
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager.widget.ViewPager
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
@@ -13,6 +15,7 @@ import com.agelousis.cluedonotepad.databinding.ActivityNotepadBinding
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
+import com.agelousis.cluedonotepad.extensions.after
 import com.agelousis.cluedonotepad.extensions.makeSoundNotification
 import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
@@ -27,12 +30,25 @@ import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 
-class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
+class NotePadActivity : BaseAppCompatActivity(), NotificationListener, ViewPager.OnPageChangeListener {
 
     companion object {
         const val CHARACTER_MODEL_LIST_EXTRA = "NotePadActivity=characterModelListExtra"
         const val GAME_TYPE_MODEL_EXTRA = "NotePadActivity=gameTypeModelExtra"
         const val NOTIFICATION_DATA_MODEL_EXTRA = "NotePadActivity=notificationDataModelExtra"
+    }
+
+    override fun onPageScrollStateChanged(state: Int) {}
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+    override fun onPageSelected(position: Int) {
+        after(
+            millis = 500
+        ) {
+            binding.cluedoBanner.visibility = when(position) {
+                1, 2, 3 -> View.VISIBLE
+                else -> View.GONE
+            }
+        }
     }
 
     override fun onNotificationReceived(firebaseMessageDataModel: FirebaseMessageDataModel) {
@@ -122,6 +138,7 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
         binding.notePadTabLayout.getTabAt(0)?.setIcon(R.drawable.ic_info)
         binding.notePadTabLayout.getTabAt(4)?.setIcon(R.drawable.ic_send)
         binding.notePadTabLayout.getTabAt(5)?.setIcon(R.drawable.ic_image)
+        binding.notePadViewPager.addOnPageChangeListener(this)
     }
 
     private fun removeChannel(predicate: () -> Boolean) {
