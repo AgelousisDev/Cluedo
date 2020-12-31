@@ -85,6 +85,7 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNotepadBinding.inflate(layoutInflater)
+        binding.cluedoBannerResource = R.drawable.cluedo_banner
         setContentView(binding.root)
         clearSelectedCardsCache()
         configureViewPagerAndTabLayout()

@@ -63,10 +63,11 @@
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/cluedo_banner"
+        picassoImageResource="@{cluedoBannerResource}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/notePadTabLayout"
+        tools:srcCompat="@drawable/cluedo_banner"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/pumpkinLottieView"

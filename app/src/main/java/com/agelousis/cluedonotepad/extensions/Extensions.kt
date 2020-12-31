@@ -34,6 +34,7 @@ import com.agelousis.cluedonotepad.splash.enumerations.Language
 import com.agelousis.cluedonotepad.splash.presenters.CharacterPresenter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -290,5 +291,14 @@ fun setItemModel(appCompatImageView: AppCompatImageView, itemModel: ItemModel?) 
         }
         appCompatImageView.setImageResource(arrayOfIcons.getResourceId(it.itemPosition, -1))
         arrayOfIcons.recycle()
+    }
+}
+
+@BindingAdapter("picassoImageResource")
+fun setPicassoImageResource(appCompatImageView: AppCompatImageView, resourceId: Int?) {
+    appCompatImageView.post {
+        resourceId?.let {
+            Picasso.get().load(it).resize(appCompatImageView.width * 2, 0).into(appCompatImageView)
+        }
     }
 }
