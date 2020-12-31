@@ -9,6 +9,7 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Typeface
+import android.media.MediaPlayer
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
@@ -244,6 +245,12 @@ fun AppCompatImageView.setAnimatedImageResourceId(resourceId: Int?) {
                 decorView.rootWindowInsets?.displayCutout != null
             else false
 */
+
+infix fun Context.playSoundWithName(rawResourceId: Int) {
+    MediaPlayer.create(this, rawResourceId).also {
+        it.isLooping = false
+    }.start()
+}
 
 fun after(millis: Long, runnable: Runnable) {
     Handler(Looper.getMainLooper()).postDelayed(

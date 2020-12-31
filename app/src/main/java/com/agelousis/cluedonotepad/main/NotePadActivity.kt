@@ -13,7 +13,7 @@ import com.agelousis.cluedonotepad.databinding.ActivityNotepadBinding
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.enumerations.Character
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
-import com.agelousis.cluedonotepad.extensions.makeSoundNotification
+import com.agelousis.cluedonotepad.extensions.playSoundWithName
 import com.agelousis.cluedonotepad.extensions.setLoaderState
 import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
 import com.agelousis.cluedonotepad.firebase.models.FirebaseMessageDataModel
@@ -42,7 +42,7 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
             cardsSharedList.add(firebaseMessageDataModel)
             cardsUpdateListener?.onUpdate()
         }
-        makeSoundNotification()
+        this playSoundWithName R.raw.mystery_sound_effect
         NotificationDataViewerDialogFragment.show(
             supportFragmentManager = supportFragmentManager,
             firebaseMessageDataModel = firebaseMessageDataModel
