@@ -2,7 +2,6 @@ package com.agelousis.cluedonotepad.splash
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
@@ -88,11 +87,6 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         configureViewModel()
         setupUI()
         initializeConnectionState()
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        refreshActivity()
     }
 
     private fun initializeGoogleServices() {
