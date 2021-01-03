@@ -1,5 +1,6 @@
 package com.agelousis.cluedonotepad.main
 
+import android.app.Activity
 import android.content.IntentFilter
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -30,6 +31,7 @@ import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
 
     companion object {
+        const val NOTEPAD_REQUEST_CODE = 9
         const val CHARACTER_MODEL_LIST_EXTRA = "NotePadActivity=characterModelListExtra"
         const val GAME_TYPE_MODEL_EXTRA = "NotePadActivity=gameTypeModelExtra"
         const val NOTIFICATION_DATA_MODEL_EXTRA = "NotePadActivity=notificationDataModelExtra"
@@ -78,7 +80,8 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
                   gameTypeModel?.gameType == GameType.ROOM_CREATION ||
                           gameTypeModel?.gameType == GameType.JOINED_ROOM
               }
-              super.onBackPressed()
+                setResult(Activity.RESULT_OK)
+                super.onBackPressed()
             }))
     }
 

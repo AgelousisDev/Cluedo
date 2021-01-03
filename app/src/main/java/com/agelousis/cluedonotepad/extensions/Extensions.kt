@@ -3,7 +3,6 @@ package com.agelousis.cluedonotepad.extensions
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
@@ -17,7 +16,6 @@ import android.os.Handler
 import android.os.Looper
 import android.view.*
 import android.view.animation.LinearInterpolator
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
@@ -33,7 +31,6 @@ import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
 import com.agelousis.cluedonotepad.splash.enumerations.Language
 import com.agelousis.cluedonotepad.splash.presenters.CharacterPresenter
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
@@ -95,25 +92,6 @@ fun View.applyLightScaleAnimation(duration: Long? = null) {
         playTogether(scaleX, scaleY)
         this
     }.start()
-}
-
-typealias DismissCallback = () -> Unit
-fun Context.showRateDialog(requestCode: Int, dismissCallback: DismissCallback) {
-    val builder = MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialog)
-        .setTitle(resources.getString(R.string.key_rate_label))
-        .setMessage(resources.getString(R.string.key_rate_message))
-        .setNegativeButton(resources.getString(R.string.key_exit_label)) { dialog, _ ->
-            dialog.dismiss()
-            dismissCallback()
-        }
-        .setPositiveButton(resources.getString(R.string.key_rate_label)) { dialog, _ ->
-            dialog.dismiss()
-            (this as? AppCompatActivity)?.startActivityForResult(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.playStoreUrl)), requestCode)
-        }
-    val dialog = builder.create()
-    dialog.show()
-    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).isAllCaps = false
-    dialog.getButton(AlertDialog.BUTTON_POSITIVE).isAllCaps = false
 }
 
 fun SharedPreferences.setRatingValue(value: Boolean) {

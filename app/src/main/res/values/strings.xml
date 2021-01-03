@@ -34,6 +34,7 @@
     <string name="key_no_internet_connection_label">No internet connection</string>
     <string name="key_cards_label">Cards</string>
     <string name="key_no_cards_message">Ups! You have not shared any cards yet…</string>
+    <string name="key_thankful_review_message">Thank you for your review!</string>
 
     <string-array name="key_characters_array">
         <item>Miss Scarlett</item>

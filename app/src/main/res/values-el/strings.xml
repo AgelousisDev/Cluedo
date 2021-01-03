@@ -34,6 +34,7 @@
     <string name="key_room_creation_message"><![CDATA[Δημιουργείστε ένα δωμάτιο & και μοιραστείτε τις κάρτες σας…]]></string>
     <string name="key_cards_label">Καρτέλλες</string>
     <string name="key_no_cards_message">Ωχ! Δεν έχετε μοιραστεί ακόμα κάρτες…</string>
+    <string name="key_thankful_review_message">Σας ευχαριστούμε για την αξιολόγησή σας!</string>
 
     <string-array name="key_characters_array">
         <item>Φλόγα</item>

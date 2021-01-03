@@ -1,10 +1,12 @@
 package com.agelousis.cluedonotepad.splash
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
@@ -26,7 +28,9 @@ import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 import com.agelousis.cluedonotepad.splash.viewModels.CharacterViewModel
 import com.agelousis.cluedonotepad.stats.StatsSheetFragment
 import com.agelousis.cluedonotepad.stats.models.StatsModel
+import com.agelousis.cluedonotepad.utils.enumerations.BuildVariantType
 import com.agelousis.cluedonotepad.utils.helpers.ConnectionHelper
+import com.agelousis.cluedonotepad.utils.helpers.ReviewManager
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -42,7 +46,6 @@ import com.google.firebase.ktx.Firebase
 class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
 
     companion object {
-        const val RATE_REQUEST_CODE = 1
         const val LANGUAGE_DIALOG_STATE_EXTRA = "SplashActivity=languageDialogStateExtra"
         const val GOOGLE_SIGN_IN_REQUEST_CODE = 2
     }
@@ -67,17 +70,6 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             it.putBoolean(LANGUAGE_DIALOG_STATE_EXTRA, false)
         }
     )
-
-    override fun onBackPressed() {
-        when(sharedPreferences.ratingValue) {
-            true -> super.onBackPressed()
-            false ->
-                showRateDialog(requestCode = RATE_REQUEST_CODE) {
-                    sharedPreferences.setRatingValue(value = false)
-                    super.onBackPressed()
-                }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -195,11 +187,12 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
     }
 
     private fun openNotePad(gameTypeModel: GameTypeModel) =
-        startActivity(
+        startActivityForResult(
             Intent(this, NotePadActivity::class.java).also {
                 it.putParcelableArrayListExtra(NotePadActivity.CHARACTER_MODEL_LIST_EXTRA, characterViewModel?.characterArray)
                 it.putExtra(NotePadActivity.GAME_TYPE_MODEL_EXTRA, gameTypeModel)
-            }
+            },
+            NotePadActivity.NOTEPAD_REQUEST_CODE
         )
 
     private fun initializeConnectionState() =
@@ -269,10 +262,28 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
             }
     }
 
+    private fun initializeReviewManager() {
+        if (!sharedPreferences.ratingValue)
+            ReviewManager.initialize(
+                appCompatActivity = this
+            ) {
+                sharedPreferences.setRatingValue(
+                    value = true
+                )
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.key_thankful_review_message),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode) {
-            RATE_REQUEST_CODE -> sharedPreferences.setRatingValue(value = true)
+            NotePadActivity.NOTEPAD_REQUEST_CODE ->
+                if (resultCode == Activity.RESULT_OK)
+                    initializeReviewManager()
             GOOGLE_SIGN_IN_REQUEST_CODE ->
                 checkGoogleSignIn(
                     data = data ?: return

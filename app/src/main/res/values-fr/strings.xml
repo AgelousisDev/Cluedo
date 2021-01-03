@@ -34,6 +34,7 @@
     <string name="key_room_creation_message">Créer une pièce &amp; partager vos cartes sélectionnées dans l\'écran suivant</string>
     <string name="key_cards_label">Cartes</string>
     <string name="key_no_cards_message">Ups! Vous n\'avez encore partagé aucune carte…</string>
+    <string name="key_thankful_review_message">Merci pour votre avis!</string>
 
     <string-array name="key_characters_array">
         <item>Miss Scarlett</item>
