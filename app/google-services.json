@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "1055801502934-18cldgh1ipk9jkhjij4kj84d3v226oe7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.agelousis.cluedonotepad",
+            "certificate_hash": "c90333a400e34b6228161654b90e7e54a44fa4a9"
+          }
+        },
+        {
+          "client_id": "1055801502934-f7qn5pob9aaord5cp63sakuc51uvj8s0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.agelousis.cluedonotepad",
+            "certificate_hash": "0fc9d703572c50935075cc3782a21ad8c158f800"
+          }
+        },
+        {
+          "client_id": "1055801502934-s8v8vtftp95ngk0oqk2rs8j7kgeg0mqc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.agelousis.cluedonotepad",
+            "certificate_hash": "78f5fb858c757fde78ab6e0c4528a036582121c1"
+          }
+        },
+        {
           "client_id": "1055801502934-11ptttquj3i5es0gbh7qjbed47cjikoi.apps.googleusercontent.com",
           "client_type": 3
         }

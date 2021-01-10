@@ -12,8 +12,8 @@ android {
         applicationId "com.agelousis.cluedonotepad"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 19
-        versionName "4.2 Cluedo Room"
+        versionCode 20
+        versionName "4.3 Cluedo Room"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     bundle {

@@ -12,8 +12,9 @@ object ReviewManager {
         request.addOnCompleteListener { requestInfo ->
             if (requestInfo.isSuccessful) {
                 manager.launchReviewFlow(appCompatActivity, requestInfo.result).also {
-                    it.addOnCompleteListener {
-                        reviewSuccessBlock()
+                    it.addOnCompleteListener { reviewTask ->
+                        if (reviewTask.isSuccessful)
+                            reviewSuccessBlock()
                     }
                 }
             }
