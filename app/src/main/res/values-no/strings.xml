@@ -1,0 +1,108 @@
+<resources>
+    <string name="app_name">Cluedo Notepad</string>
+    <string name="key_how_many_players_label">Velg antall spillere</string>
+    <string name="key_play_label">Spille</string>
+    <string name="key_player_name_hint">Spillerens Navn</string>
+    <string name="key_your_name_hint">&#160;&#160;Navnet Ditt&#160;&#160;</string>
+    <string name="key_choose_character_title">Velg Spiller</string>
+    <string name="key_ok_label">OK</string>
+    <string name="key_warning_label">ADVARSEL</string>
+    <string name="key_not_selected_players_message">Velg en spiller ved å klikke på hvert ikon og spillernavn. Du kan ikke velge samme spiller. Spillerne må være mer enn en!!!</string>
+    <string name="key_discard_message">Alle endringene i tabellen blir slettet. Er du sikker;</string>
+    <string name="key_players_label">SPILLERE</string>
+    <string name="key_who_label">WHO?</string>
+    <string name="key_what_label">HVA?</string>
+    <string name="key_where_label">HVOR?</string>
+    <string name="key_final_label">Endelig</string>
+    <string name="key_enable_dark_mode">Mørk Modus</string>
+    <string name="key_stats_label">Resultat</string>
+    <string name="key_rate_label">Vurdere</string>
+    <string name="key_rate_message">Før du reiser, vil du vurdere søknaden?</string>
+    <string name="key_exit_label">Exit</string>
+    <string name="key_language_label">Språk</string>
+    <string name="key_cancel_label">Avbryt</string>
+    <string name="key_cluedo_room_label">Cluedo-Rom</string>
+    <string name="key_room_field_hint">Rom-ID</string>
+    <string name="key_play_offline_label">Spille Offline</string>
+    <string name="key_join_room_label">Bli med i Rommet</string>
+    <string name="key_create_room_label">Lag Rom</string>
+    <string name="key_send_label">Sende</string>
+    <string name="key_create_random_room_label">Generere</string>
+    <string name="key_room_not_exists_message">Rom-ID eksisterer ikke. Skriv inn en annen…</string>
+    <string name="key_room_exists_message">Rom eksisterer allerede. Prøv en annen…</string>
+    <string name="key_room_creation_message">Lag et rom &amp; del de valgte kortene på neste skjerm</string>
+    <string name="key_no_internet_connection_label">Ingen internettforbindelse</string>
+    <string name="key_cards_label">Kort</string>
+    <string name="key_no_cards_message">Ups! Du har ikke delt noen kort ennå…</string>
+    <string name="key_thankful_review_message">Ups! Du har ikke delt noen kort ennå…</string>
+
+    <string-array name="key_characters_array">
+        <item>Miss Scarlett</item>
+        <item>Professor Plum</item>
+        <item>Mrs Peacock</item>
+        <item>Reverend Green</item>
+        <item>Colonel Mustard</item>
+        <item>Dr Orchid</item>
+    </string-array>
+
+    <integer-array name="key_characters_colors_array">
+        <item>@color/red</item>
+        <item>@color/purple</item>
+        <item>@color/iced</item>
+        <item>@color/green</item>
+        <item>@color/mustard</item>
+        <item>@color/orchid</item>
+    </integer-array>
+
+    <integer-array name="key_character_icons_array">
+        <item>@drawable/ms_fire</item>
+        <item>@drawable/mr_purple</item>
+        <item>@drawable/ms_iced</item>
+        <item>@drawable/mr_green</item>
+        <item>@drawable/mr_mustard</item>
+        <item>@drawable/ms_pink</item>
+    </integer-array>
+
+    <string-array name="key_tools_array">
+        <item>Lysestake</item>
+        <item>Dolk</item>
+        <item>Slange</item>
+        <item>Revolver</item>
+        <item>Tau</item>
+        <item>Verktøy</item>
+    </string-array>
+
+    <integer-array name="key_tool_icons_array">
+        <item>@drawable/ic_candlestick</item>
+        <item>@drawable/ic_dagger</item>
+        <item>@drawable/ic_tubing</item>
+        <item>@drawable/ic_revolver</item>
+        <item>@drawable/ic_rope</item>
+        <item>@drawable/ic_gear</item>
+    </integer-array>
+
+    <string-array name="key_rooms_array">
+        <item>Danse</item>
+        <item>Biljard</item>
+        <item>Drivhus</item>
+        <item>Spisestue</item>
+        <item>Hall</item>
+        <item>Kjøkken</item>
+        <item>Bibliotek</item>
+        <item>Stue</item>
+        <item>Studere</item>
+    </string-array>
+
+    <integer-array name="key_room_icons_array">
+        <item>@drawable/ic_dance_room</item>
+        <item>@drawable/ic_billiards_room</item>
+        <item>@drawable/ic_greenhouse_room</item>
+        <item>@drawable/ic_dinning_room</item>
+        <item>@drawable/ic_hall_room</item>
+        <item>@drawable/ic_kitchen</item>
+        <item>@drawable/ic_library</item>
+        <item>@drawable/ic_living_room</item>
+        <item>@drawable/ic_study_room</item>
+    </integer-array>
+
+</resources>

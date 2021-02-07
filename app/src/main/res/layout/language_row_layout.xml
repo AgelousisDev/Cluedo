@@ -22,7 +22,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        srcCompat="@{languageModel.languageIcon}" />
+        srcCompat="@{languageModel.language.icon}" />
 
 </LinearLayout>
 </layout>

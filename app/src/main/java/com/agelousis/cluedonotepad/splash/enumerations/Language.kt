@@ -7,7 +7,9 @@ enum class Language(val locale: String) {
     GREEK(locale = "el"),
     FRENCH(locale = "fr"),
     GERMAN(locale = "de"),
-    ITALIAN(locale = "it");
+    ITALIAN(locale = "it"),
+    CROATIAN(locale = "hr"),
+    NORWEGIAN(locale = "no");
 
     val icon
         get() = when(this) {
@@ -16,6 +18,8 @@ enum class Language(val locale: String) {
             FRENCH -> R.drawable.ic_french_flag
             GERMAN -> R.drawable.ic_german_flag
             ITALIAN -> R.drawable.ic_italian_flag
+            CROATIAN -> R.drawable.ic_croatian_flag
+            NORWEGIAN -> R.drawable.ic_norwegian_flag
         }
 
 }

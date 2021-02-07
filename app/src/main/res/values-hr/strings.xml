@@ -1,0 +1,108 @@
+<resources>
+    <string name="app_name">Cluedo Notepad</string>
+    <string name="key_how_many_players_label">Odaberite broj igrača</string>
+    <string name="key_play_label">Igra</string>
+    <string name="key_player_name_hint">Ime igrača</string>
+    <string name="key_your_name_hint">Tvoje ime&#160;</string>
+    <string name="key_choose_character_title">Odaberite Player</string>
+    <string name="key_ok_label">OK</string>
+    <string name="key_warning_label">UPOZORENJE</string>
+    <string name="key_not_selected_players_message">Odaberite igrača klikom na svaku ikonu i ime igrača. Ne možete odabrati isti igrač. Igrača mora biti više od jednog!!!</string>
+    <string name="key_discard_message">Sve vaše promjene u tablici bit će izbrisane. Jesi li siguran;</string>
+    <string name="key_players_label">IGRAČI</string>
+    <string name="key_who_label">WHO?</string>
+    <string name="key_what_label">ŠTO?</string>
+    <string name="key_where_label">GDJE?</string>
+    <string name="key_final_label">Konačno</string>
+    <string name="key_enable_dark_mode">Tamni način rada</string>
+    <string name="key_stats_label">Postići</string>
+    <string name="key_rate_label">Stopa</string>
+    <string name="key_rate_message">Prije odlaska, želite li procijeniti prijavu?</string>
+    <string name="key_exit_label">Izlaz</string>
+    <string name="key_language_label">Jezik</string>
+    <string name="key_cancel_label">Otkazati</string>
+    <string name="key_cluedo_room_label">Soba Cluedo</string>
+    <string name="key_room_field_hint">ID Sobe</string>
+    <string name="key_play_offline_label">"Igrati Offline "</string>
+    <string name="key_join_room_label">"Pridruži Se "</string>
+    <string name="key_create_room_label">Stvori Sobu</string>
+    <string name="key_send_label">Poslati</string>
+    <string name="key_create_random_room_label">Generirati</string>
+    <string name="key_room_not_exists_message">ID sobe ne postoji. Unesite još jedan…</string>
+    <string name="key_room_exists_message">Soba već postoji. Pokušajte s drugim…</string>
+    <string name="key_room_creation_message">Stvorite sobu &amp; podijelite odabrane kartice na sljedećem zaslonu</string>
+    <string name="key_no_internet_connection_label">Nema internetske veze</string>
+    <string name="key_cards_label">Kartice</string>
+    <string name="key_no_cards_message">Ups! Još niste podijelili nijednu karticu…</string>
+    <string name="key_thankful_review_message">Zahvaljujemo na recenziji!</string>
+
+    <string-array name="key_characters_array">
+        <item>Miss Scarlett</item>
+        <item>Professor Plum</item>
+        <item>Mrs Peacock</item>
+        <item>Reverend Green</item>
+        <item>Colonel Mustard</item>
+        <item>Dr Orchid</item>
+    </string-array>
+
+    <integer-array name="key_characters_colors_array">
+        <item>@color/red</item>
+        <item>@color/purple</item>
+        <item>@color/iced</item>
+        <item>@color/green</item>
+        <item>@color/mustard</item>
+        <item>@color/orchid</item>
+    </integer-array>
+
+    <integer-array name="key_character_icons_array">
+        <item>@drawable/ms_fire</item>
+        <item>@drawable/mr_purple</item>
+        <item>@drawable/ms_iced</item>
+        <item>@drawable/mr_green</item>
+        <item>@drawable/mr_mustard</item>
+        <item>@drawable/ms_pink</item>
+    </integer-array>
+
+    <string-array name="key_tools_array">
+        <item>Svijećnjak</item>
+        <item>Bodež</item>
+        <item>Cijevi</item>
+        <item>Revolver</item>
+        <item>Uže</item>
+        <item>Alat</item>
+    </string-array>
+
+    <integer-array name="key_tool_icons_array">
+        <item>@drawable/ic_candlestick</item>
+        <item>@drawable/ic_dagger</item>
+        <item>@drawable/ic_tubing</item>
+        <item>@drawable/ic_revolver</item>
+        <item>@drawable/ic_rope</item>
+        <item>@drawable/ic_gear</item>
+    </integer-array>
+
+    <string-array name="key_rooms_array">
+        <item>Ples</item>
+        <item>Biljar</item>
+        <item>Staklenik</item>
+        <item>Blagovaonica</item>
+        <item>Dvorana</item>
+        <item>Kuhinja</item>
+        <item>Knjižnica</item>
+        <item>Dnevna soba</item>
+        <item>Studija</item>
+    </string-array>
+
+    <integer-array name="key_room_icons_array">
+        <item>@drawable/ic_dance_room</item>
+        <item>@drawable/ic_billiards_room</item>
+        <item>@drawable/ic_greenhouse_room</item>
+        <item>@drawable/ic_dinning_room</item>
+        <item>@drawable/ic_hall_room</item>
+        <item>@drawable/ic_kitchen</item>
+        <item>@drawable/ic_library</item>
+        <item>@drawable/ic_living_room</item>
+        <item>@drawable/ic_study_room</item>
+    </integer-array>
+
+</resources>

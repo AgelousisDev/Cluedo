@@ -28,7 +28,6 @@ import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 import com.agelousis.cluedonotepad.splash.viewModels.CharacterViewModel
 import com.agelousis.cluedonotepad.stats.StatsSheetFragment
 import com.agelousis.cluedonotepad.stats.models.StatsModel
-import com.agelousis.cluedonotepad.utils.enumerations.BuildVariantType
 import com.agelousis.cluedonotepad.utils.helpers.ConnectionHelper
 import com.agelousis.cluedonotepad.utils.helpers.ReviewManager
 import com.google.android.flexbox.AlignItems

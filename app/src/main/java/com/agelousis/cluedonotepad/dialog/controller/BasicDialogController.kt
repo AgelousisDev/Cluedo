@@ -29,24 +29,25 @@ object BasicDialogController {
     val availableLanguages by lazy {
         listOf(
             LanguageModel(
-                languageIcon = R.drawable.ic_english_flag,
                 language = Language.ENGLISH
             ),
             LanguageModel(
-                languageIcon = R.drawable.ic_greek_flag,
                 language = Language.GREEK
             ),
             LanguageModel(
-                languageIcon = R.drawable.ic_french_flag,
                 language = Language.FRENCH
             ),
             LanguageModel(
-                languageIcon = R.drawable.ic_german_flag,
                 language = Language.GERMAN
             ),
             LanguageModel(
-                languageIcon = R.drawable.ic_italian_flag,
                 language = Language.ITALIAN
+            ),
+            LanguageModel(
+                language = Language.CROATIAN
+            ),
+            LanguageModel(
+                language = Language.NORWEGIAN
             )
         )
     }
