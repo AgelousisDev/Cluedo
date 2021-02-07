@@ -48,6 +48,12 @@ object BasicDialogController {
             ),
             LanguageModel(
                 language = Language.NORWEGIAN
+            ),
+            LanguageModel(
+                language = Language.RUSSIAN
+            ),
+            LanguageModel(
+                language = Language.SPANISH
             )
         )
     }
