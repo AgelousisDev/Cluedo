@@ -14,10 +14,10 @@ class LoaderDialog: DialogFragment() {
 
     companion object {
         fun show(supportFragmentManager: FragmentManager) {
-            with(LoaderDialog()) {
-                retainInstance = true
-                this
-            }.show(supportFragmentManager, Constants.LOADER_DIALOG_TAG)
+            LoaderDialog().show(
+                supportFragmentManager,
+                Constants.LOADER_DIALOG_TAG
+            )
         }
 
         fun hide(supportFragmentManager: FragmentManager) {

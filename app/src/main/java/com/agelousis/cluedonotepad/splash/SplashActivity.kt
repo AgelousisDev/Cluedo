@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
@@ -46,7 +47,6 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
 
     companion object {
         const val LANGUAGE_DIALOG_STATE_EXTRA = "SplashActivity=languageDialogStateExtra"
-        const val GOOGLE_SIGN_IN_REQUEST_CODE = 2
     }
 
     private lateinit var binding: ActivitySplashBinding
@@ -63,6 +63,20 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
     private var lastSeekBarProgress = 0
 
     var statsModelList = arrayListOf<StatsModel>()
+
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        checkGoogleSignIn(
+            data = result.data ?: return@registerForActivityResult
+        )
+    }
+    private val notePadLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK)
+            initializeReviewManager()
+    }
 
     override fun onLanguageSelected(language: Language) = refreshActivity(
         extras = Bundle().also {
@@ -89,7 +103,9 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
                 .build()
             val googleSignInClient = GoogleSignIn.getClient(this, gso)
             val signInIntent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, GOOGLE_SIGN_IN_REQUEST_CODE)
+            googleSignInLauncher.launch(
+                signInIntent
+            )
         }?.let { googleUser ->
             binding.googleUserImage.visibility = View.VISIBLE
             binding.googleUserImage.setImageUri(
@@ -185,14 +201,17 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         }
     }
 
-    private fun openNotePad(gameTypeModel: GameTypeModel) =
-        startActivityForResult(
+    private fun openNotePad(gameTypeModel: GameTypeModel) {
+        notePadLauncher.launch(
             Intent(this, NotePadActivity::class.java).also {
-                it.putParcelableArrayListExtra(NotePadActivity.CHARACTER_MODEL_LIST_EXTRA, characterViewModel?.characterArray)
+                it.putParcelableArrayListExtra(
+                    NotePadActivity.CHARACTER_MODEL_LIST_EXTRA,
+                    characterViewModel?.characterArray
+                )
                 it.putExtra(NotePadActivity.GAME_TYPE_MODEL_EXTRA, gameTypeModel)
-            },
-            NotePadActivity.NOTEPAD_REQUEST_CODE
+            }
         )
+    }
 
     private fun initializeConnectionState() =
         ConnectionHelper.icConnectionAvailable {
@@ -275,20 +294,6 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode) {
-            NotePadActivity.NOTEPAD_REQUEST_CODE ->
-                if (resultCode == Activity.RESULT_OK)
-                    initializeReviewManager()
-            GOOGLE_SIGN_IN_REQUEST_CODE ->
-                checkGoogleSignIn(
-                    data = data ?: return
-                )
-
-        }
     }
 
 }

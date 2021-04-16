@@ -27,12 +27,9 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
 
     companion object {
         fun show(supportFragmentManager: FragmentManager, roomDialogDismissBlock: RoomDialogDismissBlock) {
-            with(RoomCreationDialogFragment(
+            RoomCreationDialogFragment(
                 roomDialogDismissBlock = roomDialogDismissBlock
-            )) {
-                retainInstance = true
-                this
-            }.show(supportFragmentManager, Constants.ROOM_DIALOG_TAG)
+            ).show(supportFragmentManager, Constants.ROOM_DIALOG_TAG)
         }
     }
 

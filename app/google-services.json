@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "1055801502934-ru4gi95aokoafckuuf5sbq1q4vreplpu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.agelousis.cluedonotepad",
+            "certificate_hash": "779dd42301712e075be6af662e7683adad8dbb22"
+          }
+        },
+        {
           "client_id": "1055801502934-s8v8vtftp95ngk0oqk2rs8j7kgeg0mqc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

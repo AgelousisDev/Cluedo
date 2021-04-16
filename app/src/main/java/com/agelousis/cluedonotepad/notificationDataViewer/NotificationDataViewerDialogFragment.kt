@@ -24,7 +24,6 @@ class NotificationDataViewerDialogFragment: DialogFragment() {
                     putParcelable(FIREBASE_NOTIFICATION_DATA_MODEL_EXTRA, firebaseMessageDataModel)
                     this
                 }
-                it.retainInstance = true
             }.show(supportFragmentManager, Constants.NOTIFICATION_DATA_VIEWER_DIALOG_TAG)
         }
     }

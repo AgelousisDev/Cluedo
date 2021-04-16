@@ -32,10 +32,7 @@ class BasicDialog(private val dialogType: BasicDialogType): DialogFragment(), Ch
 
     companion object {
         fun show(supportFragmentManager: FragmentManager, dialogType: BasicDialogType) {
-            with(BasicDialog(dialogType)) {
-                retainInstance = true
-                this
-            }.show(supportFragmentManager, Constants.BASIC_DIALOG_TAG)
+            BasicDialog(dialogType).show(supportFragmentManager, Constants.BASIC_DIALOG_TAG)
         }
     }
 
