@@ -9,11 +9,8 @@ import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Typeface
 import android.media.MediaPlayer
-import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
-import android.os.Handler
-import android.os.Looper
 import android.view.*
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
@@ -156,13 +153,13 @@ val Int.generatedRandomString: String
         return salt.toString()
     }
 
-fun Context.makeSoundNotification() {
+/*fun Context.makeSoundNotification() {
     try {
         val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val ringtone = RingtoneManager.getRingtone(this, notification)
         ringtone.play()
     } catch (e: Exception) {}
-}
+}*/
 
 val Resources.currentLanguage: Language?
     get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
@@ -230,12 +227,12 @@ infix fun Context.playSoundWithName(rawResourceId: Int) {
     }.start()
 }
 
-fun after(millis: Long, runnable: Runnable) {
+/*fun after(millis: Long, runnable: Runnable) {
     Handler(Looper.getMainLooper()).postDelayed(
         runnable,
         millis
     )
-}
+}*/
 
 @BindingAdapter("srcCompat")
 fun setSrcCompat(appCompatImageView: AppCompatImageView, drawableId: Int?) {

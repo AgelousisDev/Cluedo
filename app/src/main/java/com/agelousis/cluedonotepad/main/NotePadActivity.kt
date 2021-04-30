@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.IntentFilter
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
@@ -27,6 +28,8 @@ import com.agelousis.cluedonotepad.receivers.interfaces.NotificationListener
 import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.CharacterModel
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
+import com.agelousis.cluedonotepad.utils.components.ZoomOutPageTransformer
+import com.google.android.material.tabs.TabLayoutMediator
 
 class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
 
@@ -113,18 +116,31 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
     }
 
     private fun configureViewPagerAndTabLayout() {
-        binding.notePadViewPager.adapter = SuspectFragmentAdapter(
-            context = this,
+        val suspectFragmentAdapter = SuspectFragmentAdapter(
+            fragmentActivity = this,
             hasSharingAccess = gameTypeModel?.gameType == GameType.ROOM_CREATION ||
-                    gameTypeModel?.gameType == GameType.JOINED_ROOM,
-            supportFragmentManager = supportFragmentManager
+                    gameTypeModel?.gameType == GameType.JOINED_ROOM
         )
-        binding.notePadViewPager.offscreenPageLimit = if (gameTypeModel?.gameType == GameType.ROOM_CREATION ||
-            gameTypeModel?.gameType == GameType.JOINED_ROOM) 5 else 3
-        binding.notePadTabLayout.setupWithViewPager(binding.notePadViewPager)
-        binding.notePadTabLayout.getTabAt(0)?.setIcon(R.drawable.ic_info)
-        binding.notePadTabLayout.getTabAt(4)?.setIcon(R.drawable.ic_send)
-        binding.notePadTabLayout.getTabAt(5)?.setIcon(R.drawable.ic_image)
+        findViewById<ViewPager2>(R.id.notePadViewPager).apply {
+            setPageTransformer(
+                ZoomOutPageTransformer()
+            )
+            adapter = suspectFragmentAdapter
+            offscreenPageLimit = if (gameTypeModel?.gameType == GameType.ROOM_CREATION || gameTypeModel?.gameType == GameType.JOINED_ROOM) 5 else 3
+            TabLayoutMediator(
+                binding.notePadTabLayout,
+                this
+            ) { tab, position ->
+                tab.text = suspectFragmentAdapter.getPageTitle(
+                    position = position
+                )
+                tab.setIcon(
+                    suspectFragmentAdapter.getPageIcon(
+                        position = position
+                    ) ?: return@TabLayoutMediator
+                )
+            }.attach()
+        }
     }
 
     private fun removeChannel(predicate: () -> Boolean) {
