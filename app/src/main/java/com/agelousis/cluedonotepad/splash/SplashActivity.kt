@@ -61,6 +61,7 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         }
 
     private var lastSeekBarProgress = 0
+    private var seekBarIsTracking = false
 
     var statsModelList = arrayListOf<StatsModel>()
 
@@ -129,13 +130,18 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
     private fun setupUI() {
         binding.cluedoImageView.applyLightScaleAnimation()
         binding.playersSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                seekBarIsTracking = true
+            }
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 lastSeekBarProgress = seekBar?.progress ?: 0
                 binding.playButton.isEnabled = seekBar?.progress ?: 0 > 0
                 binding.statsButton.isEnabled = seekBar?.progress ?: 0 > 0
+                seekBarIsTracking = false
             }
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (!seekBarIsTracking)
+                    return
                 binding.cluedoImageView.visibility = if (progress > 0) View.GONE else View.VISIBLE
                 if (progress > lastSeekBarProgress)
                     (progress - lastSeekBarProgress).run {

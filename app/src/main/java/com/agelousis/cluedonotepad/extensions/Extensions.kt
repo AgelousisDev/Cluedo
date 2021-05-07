@@ -163,9 +163,9 @@ val Int.generatedRandomString: String
 
 val Resources.currentLanguage: Language?
     get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            Language.values().firstOrNull { it.locale == configuration.locales[0].language.toLowerCase(Locale.getDefault()) }
+            Language.values().firstOrNull { it.locale == configuration.locales[0].language.lowercase() }
         else
-            Language.values().firstOrNull { it.locale == configuration.locale.language.toLowerCase(Locale.getDefault()) }
+            Language.values().firstOrNull { it.locale == configuration.locale.language.lowercase() }
 
 fun AppCompatImageView.setImageUri(uri: Uri) {
     val url = URL(uri.toString())
@@ -197,7 +197,7 @@ fun AppCompatImageView.setAnimatedImageResourceId(resourceId: Int?) {
     }
 }
 
-/*fun Window.hideSystemUI() {
+fun Window.hideSystemUI() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         setDecorFitsSystemWindows(false)
         insetsController?.let {
@@ -213,7 +213,6 @@ fun AppCompatImageView.setAnimatedImageResourceId(resourceId: Int?) {
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
 }
-*/
 
 /*val Window.hasNotch
     get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
