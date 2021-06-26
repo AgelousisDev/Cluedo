@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.IntentFilter
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
@@ -57,7 +57,7 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
     }
 
     private lateinit var binding: ActivityNotepadBinding
-    val viewModel by lazy { ViewModelProvider(this).get(NotePadViewModel::class.java) }
+    val viewModel: NotePadViewModel by viewModels()
     val characterModelArray by lazy {
         intent?.extras?.getParcelableArrayList<CharacterModel>(CHARACTER_MODEL_LIST_EXTRA)
     }
