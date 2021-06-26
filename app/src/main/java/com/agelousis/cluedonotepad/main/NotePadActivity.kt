@@ -2,6 +2,7 @@ package com.agelousis.cluedonotepad.main
 
 import android.app.Activity
 import android.content.IntentFilter
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -76,6 +77,13 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
         )
     }
     var cardsUpdateListener: CardsUpdateListener? = null
+    private val suspectFragmentAdapter by lazy {
+        SuspectFragmentAdapter(
+            fragmentActivity = this,
+            hasSharingAccess = gameTypeModel?.gameType == GameType.ROOM_CREATION
+                    || gameTypeModel?.gameType == GameType.JOINED_ROOM
+        )
+    }
 
     override fun onBackPressed() {
         BasicDialog.show(supportFragmentManager = supportFragmentManager, dialogType = BasicDialogType(title = resources.getString(R.string.key_warning_label),
@@ -97,6 +105,7 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
         binding = ActivityNotepadBinding.inflate(layoutInflater)
         binding.cluedoBannerResource = R.drawable.cluedo_banner
         setContentView(binding.root)
@@ -124,11 +133,6 @@ class NotePadActivity : BaseAppCompatActivity(), NotificationListener {
     }
 
     private fun configureViewPagerAndTabLayout() {
-        val suspectFragmentAdapter = SuspectFragmentAdapter(
-            fragmentActivity = this,
-            hasSharingAccess = gameTypeModel?.gameType == GameType.ROOM_CREATION ||
-                    gameTypeModel?.gameType == GameType.JOINED_ROOM
-        )
         findViewById<ViewPager2>(R.id.notePadViewPager).apply {
             setPageTransformer(
                 ZoomOutPageTransformer()
