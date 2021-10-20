@@ -43,7 +43,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
+class MainActivity : BaseAppCompatActivity(), LanguagePresenter {
 
     companion object {
         const val LANGUAGE_DIALOG_STATE_EXTRA = "SplashActivity=languageDialogStateExtra"
@@ -219,17 +219,18 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
         )
     }
 
-    private fun initializeConnectionState() =
+    private fun initializeConnectionState() {
         ConnectionHelper.icConnectionAvailable {
             MainApplication.connectionIsEstablished = it
         }
+    }
 
     private fun setupRecyclerView() {
         characterViewModel?.characterArray?.firstOrNull()?.let {
             characterViewModel?.characterArray?.clear()
             characterViewModel?.characterArray?.add(it)
         }
-        binding.playersRecyclerView.layoutManager = FlexboxLayoutManager(this@SplashActivity, FlexDirection.ROW).also {
+        binding.playersRecyclerView.layoutManager = FlexboxLayoutManager(this@MainActivity, FlexDirection.ROW).also {
             it.flexDirection = FlexDirection.ROW
             it.justifyContent = if (isLandscape) JustifyContent.FLEX_START else JustifyContent.CENTER
             it.alignItems = AlignItems.CENTER
@@ -255,12 +256,12 @@ class SplashActivity : BaseAppCompatActivity(), LanguagePresenter {
     }
 
     private fun refreshActivity(extras: Bundle? = null) {
-        startActivity(Intent(this@SplashActivity, SplashActivity::class.java).also { intent ->
+        startActivity(Intent(this@MainActivity, MainActivity::class.java).also { intent ->
             extras?.let { bundle ->
                 intent.putExtras(bundle)
             }
         })
-        this@SplashActivity.finish()
+        this@MainActivity.finish()
     }
 
     private fun checkGoogleSignIn(data: Intent) {

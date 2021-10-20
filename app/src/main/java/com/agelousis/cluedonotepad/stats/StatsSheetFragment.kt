@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import com.agelousis.cluedonotepad.constants.Constants
 import com.agelousis.cluedonotepad.databinding.StatsSheetFragmentLayoutBinding
-import com.agelousis.cluedonotepad.splash.SplashActivity
+import com.agelousis.cluedonotepad.splash.MainActivity
 import com.agelousis.cluedonotepad.stats.adapters.StatsAdapter
 import com.agelousis.cluedonotepad.stats.models.StatsModel
 import com.agelousis.cluedonotepad.stats.presenters.ScorePresenter
@@ -60,7 +60,7 @@ class StatsSheetFragment: BottomSheetDialogFragment(), ScorePresenter {
 
     override fun onDestroy() {
         statsModelList?.let {
-            (activity as? SplashActivity)?.statsModelList = it
+            (activity as? MainActivity)?.statsModelList = it
         }
         super.onDestroy()
     }

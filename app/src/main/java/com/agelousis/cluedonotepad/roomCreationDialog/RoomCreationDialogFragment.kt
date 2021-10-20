@@ -19,7 +19,7 @@ import com.agelousis.cluedonotepad.firebase.database.RealTimeDatabaseHelper
 import com.agelousis.cluedonotepad.firebase.models.User
 import com.agelousis.cluedonotepad.roomCreationDialog.presenters.RoomCreationPresenter
 import com.agelousis.cluedonotepad.roomCreationDialog.presenters.RoomDialogDismissBlock
-import com.agelousis.cluedonotepad.splash.SplashActivity
+import com.agelousis.cluedonotepad.splash.MainActivity
 import com.agelousis.cluedonotepad.splash.enumerations.GameType
 import com.agelousis.cluedonotepad.splash.models.GameTypeModel
 
@@ -111,7 +111,7 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
                 user = User(
                     channel = binding.roomDialogField.text?.toString(),
                     device = it,
-                    character = (activity as? SplashActivity)?.characterViewModel?.characterArray?.firstOrNull()?.characterEnum
+                    character = (activity as? MainActivity)?.characterViewModel?.characterArray?.firstOrNull()?.characterEnum
                 )
             )
             dismiss()
@@ -126,13 +126,13 @@ class RoomCreationDialogFragment(private val roomDialogDismissBlock: RoomDialogD
     }
 
     private fun checkRoomAvailability(gameType: GameType) {
-        (activity as? SplashActivity)?.setLoaderState(
+        (activity as? MainActivity)?.setLoaderState(
             state = true
         )
         RealTimeDatabaseHelper.shared.searchChannel(
             channel = binding.roomDialogField.text?.toString() ?: return
         ) { isAvailable ->
-            (activity as? SplashActivity)?.setLoaderState(
+            (activity as? MainActivity)?.setLoaderState(
                 state = false
             )
             when(gameType) {
