@@ -14,7 +14,7 @@ android {
     compileSdkVersion 31
     defaultConfig {
         applicationId "com.agelousis.cluedonotepad"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 31
         versionCode 26
         versionName "5.3 Cluedo Room"
