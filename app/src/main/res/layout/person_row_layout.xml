@@ -15,6 +15,7 @@
             type="com.agelousis.cluedonotepad.splash.models.CharacterModel" />
     </data>
 <com.google.android.material.card.MaterialCardView
+    style="@style/FilledMaterialCardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true"

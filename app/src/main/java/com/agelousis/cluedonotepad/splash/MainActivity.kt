@@ -13,7 +13,7 @@ import com.agelousis.cluedonotepad.R
 import com.agelousis.cluedonotepad.application.MainApplication
 import com.agelousis.cluedonotepad.base.BaseAppCompatActivity
 import com.agelousis.cluedonotepad.constants.Constants
-import com.agelousis.cluedonotepad.databinding.ActivitySplashBinding
+import com.agelousis.cluedonotepad.databinding.ActivityMainBinding
 import com.agelousis.cluedonotepad.dialog.BasicDialog
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogType
 import com.agelousis.cluedonotepad.dialog.models.BasicDialogTypeEnum
@@ -49,7 +49,7 @@ class MainActivity : BaseAppCompatActivity(), LanguagePresenter {
         const val LANGUAGE_DIALOG_STATE_EXTRA = "SplashActivity=languageDialogStateExtra"
     }
 
-    private lateinit var binding: ActivitySplashBinding
+    private lateinit var binding: ActivityMainBinding
     private val sharedPreferences by lazy {
         getSharedPreferences(Constants.PREFERENCES_TAG, Context.MODE_PRIVATE)
     }
@@ -87,7 +87,7 @@ class MainActivity : BaseAppCompatActivity(), LanguagePresenter {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySplashBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initializeGoogleServices()
         configureViewModel()

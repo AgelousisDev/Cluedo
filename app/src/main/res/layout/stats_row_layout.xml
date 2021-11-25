@@ -9,6 +9,7 @@
             type="com.agelousis.cluedonotepad.stats.models.StatsModel" />
     </data>
     <com.google.android.material.card.MaterialCardView
+        style="@style/FilledMaterialCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="60dp"
